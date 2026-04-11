@@ -18,6 +18,10 @@
 
 - GitHub：https://github.com/econsun/XMU-AdvMacro-II/issues
 
+- 腾讯文档（新增）：https://docs.qq.com/form/page/DS09ZUmdOeGVKUGpn
+    - 本腾讯文档为反馈勘误入口，带有勘误汇总链接
+
+
 
 <br>
 
@@ -36,7 +40,7 @@
 本仓库仅存放笔记的最新版本和过往版本，不含笔记项目源代码。以下是仓库的结构示意：
 
 ```text
-笔记备份 高级宏观 2/
+高级宏观经济学 II /
 │
 ├── AdvMacroNote_One（单面完整版）
 ├── AdvMacroNote_Two（双面完整版）
