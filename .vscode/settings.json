@@ -1,0 +1,28 @@
+{
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%",
+  "latex-workshop.latex.build.enableMagicComments": true,
+  "latex-workshop.latex.build.rootfileInStatus": true,
+  "latex-workshop.message.log.show": true,
+  "latex-workshop.latex.recipe.default": "first",
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "AMaN Makefile build",
+      "tools": [
+        "aman_make"
+      ]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "aman_make",
+      "command": "make",
+      "args": [
+        "-C",
+        "%WORKSPACE_FOLDER%",
+        "vscode",
+        "DOC=%DOC%"
+      ]
+    }
+  ]
+}

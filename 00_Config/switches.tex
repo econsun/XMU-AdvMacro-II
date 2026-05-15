@@ -1,0 +1,23 @@
+% config/switches.tex
+% 全局开关 —— 在 \documentclass 之前 \input 本文件
+% ==================================================
+
+% 基准字号: 5(五号 10.5pt), -4(小四 12pt), -5(小五 9pt)
+\def\BaseZihao{5}
+
+% 单双面模式: \twosidemodetrue → twoside；默认 oneside
+\newif\iftwosidemode
+\twosidemodefalse
+
+% Makefile `make twoside` 通过命令行 \def\ForceTwoside{1} 触发
+\ifdefined\ForceTwoside
+  \twosidemodetrue
+\fi
+
+% 打印友好模式: \printmodetrue → 链接不显色（黑白打印）
+\newif\ifprintmode
+\printmodefalse
+
+% 仅显示被引用的公式编号: \showonlyrefstrue
+\newif\ifshowonlyrefs
+\showonlyrefsfalse

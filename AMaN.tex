@@ -1,0 +1,111 @@
+% !TeX program = xelatex
+% AMaN.tex -- full book entry
+
+\input{00_Config/switches}
+
+\ifdefined\SinglePart
+  \twosidemodefalse
+\fi
+\ifdefined\SingleChapter
+  \twosidemodefalse
+\fi
+
+\iftwosidemode
+  \expanded{\noexpand\documentclass[twoside,openright,zihao=\BaseZihao,UTF8,fontset=none]{ctexbook}}
+\else
+  \expanded{\noexpand\documentclass[oneside,openany,zihao=\BaseZihao,UTF8,fontset=none]{ctexbook}}
+\fi
+
+\input{00_Config/preamble}
+
+\def\AMaNMaster{1}
+
+\newcommand{\IncludeChapter}[1]{%
+  \begin{refsection}
+  \input{#1}
+  \end{refsection}
+}
+
+\newcommand{\IncludePartOne}{%
+  \input{20_MainMatter/01_Part01/PartCover}
+  \IncludeChapter{20_MainMatter/01_Part01/Chap01}
+  \IncludeChapter{20_MainMatter/01_Part01/Chap02}
+}
+
+\newcommand{\IncludePartTwo}{%
+  \input{20_MainMatter/02_Part02/PartCover}
+  \IncludeChapter{20_MainMatter/02_Part02/Chap03}
+  \IncludeChapter{20_MainMatter/02_Part02/Chap04}
+  \IncludeChapter{20_MainMatter/02_Part02/Chap05}
+  \IncludeChapter{20_MainMatter/02_Part02/Chap06}
+  \IncludeChapter{20_MainMatter/02_Part02/Chap07}
+}
+
+\newcommand{\IncludePartThree}{%
+  \input{20_MainMatter/03_Part03/PartCover}
+  \IncludeChapter{20_MainMatter/03_Part03/Chap08}
+}
+
+\begin{document}
+
+\ifdefined\SingleChapter
+  \mainmatter
+  \ifdefined\SingleChapterNumber
+    \setcounter{chapter}{\numexpr\SingleChapterNumber-1\relax}
+  \fi
+  \IncludeChapter{\SingleChapter}
+\else\ifdefined\SinglePart
+  \mainmatter
+  \ifnum\SinglePart=1
+    \setcounter{part}{0}
+    \setcounter{chapter}{0}
+    \IncludePartOne
+  \fi
+  \ifnum\SinglePart=2
+    \setcounter{part}{1}
+    \setcounter{chapter}{2}
+    \IncludePartTwo
+  \fi
+  \ifnum\SinglePart=3
+    \setcounter{part}{2}
+    \setcounter{chapter}{7}
+    \IncludePartThree
+  \fi
+\else
+  \frontmatter
+  \SymmetricGeometry
+
+  \hypersetup{pageanchor=false}
+  \pagenumbering{gobble}
+  \input{10_FrontMatter/cover}
+  \input{10_FrontMatter/attribute}
+  \hypersetup{pageanchor=true}
+
+  \cleardoublepage
+  \pagenumbering{roman}
+  \setcounter{page}{1}
+
+  \input{10_FrontMatter/preface}
+  \input{10_FrontMatter/declaration}
+  \input{10_FrontMatter/legend}
+
+  \etocsettagdepth{backmatter}{chapter}
+  \setlength{\parskip}{0ex plus 0.4ex minus 0.2ex}
+  \tableofcontents
+  \setlength{\parskip}{1.5ex plus 0.4ex minus 0.2ex}
+
+  \mainmatter
+  \IncludePartOne
+  \IncludePartTwo
+  \IncludePartThree
+
+  \backmatter
+  \SymmetricGeometry
+  \etocdepthtag.toc{backmatter}
+
+  \input{90_BackMatter/changelog}
+  \input{90_BackMatter/afterword}
+  \input{90_BackMatter/acknowledgements}
+\fi\fi
+
+\end{document}

@@ -1,0 +1,143 @@
+% config/theorems-boxes.tex — 定理环境与 tcolorbox 盒子
+% ======================================================
+
+% ===== tcolorbox 基础样式 =====
+\tcbset{
+  basestyle/.style={
+    enhanced,
+    breakable,
+    sharp corners,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    boxrule=0.8pt,
+    before skip=10pt plus 2pt,
+    after skip=10pt plus 2pt,
+    fonttitle=\bfseries,
+  },
+}
+
+% =================================================================
+%  编号定理类环境（使用 tcolorbox theorem 库）
+%  用法: \begin{xxxbox}{标题}{label-key} 内容 \end{xxxbox}
+%  引用: \cref{prefix:label-key}
+% =================================================================
+
+% ----- 定义 (def:) -----
+\newtcbtheorem[number within=chapter]{definitionbox}{定义}{%
+  basestyle,
+  colframe=BoxDefFrame,
+  colback=BoxDefBack,
+  colbacktitle=BoxDefFrame,
+  coltitle=white,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={sharp corners, boxrule=0pt},
+}{def}
+
+% ----- 定理 (thm:) -----
+\newtcbtheorem[number within=chapter]{theorembox}{定理}{%
+  basestyle,
+  colframe=BoxThmFrame,
+  colback=BoxThmBack,
+  colbacktitle=BoxThmFrame,
+  coltitle=white,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={sharp corners, boxrule=0pt},
+}{thm}
+
+% ----- 引理 (lem:) -----
+\newtcbtheorem[number within=chapter]{lemmabox}{引理}{%
+  basestyle,
+  colframe=BoxThmFrame!80,
+  colback=BoxThmBack,
+  colbacktitle=BoxThmFrame!80,
+  coltitle=white,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={sharp corners, boxrule=0pt},
+}{lem}
+
+% ----- 命题 (prop:) -----
+\newtcbtheorem[number within=chapter]{propositionbox}{命题}{%
+  basestyle,
+  colframe=BoxThmFrame!70!black,
+  colback=BoxThmBack,
+  colbacktitle=BoxThmFrame!70!black,
+  coltitle=white,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={sharp corners, boxrule=0pt},
+}{prop}
+
+% ----- 推论 (cor:) -----
+\newtcbtheorem[number within=chapter]{corollarybox}{推论}{%
+  basestyle,
+  colframe=BoxThmFrame!60!gray,
+  colback=BoxThmBack,
+  colbacktitle=BoxThmFrame!60!gray,
+  coltitle=white,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={sharp corners, boxrule=0pt},
+}{cor}
+
+% ----- 假设 (asm:) -----
+\newtcbtheorem[number within=chapter]{assumptionbox}{假设}{%
+  basestyle,
+  colframe=BoxAsmFrame,
+  colback=BoxAsmBack,
+  colbacktitle=BoxAsmFrame,
+  coltitle=white,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={sharp corners, boxrule=0pt},
+}{asm}
+
+% ----- 例 (ex:) -----
+\newtcbtheorem[number within=chapter]{examplebox}{例}{%
+  basestyle,
+  colframe=BoxExFrame,
+  colback=BoxExBack,
+  colbacktitle=BoxExFrame,
+  coltitle=white,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={sharp corners, boxrule=0pt},
+}{ex}
+
+% =================================================================
+%  非编号盒子（注记 / 警告 / 笔记）
+%  用法: \begin{xxxbox}[title={...}] 内容 \end{xxxbox}
+% =================================================================
+
+% ----- 注记 -----
+\newtcolorbox{remarkbox}[1][]{%
+  basestyle,
+  colframe=BoxRemFrame,
+  colback=BoxRemBack,
+  title={注记},
+  colbacktitle=BoxRemFrame,
+  coltitle=white,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={sharp corners, boxrule=0pt},
+  #1,
+}
+
+% ----- 警告 -----
+\newtcolorbox{warningbox}[1][]{%
+  basestyle,
+  colframe=BoxWarnFrame,
+  colback=BoxWarnBack,
+  title={警告},
+  colbacktitle=BoxWarnFrame,
+  coltitle=white,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={sharp corners, boxrule=0pt},
+  #1,
+}
+
+% ----- 笔记 / 直觉说明 -----
+\newtcolorbox{notebox}[1][]{%
+  basestyle,
+  colframe=BoxNoteFrame,
+  colback=BoxNoteBack,
+  title={笔记},
+  colbacktitle=BoxNoteFrame,
+  coltitle=white,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={sharp corners, boxrule=0pt},
+  #1,
+}
