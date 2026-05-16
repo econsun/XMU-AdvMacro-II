@@ -1,0 +1,1112 @@
+{
+  "deps": [],
+  "macros": [
+    {
+      "name": "abfun"
+    },
+    {
+      "name": "abs",
+      "arg": {
+        "format": "{}",
+        "snippet": "abs{${1}}"
+      }
+    },
+    {
+      "name": "argmax"
+    },
+    {
+      "name": "argmin"
+    },
+    {
+      "name": "asto"
+    },
+    {
+      "name": "avar"
+    },
+    {
+      "name": "bb",
+      "arg": {
+        "format": "{}[]",
+        "snippet": "bb{${1}}[${2}]"
+      }
+    },
+    {
+      "name": "bbr",
+      "arg": {
+        "format": "[]",
+        "snippet": "bbr[${1}]"
+      }
+    },
+    {
+      "name": "bbrn"
+    },
+    {
+      "name": "bbs",
+      "arg": {
+        "format": "{}",
+        "snippet": "bbs{${1}}"
+      }
+    },
+    {
+      "name": "bernoulli"
+    },
+    {
+      "name": "bigbar",
+      "arg": {
+        "format": "{}",
+        "snippet": "bigbar{${1}}"
+      }
+    },
+    {
+      "name": "Bigbar",
+      "arg": {
+        "format": "{}",
+        "snippet": "Bigbar{${1}}"
+      }
+    },
+    {
+      "name": "biggbar",
+      "arg": {
+        "format": "{}",
+        "snippet": "biggbar{${1}}"
+      }
+    },
+    {
+      "name": "Biggbar",
+      "arg": {
+        "format": "{}",
+        "snippet": "Biggbar{${1}}"
+      }
+    },
+    {
+      "name": "biggslash"
+    },
+    {
+      "name": "Biggslash"
+    },
+    {
+      "name": "bigslash"
+    },
+    {
+      "name": "Bigslash"
+    },
+    {
+      "name": "binomial"
+    },
+    {
+      "name": "bka",
+      "arg": {
+        "format": "{}",
+        "snippet": "bka{${1}}"
+      }
+    },
+    {
+      "name": "bkA"
+    },
+    {
+      "name": "bkab"
+    },
+    {
+      "name": "bkas",
+      "arg": {
+        "format": "{}",
+        "snippet": "bkas{${1}}"
+      }
+    },
+    {
+      "name": "bkbs",
+      "arg": {
+        "format": "{}",
+        "snippet": "bkbs{${1}}"
+      }
+    },
+    {
+      "name": "bkbsp"
+    },
+    {
+      "name": "bkbsx"
+    },
+    {
+      "name": "bkbsy"
+    },
+    {
+      "name": "bkcnt"
+    },
+    {
+      "name": "bkct"
+    },
+    {
+      "name": "bkd",
+      "arg": {
+        "format": "{}",
+        "snippet": "bkd{${1}}"
+      }
+    },
+    {
+      "name": "bkdut"
+    },
+    {
+      "name": "bkdxn"
+    },
+    {
+      "name": "bkdxt"
+    },
+    {
+      "name": "bkdXY"
+    },
+    {
+      "name": "bkdyt"
+    },
+    {
+      "name": "bkf",
+      "arg": {
+        "format": "{}",
+        "snippet": "bkf{${1}}"
+      }
+    },
+    {
+      "name": "bkg",
+      "arg": {
+        "format": "{}",
+        "snippet": "bkg{${1}}"
+      }
+    },
+    {
+      "name": "bki"
+    },
+    {
+      "name": "bkit"
+    },
+    {
+      "name": "bkj"
+    },
+    {
+      "name": "bkk"
+    },
+    {
+      "name": "bkKAL"
+    },
+    {
+      "name": "bkKL"
+    },
+    {
+      "name": "bkknt"
+    },
+    {
+      "name": "bkkstar"
+    },
+    {
+      "name": "bkkt"
+    },
+    {
+      "name": "bko"
+    },
+    {
+      "name": "bkoo"
+    },
+    {
+      "name": "bkqq"
+    },
+    {
+      "name": "bks",
+      "arg": {
+        "format": "{}",
+        "snippet": "bks{${1}}"
+      }
+    },
+    {
+      "name": "bksa",
+      "arg": {
+        "format": "{}",
+        "snippet": "bksa{${1}}"
+      }
+    },
+    {
+      "name": "bkt"
+    },
+    {
+      "name": "bku"
+    },
+    {
+      "name": "bkv"
+    },
+    {
+      "name": "bkx"
+    },
+    {
+      "name": "bkX"
+    },
+    {
+      "name": "bkxx"
+    },
+    {
+      "name": "bkXX"
+    },
+    {
+      "name": "bkxy"
+    },
+    {
+      "name": "bkXY"
+    },
+    {
+      "name": "bkXYi"
+    },
+    {
+      "name": "bkxyz"
+    },
+    {
+      "name": "bkxz"
+    },
+    {
+      "name": "bky"
+    },
+    {
+      "name": "bkyy"
+    },
+    {
+      "name": "bkyz"
+    },
+    {
+      "name": "bkz"
+    },
+    {
+      "name": "bs",
+      "arg": {
+        "format": "{}",
+        "snippet": "bs{${1}}"
+      }
+    },
+    {
+      "name": "bsA"
+    },
+    {
+      "name": "bsI"
+    },
+    {
+      "name": "bsp"
+    },
+    {
+      "name": "bsx"
+    },
+    {
+      "name": "bsX"
+    },
+    {
+      "name": "bsy"
+    },
+    {
+      "name": "bsz"
+    },
+    {
+      "name": "cal",
+      "arg": {
+        "format": "{}[]",
+        "snippet": "cal{${1}}[${2}]"
+      }
+    },
+    {
+      "name": "caplim"
+    },
+    {
+      "name": "cauchy"
+    },
+    {
+      "name": "ceil",
+      "arg": {
+        "format": "{}",
+        "snippet": "ceil{${1}}"
+      }
+    },
+    {
+      "name": "changelog",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "changelog{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "ckbar"
+    },
+    {
+      "name": "Corr"
+    },
+    {
+      "name": "cov"
+    },
+    {
+      "name": "Cov"
+    },
+    {
+      "name": "cuplim"
+    },
+    {
+      "name": "d"
+    },
+    {
+      "name": "D"
+    },
+    {
+      "name": "dd"
+    },
+    {
+      "name": "DD"
+    },
+    {
+      "name": "delimout"
+    },
+    {
+      "name": "dfracb",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "dfracb{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "dfracd",
+      "arg": {
+        "format": "{}",
+        "snippet": "dfracd{${1}}"
+      }
+    },
+    {
+      "name": "dfracdd",
+      "arg": {
+        "format": "{}",
+        "snippet": "dfracdd{${1}}"
+      }
+    },
+    {
+      "name": "dfracp",
+      "arg": {
+        "format": "{}",
+        "snippet": "dfracp{${1}}"
+      }
+    },
+    {
+      "name": "dfracpp",
+      "arg": {
+        "format": "{}",
+        "snippet": "dfracpp{${1}}"
+      }
+    },
+    {
+      "name": "dis"
+    },
+    {
+      "name": "dsq",
+      "arg": {
+        "format": "[]",
+        "snippet": "dsq[${1}]"
+      }
+    },
+    {
+      "name": "dto"
+    },
+    {
+      "name": "exponential"
+    },
+    {
+      "name": "fafugreen",
+      "arg": {
+        "format": "{}",
+        "snippet": "fafugreen{${1}}"
+      }
+    },
+    {
+      "name": "fafugreenbf",
+      "arg": {
+        "format": "{}",
+        "snippet": "fafugreenbf{${1}}"
+      }
+    },
+    {
+      "name": "floor",
+      "arg": {
+        "format": "{}",
+        "snippet": "floor{${1}}"
+      }
+    },
+    {
+      "name": "gam"
+    },
+    {
+      "name": "geometric"
+    },
+    {
+      "name": "grt",
+      "arg": {
+        "format": "{}",
+        "snippet": "grt{${1}}"
+      }
+    },
+    {
+      "name": "grta",
+      "arg": {
+        "format": "{}",
+        "snippet": "grta{${1}}"
+      }
+    },
+    {
+      "name": "grts",
+      "arg": {
+        "format": "{}",
+        "snippet": "grts{${1}}"
+      }
+    },
+    {
+      "name": "grtt",
+      "arg": {
+        "format": "{}",
+        "snippet": "grtt{${1}}"
+      }
+    },
+    {
+      "name": "hbs",
+      "arg": {
+        "format": "{}",
+        "snippet": "hbs{${1}}"
+      }
+    },
+    {
+      "name": "i"
+    },
+    {
+      "name": "ifrac",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "ifrac{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "iid"
+    },
+    {
+      "name": "inflim"
+    },
+    {
+      "name": "ingrt",
+      "arg": {
+        "format": "{}",
+        "snippet": "ingrt{${1}}"
+      }
+    },
+    {
+      "name": "ingrta",
+      "arg": {
+        "format": "{}",
+        "snippet": "ingrta{${1}}"
+      }
+    },
+    {
+      "name": "ingrts",
+      "arg": {
+        "format": "{}",
+        "snippet": "ingrts{${1}}"
+      }
+    },
+    {
+      "name": "inp",
+      "arg": {
+        "format": "{}",
+        "snippet": "inp{${1}}"
+      }
+    },
+    {
+      "name": "inv"
+    },
+    {
+      "name": "islash"
+    },
+    {
+      "name": "ivbar"
+    },
+    {
+      "name": "lagrangian"
+    },
+    {
+      "name": "limn"
+    },
+    {
+      "name": "llt"
+    },
+    {
+      "name": "ln"
+    },
+    {
+      "name": "log"
+    },
+    {
+      "name": "lognormal"
+    },
+    {
+      "name": "lt"
+    },
+    {
+      "name": "matbka",
+      "arg": {
+        "format": "{}",
+        "snippet": "matbka{${1}}"
+      }
+    },
+    {
+      "name": "matbkf",
+      "arg": {
+        "format": "{}",
+        "snippet": "matbkf{${1}}"
+      }
+    },
+    {
+      "name": "matbks",
+      "arg": {
+        "format": "{}",
+        "snippet": "matbks{${1}}"
+      }
+    },
+    {
+      "name": "mathspacel"
+    },
+    {
+      "name": "mathspacem"
+    },
+    {
+      "name": "mathspaces"
+    },
+    {
+      "name": "mathspacexs"
+    },
+    {
+      "name": "matrixarraystretch"
+    },
+    {
+      "name": "matspace"
+    },
+    {
+      "name": "max"
+    },
+    {
+      "name": "maximize"
+    },
+    {
+      "name": "maxlim"
+    },
+    {
+      "name": "mean"
+    },
+    {
+      "name": "meano"
+    },
+    {
+      "name": "meant"
+    },
+    {
+      "name": "min"
+    },
+    {
+      "name": "minimize"
+    },
+    {
+      "name": "minlim"
+    },
+    {
+      "name": "mspacel"
+    },
+    {
+      "name": "mspacem"
+    },
+    {
+      "name": "mspaces"
+    },
+    {
+      "name": "mspacexs"
+    },
+    {
+      "name": "n",
+      "arg": {
+        "format": "{}",
+        "snippet": "n{${1}}"
+      }
+    },
+    {
+      "name": "negabinomial"
+    },
+    {
+      "name": "newlog",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "newlog{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "nnt"
+    },
+    {
+      "name": "norm",
+      "arg": {
+        "format": "{}",
+        "snippet": "norm{${1}}"
+      }
+    },
+    {
+      "name": "normal"
+    },
+    {
+      "name": "noxmubluebf",
+      "arg": {
+        "format": "{}",
+        "snippet": "noxmubluebf{${1}}"
+      }
+    },
+    {
+      "name": "nt"
+    },
+    {
+      "name": "nti"
+    },
+    {
+      "name": "p"
+    },
+    {
+      "name": "pa",
+      "arg": {
+        "format": "{}",
+        "snippet": "pa{${1}}"
+      }
+    },
+    {
+      "name": "pd",
+      "arg": {
+        "format": "{}",
+        "snippet": "pd{${1}}"
+      }
+    },
+    {
+      "name": "pf",
+      "arg": {
+        "format": "{}",
+        "snippet": "pf{${1}}"
+      }
+    },
+    {
+      "name": "pg",
+      "arg": {
+        "format": "{}",
+        "snippet": "pg{${1}}"
+      }
+    },
+    {
+      "name": "poisson"
+    },
+    {
+      "name": "pp"
+    },
+    {
+      "name": "ppa",
+      "arg": {
+        "format": "{}",
+        "snippet": "ppa{${1}}"
+      }
+    },
+    {
+      "name": "ppd",
+      "arg": {
+        "format": "{}",
+        "snippet": "ppd{${1}}"
+      }
+    },
+    {
+      "name": "ppf",
+      "arg": {
+        "format": "{}",
+        "snippet": "ppf{${1}}"
+      }
+    },
+    {
+      "name": "ppg",
+      "arg": {
+        "format": "{}",
+        "snippet": "ppg{${1}}"
+      }
+    },
+    {
+      "name": "pps",
+      "arg": {
+        "format": "{}",
+        "snippet": "pps{${1}}"
+      }
+    },
+    {
+      "name": "pr"
+    },
+    {
+      "name": "ps",
+      "arg": {
+        "format": "{}",
+        "snippet": "ps{${1}}"
+      }
+    },
+    {
+      "name": "pto"
+    },
+    {
+      "name": "qa",
+      "arg": {
+        "format": "{}",
+        "snippet": "qa{${1}}"
+      }
+    },
+    {
+      "name": "qab",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "qab{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "qabs",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "qabs{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "qabw",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "qabw{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "qabws",
+      "arg": {
+        "format": "{}{}{}",
+        "snippet": "qabws{${1}}{${2}}{${3}}"
+      }
+    },
+    {
+      "name": "qah",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "qah{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "qahs",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "qahs{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "qahw",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "qahw{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "qahws",
+      "arg": {
+        "format": "{}{}{}",
+        "snippet": "qahws{${1}}{${2}}{${3}}"
+      }
+    },
+    {
+      "name": "qat",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "qat{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "qats",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "qats{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "qatw",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "qatw{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "qatws",
+      "arg": {
+        "format": "{}{}{}",
+        "snippet": "qatws{${1}}{${2}}{${3}}"
+      }
+    },
+    {
+      "name": "qd",
+      "arg": {
+        "format": "{}",
+        "snippet": "qd{${1}}"
+      }
+    },
+    {
+      "name": "qf",
+      "arg": {
+        "format": "{}",
+        "snippet": "qf{${1}}"
+      }
+    },
+    {
+      "name": "qg",
+      "arg": {
+        "format": "{}",
+        "snippet": "qg{${1}}"
+      }
+    },
+    {
+      "name": "qpa",
+      "arg": {
+        "format": "{}",
+        "snippet": "qpa{${1}}"
+      }
+    },
+    {
+      "name": "qpd",
+      "arg": {
+        "format": "{}",
+        "snippet": "qpd{${1}}"
+      }
+    },
+    {
+      "name": "qpf",
+      "arg": {
+        "format": "{}",
+        "snippet": "qpf{${1}}"
+      }
+    },
+    {
+      "name": "qpg",
+      "arg": {
+        "format": "{}",
+        "snippet": "qpg{${1}}"
+      }
+    },
+    {
+      "name": "qps",
+      "arg": {
+        "format": "{}",
+        "snippet": "qps{${1}}"
+      }
+    },
+    {
+      "name": "qs",
+      "arg": {
+        "format": "{}",
+        "snippet": "qs{${1}}"
+      }
+    },
+    {
+      "name": "s",
+      "arg": {
+        "format": "{}",
+        "snippet": "s{${1}}"
+      }
+    },
+    {
+      "name": "scr",
+      "arg": {
+        "format": "{}[]",
+        "snippet": "scr{${1}}[${2}]"
+      }
+    },
+    {
+      "name": "SD"
+    },
+    {
+      "name": "se"
+    },
+    {
+      "name": "SE"
+    },
+    {
+      "name": "sexn",
+      "arg": {
+        "format": "{}",
+        "snippet": "sexn{${1}}"
+      }
+    },
+    {
+      "name": "sexs",
+      "arg": {
+        "format": "{}",
+        "snippet": "sexs{${1}}"
+      }
+    },
+    {
+      "name": "sexxd",
+      "arg": {
+        "format": "{}",
+        "snippet": "sexxd{${1}}"
+      }
+    },
+    {
+      "name": "sexxn",
+      "arg": {
+        "format": "{}",
+        "snippet": "sexxn{${1}}"
+      }
+    },
+    {
+      "name": "sn",
+      "arg": {
+        "format": "{}",
+        "snippet": "sn{${1}}"
+      }
+    },
+    {
+      "name": "spacel"
+    },
+    {
+      "name": "spacem"
+    },
+    {
+      "name": "spaces"
+    },
+    {
+      "name": "spacexs"
+    },
+    {
+      "name": "st"
+    },
+    {
+      "name": "suplim"
+    },
+    {
+      "name": "tbs",
+      "arg": {
+        "format": "{}",
+        "snippet": "tbs{${1}}"
+      }
+    },
+    {
+      "name": "tra"
+    },
+    {
+      "name": "typolog",
+      "arg": {
+        "format": "{}{}",
+        "snippet": "typolog{${1}}{${2}}"
+      }
+    },
+    {
+      "name": "uniform"
+    },
+    {
+      "name": "var"
+    },
+    {
+      "name": "Var"
+    },
+    {
+      "name": "vecbka",
+      "arg": {
+        "format": "{}",
+        "snippet": "vecbka{${1}}"
+      }
+    },
+    {
+      "name": "vecbks",
+      "arg": {
+        "format": "{}",
+        "snippet": "vecbks{${1}}"
+      }
+    },
+    {
+      "name": "vectorarraystretch"
+    },
+    {
+      "name": "w",
+      "arg": {
+        "format": "{}",
+        "snippet": "w{${1}}"
+      }
+    },
+    {
+      "name": "wn",
+      "arg": {
+        "format": "{}",
+        "snippet": "wn{${1}}"
+      }
+    },
+    {
+      "name": "wsii"
+    },
+    {
+      "name": "wsito"
+    },
+    {
+      "name": "wsni"
+    },
+    {
+      "name": "wto"
+    },
+    {
+      "name": "xmublue",
+      "arg": {
+        "format": "{}",
+        "snippet": "xmublue{${1}}"
+      }
+    },
+    {
+      "name": "xmubluebf",
+      "arg": {
+        "format": "{}",
+        "snippet": "xmubluebf{${1}}"
+      }
+    },
+    {
+      "name": "xmured",
+      "arg": {
+        "format": "{}",
+        "snippet": "xmured{${1}}"
+      }
+    },
+    {
+      "name": "xmuredbf",
+      "arg": {
+        "format": "{}",
+        "snippet": "xmuredbf{${1}}"
+      }
+    },
+    {
+      "name": "xx",
+      "arg": {
+        "format": "{}",
+        "snippet": "xx{${1}}"
+      }
+    },
+    {
+      "name": "xxprime",
+      "arg": {
+        "format": "{}",
+        "snippet": "xxprime{${1}}"
+      }
+    },
+    {
+      "name": "xxstar",
+      "arg": {
+        "format": "{}",
+        "snippet": "xxstar{${1}}"
+      }
+    },
+    {
+      "name": "xxx",
+      "arg": {
+        "format": "{}",
+        "snippet": "xxx{${1}}"
+      }
+    },
+    {
+      "name": "ykbar"
+    }
+  ],
+  "envs": [],
+  "keys": {},
+  "args": []
+}

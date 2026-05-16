@@ -1,10 +1,23 @@
 % !TeX root = Chap05.tex
 % !TeX program = xelatex
 
+\let\AMaNStandaloneEntry\relax
 \ifdefined\AMaNMaster\else
-  \input{../../900_Entries/03_Chapters/AMaN_Chap05.tex}
-  \expandafter\endinput
+  \makeatletter
+  \def\input@path{{../../}}
+  \def\AMaNRoot{../../}
+  \makeatother
+
+  \def\SingleChapter{200_MainMatter/Part02/Chap05}
+  \def\SingleChapterNumber{5}
+  \def\AMaNStandaloneEntry{%
+    \InputIfFileExists{../../AMaN_Private.tex}{}{%
+      \input{../../AMaN_Public.tex}%
+    }%
+    \endinput
+  }%
 \fi
+\AMaNStandaloneEntry
 
 % 200_MainMatter/Part02/Chap05.tex -- Chapter 05
 

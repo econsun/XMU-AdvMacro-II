@@ -1,10 +1,23 @@
 % !TeX root = Chap03.tex
 % !TeX program = xelatex
 
+\let\AMaNStandaloneEntry\relax
 \ifdefined\AMaNMaster\else
-  \input{../../900_Entries/03_Chapters/AMaN_Chap03.tex}
-  \expandafter\endinput
+  \makeatletter
+  \def\input@path{{../../}}
+  \def\AMaNRoot{../../}
+  \makeatother
+
+  \def\SingleChapter{200_MainMatter/Part02/Chap03}
+  \def\SingleChapterNumber{3}
+  \def\AMaNStandaloneEntry{%
+    \InputIfFileExists{../../AMaN_Private.tex}{}{%
+      \input{../../AMaN_Public.tex}%
+    }%
+    \endinput
+  }%
 \fi
+\AMaNStandaloneEntry
 
 % 200_MainMatter/Part02/Chap03.tex -- Chapter 03
 

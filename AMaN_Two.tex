@@ -1,0 +1,10 @@
+% !TeX root = AMaN_Two.tex
+% !TeX program = xelatex
+% AMaN_Two.tex -- twoside book entry
+
+\def\ForceTwoside{1}
+\IfFileExists{AMaN_Private.tex}{%
+  \input{AMaN_Private.tex}%
+}{%
+  \input{AMaN_Public.tex}%
+}

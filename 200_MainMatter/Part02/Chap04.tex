@@ -1,10 +1,23 @@
 % !TeX root = Chap04.tex
 % !TeX program = xelatex
 
+\let\AMaNStandaloneEntry\relax
 \ifdefined\AMaNMaster\else
-  \input{../../900_Entries/03_Chapters/AMaN_Chap04.tex}
-  \expandafter\endinput
+  \makeatletter
+  \def\input@path{{../../}}
+  \def\AMaNRoot{../../}
+  \makeatother
+
+  \def\SingleChapter{200_MainMatter/Part02/Chap04}
+  \def\SingleChapterNumber{4}
+  \def\AMaNStandaloneEntry{%
+    \InputIfFileExists{../../AMaN_Private.tex}{}{%
+      \input{../../AMaN_Public.tex}%
+    }%
+    \endinput
+  }%
 \fi
+\AMaNStandaloneEntry
 
 % 200_MainMatter/Part02/Chap04.tex -- Chapter 04
 
@@ -313,7 +326,7 @@
         % Nullclines and stable arm
         \draw[red!80!black, line width=1.2pt, domain=\xmin:\xmax, samples=2]
             plot (\x, {lone(\x)})
-            node[pos=0.78, above right] {\(\n{\textcircled{\scriptsize 1}} \ \D \hat k_t=0\)};
+            node[pos=0.78, above right] {\(\n{\textcircled{\scriptsize 2}} \ \D \hat k_t=0\)};
 
         \draw[teal!95!black, line width=1.2pt, domain={(\ymin-\yo)/\mtwo+\xo}:{(\ymax-\yo)/\mtwo+\xo}, samples=2] plot (\x, {ltwo(\x)}) node[right] {\(\n{\textcircled{\scriptsize 2}} \ \D \hat c_t=0\)};
 

@@ -9,22 +9,21 @@ CONFIG_DIR := _config
 FRONT_DIR := 100_FrontMatter
 MAIN_DIR := 200_MainMatter
 BACK_DIR := 300_BackMatter
-ENTRY_DIR := 900_Entries
 PDF_DIR := 900_PDF
-PRIVATE_BOOK_TEX := AMaN.tex
+PRIVATE_BOOK_TEX := AMaN_Private.tex
 PUBLIC_BOOK_TEX := AMaN_Public.tex
+TWOSIDE_BOOK_TEX := AMaN_Two.tex
 
-ONE_TEX := $(ENTRY_DIR)/01_Full/AMaN_One.tex
 ONE_PDF := $(PDF_DIR)/01_Full/AMaN_One.pdf
 
-TWO_TEX := $(ENTRY_DIR)/01_Full/AMaN_Two.tex
+TWO_TEX := $(TWOSIDE_BOOK_TEX)
 TWO_PDF := $(PDF_DIR)/01_Full/AMaN_Two.pdf
 
 FULL_PDF := $(ONE_PDF) $(TWO_PDF)
 
-PART01_TEX := $(ENTRY_DIR)/02_Parts/AMaN_Part01.tex
-PART02_TEX := $(ENTRY_DIR)/02_Parts/AMaN_Part02.tex
-PART03_TEX := $(ENTRY_DIR)/02_Parts/AMaN_Part03.tex
+PART01_TEX := $(MAIN_DIR)/Part01/Part01.tex
+PART02_TEX := $(MAIN_DIR)/Part02/Part02.tex
+PART03_TEX := $(MAIN_DIR)/Part03/Part03.tex
 PART_TEX := $(PART01_TEX) $(PART02_TEX) $(PART03_TEX)
 
 PART01_PDF := $(PDF_DIR)/02_Parts/AMaN_Part01.pdf
@@ -32,14 +31,14 @@ PART02_PDF := $(PDF_DIR)/02_Parts/AMaN_Part02.pdf
 PART03_PDF := $(PDF_DIR)/02_Parts/AMaN_Part03.pdf
 PART_PDF := $(PART01_PDF) $(PART02_PDF) $(PART03_PDF)
 
-CHAP01_TEX := $(ENTRY_DIR)/03_Chapters/AMaN_Chap01.tex
-CHAP02_TEX := $(ENTRY_DIR)/03_Chapters/AMaN_Chap02.tex
-CHAP03_TEX := $(ENTRY_DIR)/03_Chapters/AMaN_Chap03.tex
-CHAP04_TEX := $(ENTRY_DIR)/03_Chapters/AMaN_Chap04.tex
-CHAP05_TEX := $(ENTRY_DIR)/03_Chapters/AMaN_Chap05.tex
-CHAP06_TEX := $(ENTRY_DIR)/03_Chapters/AMaN_Chap06.tex
-CHAP07_TEX := $(ENTRY_DIR)/03_Chapters/AMaN_Chap07.tex
-CHAP08_TEX := $(ENTRY_DIR)/03_Chapters/AMaN_Chap08.tex
+CHAP01_TEX := $(MAIN_DIR)/Part01/Chap01.tex
+CHAP02_TEX := $(MAIN_DIR)/Part01/Chap02.tex
+CHAP03_TEX := $(MAIN_DIR)/Part02/Chap03.tex
+CHAP04_TEX := $(MAIN_DIR)/Part02/Chap04.tex
+CHAP05_TEX := $(MAIN_DIR)/Part02/Chap05.tex
+CHAP06_TEX := $(MAIN_DIR)/Part02/Chap06.tex
+CHAP07_TEX := $(MAIN_DIR)/Part02/Chap07.tex
+CHAP08_TEX := $(MAIN_DIR)/Part03/Chap08.tex
 CHAP_TEX := $(CHAP01_TEX) $(CHAP02_TEX) $(CHAP03_TEX) $(CHAP04_TEX) \
             $(CHAP05_TEX) $(CHAP06_TEX) $(CHAP07_TEX) $(CHAP08_TEX)
 
@@ -63,7 +62,7 @@ LEGACY_ROOT_PDF := advmacro-one.pdf advmacro-two.pdf advmacro.pdf \
                    AMaN_Chap01.pdf AMaN_Chap02.pdf AMaN_Chap03.pdf AMaN_Chap04.pdf \
                    AMaN_Chap05.pdf AMaN_Chap06.pdf AMaN_Chap07.pdf AMaN_Chap08.pdf
 
-.PHONY: all full one two parts chapters clean distclean vscode __run __build_pdf \
+.PHONY: all full one two parts chapters clean distclean __build_pdf \
         $(ALL_PDF) \
         part01 part02 part03 \
         chap01 chap02 chap03 chap04 chap05 chap06 chap07 chap08
@@ -79,7 +78,7 @@ define run_targets
 	  exit 2; \
 	fi; \
 	if [ -f "$(PRIVATE_BOOK_TEX)" ]; then \
-	  book_label="AMaN"; \
+	  book_label="Private"; \
 	  book_file="$(PRIVATE_BOOK_TEX)"; \
 	elif [ -f "$(PUBLIC_BOOK_TEX)" ]; then \
 	  book_label="Public"; \
@@ -208,9 +207,6 @@ chap08:
 $(ALL_PDF):
 	$(call run_targets,$@,$@)
 
-__run:
-	$(call run_targets,$(TARGET_NAME),$(TARGETS))
-
 __build_pdf:
 	@set -euo pipefail; \
 	cd "$(ROOT)"; \
@@ -227,10 +223,19 @@ __build_pdf:
 	fi; \
 	pdf="$${PDF:?PDF is required}"; \
 	case "$$pdf" in \
-	  $(ONE_PDF)) tex="$(ONE_TEX)" ;; \
+	  $(ONE_PDF)) tex="$$book_tex" ;; \
 	  $(TWO_PDF)) tex="$(TWO_TEX)" ;; \
-	  $(PDF_DIR)/02_Parts/AMaN_Part*.pdf) tex="$(ENTRY_DIR)/02_Parts/$$(basename "$${pdf%.pdf}").tex" ;; \
-	  $(PDF_DIR)/03_Chapters/AMaN_Chap*.pdf) tex="$(ENTRY_DIR)/03_Chapters/$$(basename "$${pdf%.pdf}").tex" ;; \
+	  $(PART01_PDF)) tex="$(PART01_TEX)" ;; \
+	  $(PART02_PDF)) tex="$(PART02_TEX)" ;; \
+	  $(PART03_PDF)) tex="$(PART03_TEX)" ;; \
+	  $(CHAP01_PDF)) tex="$(CHAP01_TEX)" ;; \
+	  $(CHAP02_PDF)) tex="$(CHAP02_TEX)" ;; \
+	  $(CHAP03_PDF)) tex="$(CHAP03_TEX)" ;; \
+	  $(CHAP04_PDF)) tex="$(CHAP04_TEX)" ;; \
+	  $(CHAP05_PDF)) tex="$(CHAP05_TEX)" ;; \
+	  $(CHAP06_PDF)) tex="$(CHAP06_TEX)" ;; \
+	  $(CHAP07_PDF)) tex="$(CHAP07_TEX)" ;; \
+	  $(CHAP08_PDF)) tex="$(CHAP08_TEX)" ;; \
 	  *) printf 'Unknown PDF target: %s\n' "$$pdf"; exit 2 ;; \
 	esac; \
 	if [ ! -f "$$tex" ]; then \
@@ -243,9 +248,9 @@ __build_pdf:
 	cleanup() { rm -rf "$$tmp"; }; \
 	trap cleanup EXIT; \
 	if [ "$(VERBOSE)" = "1" ]; then \
-	  "$(LATEXMK)" -xelatex -interaction=nonstopmode -halt-on-error -file-line-error -outdir="$$tmp" "$$tex"; \
+	  "$(LATEXMK)" -cd -xelatex -interaction=nonstopmode -halt-on-error -file-line-error -outdir="$$tmp" -auxdir="$$tmp" "$$tex"; \
 	else \
-	  if "$(LATEXMK)" -xelatex -interaction=nonstopmode -halt-on-error -file-line-error -outdir="$$tmp" "$$tex" >"$$log" 2>&1; then \
+	  if "$(LATEXMK)" -cd -xelatex -interaction=nonstopmode -halt-on-error -file-line-error -outdir="$$tmp" -auxdir="$$tmp" "$$tex" >"$$log" 2>&1; then \
 	    :; \
 	  else \
 	    code=$$?; \
@@ -256,59 +261,21 @@ __build_pdf:
 	    exit "$$code"; \
 	  fi; \
 	fi; \
-	out="$$tmp/$$(basename "$$pdf")"; \
+	out="$$tmp/$$(basename "$${tex%.tex}").pdf"; \
 	if [ ! -f "$$out" ]; then \
 	  printf 'Expected PDF was not produced: %s\n' "$$out"; \
 	  exit 3; \
 	fi; \
 	cp "$$out" "$$pdf"
 
-vscode:
-	@set -euo pipefail; \
-	cd "$(ROOT)"; \
-	doc="$${DOC:-$(ONE_TEX)}"; \
-	doc="$${doc%\"}"; \
-	doc="$${doc#\"}"; \
-	file="$$(basename "$$doc")"; \
-	base="$${file%.tex}"; \
-	target=""; \
-	case "$$doc" in \
-	  *AMaN_Part01.tex) target="$(PART01_PDF)" ;; \
-	  *AMaN_Part02.tex) target="$(PART02_PDF)" ;; \
-	  *AMaN_Part03.tex) target="$(PART03_PDF)" ;; \
-	  *$(MAIN_DIR)/Part01/Chap01.tex|*AMaN_Chap01.tex) target="$(CHAP01_PDF)" ;; \
-	  *$(MAIN_DIR)/Part01/Chap02.tex|*AMaN_Chap02.tex) target="$(CHAP02_PDF)" ;; \
-	  *$(MAIN_DIR)/Part02/Chap03.tex|*AMaN_Chap03.tex) target="$(CHAP03_PDF)" ;; \
-	  *$(MAIN_DIR)/Part02/Chap04.tex|*AMaN_Chap04.tex) target="$(CHAP04_PDF)" ;; \
-	  *$(MAIN_DIR)/Part02/Chap05.tex|*AMaN_Chap05.tex) target="$(CHAP05_PDF)" ;; \
-	  *$(MAIN_DIR)/Part02/Chap06.tex|*AMaN_Chap06.tex) target="$(CHAP06_PDF)" ;; \
-	  *$(MAIN_DIR)/Part02/Chap07.tex|*AMaN_Chap07.tex) target="$(CHAP07_PDF)" ;; \
-	  *$(MAIN_DIR)/Part03/Chap08.tex|*AMaN_Chap08.tex) target="$(CHAP08_PDF)" ;; \
-	  *AMaN_Two.tex) target="$(TWO_PDF)" ;; \
-	  *AMaN_One.tex|*$(PRIVATE_BOOK_TEX)|*$(PUBLIC_BOOK_TEX)|*$(FRONT_DIR)/*|*$(BACK_DIR)/*|*$(CONFIG_DIR)/*) target="$(ONE_PDF)" ;; \
-	esac; \
-	if [ -z "$$target" ]; then \
-	  if [[ "$$base" =~ ^AMaN_Chap[0-9][0-9]$$ ]]; then \
-	    target="$(PDF_DIR)/03_Chapters/$$base.pdf"; \
-	  elif [[ "$$base" =~ ^AMaN_Part[0-9][0-9]$$ ]]; then \
-	    target="$(PDF_DIR)/02_Parts/$$base.pdf"; \
-	  elif [ "$$base" = "AMaN_Two" ]; then \
-	    target="$(TWO_PDF)"; \
-	  else \
-	    target="$(ONE_PDF)"; \
-	  fi; \
-	fi; \
-	"$(MAKE)" --no-print-directory --silent __run TARGET_NAME="vscode" TARGETS="$$target"
-
 clean:
 	@find "$(ROOT)" -type f \( \
-	  -name '*.aux' -o -name '*.bbl' -o -name '*.bcf' -o -name '*.blg' \
+	  -name '*.bbl' -o -name '*.bcf' -o -name '*.blg' \
 	  -o -name '*.fdb_latexmk' -o -name '*.fls' -o -name '*.log' \
 	  -o -name '*.out' -o -name '*.run.xml' -o -name '*.toc' \
 	  -o -name '*.xdv' -o -name '*.synctex.gz' -o -name 'texput.log' \
 	\) ! -path "$(ROOT)/$(MAIN_DIR)/*" -delete
-	@find "$(ROOT)/$(ENTRY_DIR)" -type f -name '*.pdf' -delete
-	@find "$(ROOT)/$(ENTRY_DIR)" "$(ROOT)/$(PDF_DIR)" -type f -name '*.synctex.gz' -delete
+	@find "$(ROOT)/$(PDF_DIR)" -type f -name '*.synctex.gz' -delete
 	@rm -rf "$(ROOT)/$(PDF_DIR)/.latex-workshop-view"
 	@rm -rf "$(ROOT)/.latex-build"
 	@printf 'Cleaned LaTeX auxiliary files.\n'
@@ -317,6 +284,5 @@ distclean: clean
 	@set -euo pipefail; \
 	for pdf in $(ALL_PDF) $(LEGACY_ROOT_PDF); do \
 	  rm -f "$(ROOT)/$$pdf"; \
-	done; \
-	find "$(ROOT)/$(ENTRY_DIR)" -type f -name '*.pdf' -delete
+	done
 	@printf 'Removed generated PDFs.\n'

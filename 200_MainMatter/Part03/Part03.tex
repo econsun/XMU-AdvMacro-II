@@ -1,0 +1,23 @@
+% !TeX root = Part03.tex
+% !TeX program = xelatex
+% 200_MainMatter/Part03/Part03.tex -- Part 03 entry
+
+\let\AMaNStandaloneEntry\relax
+\ifdefined\AMaNMaster
+  \input{200_MainMatter/Part03/PartCover03}
+  \IncludeChapter{200_MainMatter/Part03/Chap08}
+\else
+  \makeatletter
+  \def\input@path{{../../}}
+  \def\AMaNRoot{../../}
+  \makeatother
+
+  \def\SinglePart{3}
+  \def\AMaNStandaloneEntry{%
+    \InputIfFileExists{../../AMaN_Private.tex}{}{%
+      \input{../../AMaN_Public.tex}%
+    }%
+    \endinput
+  }%
+\fi
+\AMaNStandaloneEntry

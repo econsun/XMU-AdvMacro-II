@@ -19,6 +19,9 @@ texput.log
 .latex-build/
 900_PDF/.latex-workshop-view/
 
+# Daily LaTeX Workshop outputs beside source files
+200_MainMatter/**/*.pdf
+
 # Private-only material that AMaN_Public.tex does not include
 300_BackMatter/afterword.tex
 300_BackMatter/acknowledge.tex

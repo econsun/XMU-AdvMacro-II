@@ -1,10 +1,23 @@
 % !TeX root = Chap02.tex
 % !TeX program = xelatex
 
+\let\AMaNStandaloneEntry\relax
 \ifdefined\AMaNMaster\else
-  \input{../../900_Entries/03_Chapters/AMaN_Chap02.tex}
-  \expandafter\endinput
+  \makeatletter
+  \def\input@path{{../../}}
+  \def\AMaNRoot{../../}
+  \makeatother
+
+  \def\SingleChapter{200_MainMatter/Part01/Chap02}
+  \def\SingleChapterNumber{2}
+  \def\AMaNStandaloneEntry{%
+    \InputIfFileExists{../../AMaN_Private.tex}{}{%
+      \input{../../AMaN_Public.tex}%
+    }%
+    \endinput
+  }%
 \fi
+\AMaNStandaloneEntry
 
 % 200_MainMatter/Part01/Chap02.tex -- Chapter 02: 对数线性化
 

@@ -1,10 +1,23 @@
 % !TeX root = Chap08.tex
 % !TeX program = xelatex
 
+\let\AMaNStandaloneEntry\relax
 \ifdefined\AMaNMaster\else
-  \input{../../900_Entries/03_Chapters/AMaN_Chap08.tex}
-  \expandafter\endinput
+  \makeatletter
+  \def\input@path{{../../}}
+  \def\AMaNRoot{../../}
+  \makeatother
+
+  \def\SingleChapter{200_MainMatter/Part03/Chap08}
+  \def\SingleChapterNumber{8}
+  \def\AMaNStandaloneEntry{%
+    \InputIfFileExists{../../AMaN_Private.tex}{}{%
+      \input{../../AMaN_Public.tex}%
+    }%
+    \endinput
+  }%
 \fi
+\AMaNStandaloneEntry
 
 % 200_MainMatter/Part03/Chap08.tex -- Chapter 08
 
@@ -203,10 +216,11 @@ NK 模型是我们第一次接触到有垄断势力的市场结构，此前我�
 \begin{align*}
     P^*_t=\mu\cdot\meant\sum^\infty_{k=0}A_{k,t}\,\n{MC}_{k,t}
 \end{align*}
-对数线性化结果为
+使用性质 \(\dis\sum_{k=0}^\infty X_k\) 对数线性化结果为 \(\sum_{k=0}^\infty\dfrac{X_k}{\sum_{j=0}^\infty X_j}\,\hat x_k\) 那么
 \begin{align*}
-    \hat P^*_t=\meant\sum^\infty_{k=0}\dfrac{\bar A_k\,\overline{\n{MC}}_k}{\sum\limits^{\infty}_{j=0}\bar A_j\,\overline{\n{MC}}_j}\bka{\hat a_{k,t}+\widehat{\n{mc}}_{k,t}}
+    \hat P^*_t=\meant\sum^\infty_{k=0}\dfrac{\bar A_k\,\overline{\n{MC}}_k}{\sum\limits^{\infty}_{j=0}\bar A_j\,\overline{\n{MC}}_j}\bka{\hat a_{k,t}+\widehat{\n{mc}}_{k,t}} \sidenote{此处建议直接照公式写，自己计算公式中元素容易出错}
 \end{align*}
+在没有
 其中
 \begin{align*}
     \hat a_t=\hat q_{k,t}+\hat y_{k,t}-\meant\sum^\infty_{k=0}\dfrac{\bar Q_k\,\bar Y_k}{\sum\limits^{\infty}_{j=0}\bar Q_j\,\bar Y_j}\bka{\hat q_{k,t}+\hat y_{k,t}}
