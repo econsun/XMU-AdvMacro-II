@@ -5,9 +5,14 @@ ROOT := $(CURDIR)
 LATEXMK ?= latexmk
 VERBOSE ?= 0
 
-ENTRY_DIR := 95_Entries
-PDF_DIR := 99_PDF
-MAIN_DIR := 20_MainMatter
+CONFIG_DIR := _config
+FRONT_DIR := 100_FrontMatter
+MAIN_DIR := 200_MainMatter
+BACK_DIR := 300_BackMatter
+ENTRY_DIR := 900_Entries
+PDF_DIR := 900_PDF
+PRIVATE_BOOK_TEX := AMaN.tex
+PUBLIC_BOOK_TEX := AMaN_Public.tex
 
 ONE_TEX := $(ENTRY_DIR)/01_Full/AMaN_One.tex
 ONE_PDF := $(PDF_DIR)/01_Full/AMaN_One.pdf
@@ -73,48 +78,79 @@ define run_targets
 	  printf 'Reason : no build target was resolved\n\n'; \
 	  exit 2; \
 	fi; \
+	if [ -f "$(PRIVATE_BOOK_TEX)" ]; then \
+	  book_label="AMaN"; \
+	  book_file="$(PRIVATE_BOOK_TEX)"; \
+	elif [ -f "$(PUBLIC_BOOK_TEX)" ]; then \
+	  book_label="Public"; \
+	  book_file="$(PUBLIC_BOOK_TEX)"; \
+	else \
+	  printf '\nAMaN LaTeX Build\n'; \
+	  printf '%s\n' '=============================='; \
+	  printf 'Result : FAILED\n'; \
+	  printf 'Reason : missing %s or %s\n\n' "$(PRIVATE_BOOK_TEX)" "$(PUBLIC_BOOK_TEX)"; \
+	  exit 2; \
+	fi; \
 	start_epoch=$$(date +%s); \
 	start_text=$$(date '+%Y-%m-%d %H:%M:%S'); \
 	fmt_time() { local t="$$1"; printf '%02d:%02d' $$((t / 60)) $$((t % 60)); }; \
-	output_width=58; \
+	item_total=0; \
+	for pdf in $$items; do item_total=$$((item_total + 1)); done; \
+	output_width=34; \
 	for pdf in $$items; do \
-	  if [ "$${#pdf}" -gt "$$output_width" ]; then output_width="$${#pdf}"; fi; \
+	  file="$$(basename "$$pdf")"; \
+	  if [ "$${#file}" -gt "$$output_width" ]; then output_width="$${#file}"; fi; \
 	done; \
+	number_width="$${#item_total}"; \
+	if [ "$$number_width" -lt 2 ]; then number_width=2; fi; \
 	output_rule="$$(printf '%*s' "$$output_width" '' | tr ' ' '-')"; \
 	printf '\nAMaN LaTeX Build\n'; \
-	printf '%s\n' '========================'; \
-	printf 'Target  : %s\n' "$$target_name"; \
-	printf 'Started : %s\n\n' "$$start_text"; \
-	printf '%-8s %-*s %5s\n' "Status" "$$output_width" "Output" "Time"; \
-	printf '%-8s %-*s %5s\n' "------" "$$output_width" "$$output_rule" "-----"; \
+	printf '%s\n' '================================================================'; \
+	printf 'Target   : %s\n' "$$target_name"; \
+	printf 'Items    : %s\n' "$$item_total"; \
+	printf 'Version  : %s (%s)\n' "$$book_label" "$$book_file"; \
+	printf 'Started  : %s\n\n' "$$start_text"; \
+	printf '%-*s  %-7s  %-8s  %-*s  %5s\n' "$$number_width" "No" "Status" "Scope" "$$output_width" "Output PDF" "Time"; \
+	printf '%-*s  %-7s  %-8s  %-*s  %5s\n' "$$number_width" "$$(printf '%*s' "$$number_width" '' | tr ' ' '-')" "-------" "--------" "$$output_width" "$$output_rule" "-----"; \
 	status=0; \
 	count=0; \
+	failed_pdf=""; \
 	for pdf in $$items; do \
 	  count=$$((count + 1)); \
+	  file="$$(basename "$$pdf")"; \
+	  case "$$pdf" in \
+	    */01_Full/*) item_type="Full" ;; \
+	    */02_Parts/*) item_type="Part" ;; \
+	    */03_Chapters/*) item_type="Chapter" ;; \
+	    *) item_type="PDF" ;; \
+	  esac; \
 	  item_start=$$(date +%s); \
 	  if "$(MAKE)" --no-print-directory --silent __build_pdf PDF="$$pdf"; then \
 	    item_elapsed=$$(( $$(date +%s) - item_start )); \
 	    item_time=$$(fmt_time "$$item_elapsed"); \
-	    printf '%-8s %-*s %5s\n' "OK" "$$output_width" "$$pdf" "$$item_time"; \
+	    printf '%0*d  %-7s  %-8s  %-*s  %5s\n' "$$number_width" "$$count" "OK" "$$item_type" "$$output_width" "$$file" "$$item_time"; \
 	  else \
 	    status=$$?; \
+	    failed_pdf="$$pdf"; \
 	    item_elapsed=$$(( $$(date +%s) - item_start )); \
 	    item_time=$$(fmt_time "$$item_elapsed"); \
-	    printf '%-8s %-*s %5s\n' "FAILED" "$$output_width" "$$pdf" "$$item_time"; \
+	    printf '%0*d  %-7s  %-8s  %-*s  %5s\n' "$$number_width" "$$count" "FAILED" "$$item_type" "$$output_width" "$$file" "$$item_time"; \
 	    break; \
 	  fi; \
 	done; \
 	total_elapsed=$$(( $$(date +%s) - start_epoch )); \
 	total_time=$$(fmt_time "$$total_elapsed"); \
 	printf '\nSummary\n'; \
-	printf '%s\n' '------------------------'; \
+	printf '%s\n' '----------------------------------------------------------------'; \
 	if [ "$$status" -eq 0 ]; then \
-	  printf 'Result : SUCCESS\n'; \
+	  printf 'Result   : SUCCESS\n'; \
 	else \
-	  printf 'Result : FAILED\n'; \
+	  printf 'Result   : FAILED\n'; \
+	  printf 'Failed   : %s\n' "$$failed_pdf"; \
 	fi; \
-	printf 'Items  : %s\n' "$$count"; \
-	printf 'Total  : %s\n\n' "$$total_time"; \
+	printf 'Built    : %s / %s\n' "$$count" "$$item_total"; \
+	printf 'Version  : %s (%s)\n' "$$book_label" "$$book_file"; \
+	printf 'Elapsed  : %s\n\n' "$$total_time"; \
 	exit "$$status"
 endef
 
@@ -178,6 +214,17 @@ __run:
 __build_pdf:
 	@set -euo pipefail; \
 	cd "$(ROOT)"; \
+	if [ -f "$(PRIVATE_BOOK_TEX)" ]; then \
+	  book_tex="$(PRIVATE_BOOK_TEX)"; \
+	elif [ -f "$(PUBLIC_BOOK_TEX)" ]; then \
+	  book_tex="$(PUBLIC_BOOK_TEX)"; \
+	else \
+	  book_tex=""; \
+	fi; \
+	if [ ! -f "$$book_tex" ]; then \
+	  printf 'Missing book entry: %s or %s\n' "$(PRIVATE_BOOK_TEX)" "$(PUBLIC_BOOK_TEX)"; \
+	  exit 2; \
+	fi; \
 	pdf="$${PDF:?PDF is required}"; \
 	case "$$pdf" in \
 	  $(ONE_PDF)) tex="$(ONE_TEX)" ;; \
@@ -226,19 +273,19 @@ vscode:
 	base="$${file%.tex}"; \
 	target=""; \
 	case "$$doc" in \
-	  *$(MAIN_DIR)/01_Part01/PartCover.tex|*AMaN_Part01.tex) target="$(PART01_PDF)" ;; \
-	  *$(MAIN_DIR)/02_Part02/PartCover.tex|*AMaN_Part02.tex) target="$(PART02_PDF)" ;; \
-	  *$(MAIN_DIR)/03_Part03/PartCover.tex|*AMaN_Part03.tex) target="$(PART03_PDF)" ;; \
-	  *$(MAIN_DIR)/01_Part01/Chap01.tex|*AMaN_Chap01.tex) target="$(CHAP01_PDF)" ;; \
-	  *$(MAIN_DIR)/01_Part01/Chap02.tex|*AMaN_Chap02.tex) target="$(CHAP02_PDF)" ;; \
-	  *$(MAIN_DIR)/02_Part02/Chap03.tex|*AMaN_Chap03.tex) target="$(CHAP03_PDF)" ;; \
-	  *$(MAIN_DIR)/02_Part02/Chap04.tex|*AMaN_Chap04.tex) target="$(CHAP04_PDF)" ;; \
-	  *$(MAIN_DIR)/02_Part02/Chap05.tex|*AMaN_Chap05.tex) target="$(CHAP05_PDF)" ;; \
-	  *$(MAIN_DIR)/02_Part02/Chap06.tex|*AMaN_Chap06.tex) target="$(CHAP06_PDF)" ;; \
-	  *$(MAIN_DIR)/02_Part02/Chap07.tex|*AMaN_Chap07.tex) target="$(CHAP07_PDF)" ;; \
-	  *$(MAIN_DIR)/03_Part03/Chap08.tex|*AMaN_Chap08.tex) target="$(CHAP08_PDF)" ;; \
+	  *AMaN_Part01.tex) target="$(PART01_PDF)" ;; \
+	  *AMaN_Part02.tex) target="$(PART02_PDF)" ;; \
+	  *AMaN_Part03.tex) target="$(PART03_PDF)" ;; \
+	  *$(MAIN_DIR)/Part01/Chap01.tex|*AMaN_Chap01.tex) target="$(CHAP01_PDF)" ;; \
+	  *$(MAIN_DIR)/Part01/Chap02.tex|*AMaN_Chap02.tex) target="$(CHAP02_PDF)" ;; \
+	  *$(MAIN_DIR)/Part02/Chap03.tex|*AMaN_Chap03.tex) target="$(CHAP03_PDF)" ;; \
+	  *$(MAIN_DIR)/Part02/Chap04.tex|*AMaN_Chap04.tex) target="$(CHAP04_PDF)" ;; \
+	  *$(MAIN_DIR)/Part02/Chap05.tex|*AMaN_Chap05.tex) target="$(CHAP05_PDF)" ;; \
+	  *$(MAIN_DIR)/Part02/Chap06.tex|*AMaN_Chap06.tex) target="$(CHAP06_PDF)" ;; \
+	  *$(MAIN_DIR)/Part02/Chap07.tex|*AMaN_Chap07.tex) target="$(CHAP07_PDF)" ;; \
+	  *$(MAIN_DIR)/Part03/Chap08.tex|*AMaN_Chap08.tex) target="$(CHAP08_PDF)" ;; \
 	  *AMaN_Two.tex) target="$(TWO_PDF)" ;; \
-	  *AMaN_One.tex|*AMaN.tex|*10_FrontMatter/*|*90_BackMatter/*|*00_Config/*) target="$(ONE_PDF)" ;; \
+	  *AMaN_One.tex|*$(PRIVATE_BOOK_TEX)|*$(PUBLIC_BOOK_TEX)|*$(FRONT_DIR)/*|*$(BACK_DIR)/*|*$(CONFIG_DIR)/*) target="$(ONE_PDF)" ;; \
 	esac; \
 	if [ -z "$$target" ]; then \
 	  if [[ "$$base" =~ ^AMaN_Chap[0-9][0-9]$$ ]]; then \
@@ -259,7 +306,10 @@ clean:
 	  -o -name '*.fdb_latexmk' -o -name '*.fls' -o -name '*.log' \
 	  -o -name '*.out' -o -name '*.run.xml' -o -name '*.toc' \
 	  -o -name '*.xdv' -o -name '*.synctex.gz' -o -name 'texput.log' \
-	\) -delete
+	\) ! -path "$(ROOT)/$(MAIN_DIR)/*" -delete
+	@find "$(ROOT)/$(ENTRY_DIR)" -type f -name '*.pdf' -delete
+	@find "$(ROOT)/$(ENTRY_DIR)" "$(ROOT)/$(PDF_DIR)" -type f -name '*.synctex.gz' -delete
+	@rm -rf "$(ROOT)/$(PDF_DIR)/.latex-workshop-view"
 	@rm -rf "$(ROOT)/.latex-build"
 	@printf 'Cleaned LaTeX auxiliary files.\n'
 

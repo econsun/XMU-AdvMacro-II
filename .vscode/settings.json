@@ -1,27 +1,44 @@
 {
   "latex-workshop.latex.autoBuild.run": "onSave",
-  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%",
+  "latex-workshop.latex.outDir": "%DIR%",
+  "latex-workshop.latex.autoClean.run": "onBuilt",
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.bbl",
+    "*.bcf",
+    "*.blg",
+    "*.fdb_latexmk",
+    "*.fls",
+    "*.log",
+    "*.out",
+    "*.run.xml",
+    "*.toc",
+    "*.xdv",
+    "texput.log"
+  ],
   "latex-workshop.latex.build.enableMagicComments": true,
   "latex-workshop.latex.build.rootfileInStatus": true,
   "latex-workshop.message.log.show": true,
   "latex-workshop.latex.recipe.default": "first",
   "latex-workshop.latex.recipes": [
     {
-      "name": "AMaN Makefile build",
+      "name": "latexmk xelatex current file",
       "tools": [
-        "aman_make"
+        "latexmk_xelatex_current"
       ]
     }
   ],
   "latex-workshop.latex.tools": [
     {
-      "name": "aman_make",
-      "command": "make",
+      "name": "latexmk_xelatex_current",
+      "command": "latexmk",
       "args": [
-        "-C",
-        "%WORKSPACE_FOLDER%",
-        "vscode",
-        "DOC=%DOC%"
+        "-cd",
+        "-xelatex",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-file-line-error",
+        "%DOC%"
       ]
     }
   ]

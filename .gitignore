@@ -17,3 +17,8 @@ texput.log
 
 # Local build scratch space
 .latex-build/
+900_PDF/.latex-workshop-view/
+
+# Private-only material that AMaN_Public.tex does not include
+300_BackMatter/afterword.tex
+300_BackMatter/acknowledge.tex

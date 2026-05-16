@@ -1,0 +1,222 @@
+% !TeX root = Chap08.tex
+% !TeX program = xelatex
+
+\ifdefined\AMaNMaster\else
+  \input{../../900_Entries/03_Chapters/AMaN_Chap08.tex}
+  \expandafter\endinput
+\fi
+
+% 200_MainMatter/Part03/Chap08.tex -- Chapter 08
+
+\ChapterGeometry
+
+\chapter{NK 模型：基本情况}\label{ch:08}
+
+\section{模型设定}
+
+\subsection{从部门到经济体}
+
+假设经济体中有多个部门生产异质商品，用 \(i\in\bks{0,1}\) 对部门进行编号。在微观层面，我们关注每个部门商品的价格 \(P_t\bki\) 和消费量 \(C_t\bki\)；在宏观层面，则要考虑整体价格水平 \(P_t\) 和消费水平 \(C_t\)，这让我们好奇：如何使用易得的微观数据计算出抽象的宏观变量？
+
+首先，\(C_t\) 直接使用 Dixit 和 Stiglitz (1977) \footnote{Avinash K. Dixit and Joseph E. Stiglitz, ``Monopolistic Competition and Optimum Product Diversity'', \emph{American Economic Review} (1977)} 提出的 CES 聚合函数来定义：
+\begin{equation*}
+    C_t\equiv\bks{\int^1_0 C_t\bki^{\frac{\varepsilon-1}\varepsilon}\mathrm{d}i}^{\frac\varepsilon{\varepsilon-1}}
+\end{equation*}
+称 \(C_t\) 是\,\xmured{聚合}（aggregate）的消费。接着，价格水平 \(P_t\) 是为获得 1 单位 \(C_t\) 所需的最小支出\sidenote{\sidemath{\(P_t\)} 还可被称作价格指数，将其视为“单价”有助于理解}，因此先求解支出最小化问题：
+\begin{align*}
+     E_t =\;&P_t\,C_t= \min_{C_t} \ \int^1_0 P_t\bki C_t\bki \mathrm{d}i \\
+    \text{s.t.} &\quad C_t=\bks{\int^1_0 C_t\bki^{\frac{\varepsilon-1}\varepsilon}\mathrm{d}i}^{\frac\varepsilon{\varepsilon-1}} \\
+    \text{or} & \quad C_t^{\frac{\varepsilon-1}{\varepsilon}}=\int^1_0 C_t\bki^{\frac{\varepsilon-1}\varepsilon}\mathrm{d}i
+\end{align*}
+构建拉格朗日函数
+\begin{align*}
+    \cal L &=\int^1_0 P_t\bki C_t\bki\mathrm di+\lambda\bks{C_t^{\frac{\varepsilon-1}\varepsilon}-\int^1_0C_t\bki ^{\frac{\varepsilon-1}\varepsilon}\mathrm di}\\
+    &= \int^1_0 P_t\bki C_t\bki-\lambda C_t\bki ^{\frac{\varepsilon-1}\varepsilon}\mathrm di+\lambda\,C_t^{\frac{\varepsilon-1}\varepsilon}
+\end{align*}
+注意拉格朗日函数是包含积分的泛函，根据变分法，一阶条件为被积函数需满足
+\begin{align*}
+    P_t\bki=\lambda\,\rho\, C_t\bki ^{-\frac1\varepsilon}
+\end{align*}
+对一阶条件操作：1. 两边同乘以 \(C_t\bki\) 有 \(P_t\bki C_t\bki\)；2. 两边施 \(1-\varepsilon\) 次幂有 \(C_t\bki^{\frac{\varepsilon-1}\varepsilon}\)。得两个新式后再分别作积分
+\begin{equation*}
+    \begin{cases}
+        \ P_t\bki C_t\bki=\lambda\,\rho\, C_t\bki ^{\frac{\varepsilon-1}\varepsilon}\\
+        \ C_t\bki^{\frac{\varepsilon-1}\varepsilon}=\bka{\lambda\,\rho}^{\varepsilon-1}\,P_t\bki^{1-\varepsilon}
+    \end{cases} \ \ \Rightarrow\quad
+    \begin{cases}
+        \ E_t=P_t\,C_t=\lambda\,\rho & (1)\\
+        \ \dis C_t^{\frac{\varepsilon-1}\varepsilon}=\bka{\lambda\,\rho}^{\varepsilon-1}\int^1_0 P_t\bki^{1-\varepsilon}\mathrm di & (2)
+    \end{cases}
+\end{equation*}
+根据前文所述 \(P_t\) 的定义，取 \(C_t=1\)，将 (2) 代入 (1) 得到在 CES 聚合函数下价格水平\sidenote{该价格水平的表达式依赖聚合消费的定义}
+\begin{align}
+    P_t=\bks{\int^1_0 P_t\bki^{1-\varepsilon}\mathrm di}^{1/(1-\varepsilon)}\label{eq:price-level}
+\end{align}
+再将该结果代入 (2) 有
+\begin{align*}
+    C_t^{\frac{\varepsilon-1}\varepsilon}=\bka{\lambda\,\rho}^{\varepsilon-1}\,P_t^{1-\varepsilon} \quad\Rightarrow\quad \lambda\,\rho=P_t \, C^{\frac{1}{\varepsilon}}_t
+\end{align*}
+代回一阶条件
+\begin{align}
+    P_t\bki C_t\bki ^{\frac1\varepsilon}=P_t\,C_t^{\frac1\varepsilon} \quad\text{or}\quad C_t\bki=\bks{\frac{P_t\bki}{P_t}}^{-\varepsilon}C_t\label{eq:CES-demand}
+    \sidenote{易得 \scalebox{0.75}{\(\dfrac{C_t\bki}{C_t\bkj}=\bks{\dfrac{P_t\bki}{P_t\bkj}}^{-\varepsilon}\)}\\[6pt]计算 \scalebox{0.75}{\(\sigma_{ij}=\dfrac{\p dC_t\bki}{\p dP_t\bkj}\dfrac{P_t\bkj}{C_t\bki}\)}\\[4pt]可验证 \(\varepsilon\) 是替代弹性}
+\end{align}
+至此，我们获得了家庭作为需求侧，他们对每个部门商品的需求。实际上厂商也有类似的支出（成本）最小化问题
+\begin{align*}
+    \n{Cost}_t =\;&P_t\,Y_t= \min_{Y_t} \ \int^1_0 P_t\bki Y_t\bki \mathrm{d}i \\
+    \text{s.t.} & \quad Y_t^{\frac{\varepsilon-1}{\varepsilon}}=\int^1_0 Y_t\bki^{\frac{\varepsilon-1}\varepsilon}\mathrm{d}i
+\end{align*}
+那么就有近乎一样的结论。
+
+接下来，我们到经济整体层面的家庭最优化问题求解。
+
+\subsection{家庭行为}
+
+代表性家庭面临如下无穷期最优化问题
+\begin{align*}
+    \max_{\bkd{C_t,N_t,B_t}}\quad & \meant\sum^\infty_{t=0}\,\beta^t\,U\bka{C_t,N_t}\\
+    \text{s.t.}\quad & P_t\,C_t+Q_t\,B_t=B\lt+W_t\,N_t+T_t
+\end{align*}
+家庭的效用函数中包含消费和劳动，要在二者间权衡，故而是跨期消费-劳动选择问题。经过前面的努力，我们现在已经知道约束条件中 \(C_t\) 和 \(P_t\) 的表达式（主要是后者）。构建拉格朗日函数
+\begin{align*}
+    \cal L=\meant \sum^\infty_{t=0}\,\beta^t\bkd{U\bka{C_t,N_t}+\lambda_t\bka{B\lt+W_t\,N_t+T_t-P_t\,C_t-Q_t\,B_t}}
+\end{align*}
+一阶条件有
+\begin{align*}
+    & \dfrac{\p \cal L}{\p C_t}=U_{C,t}-\lambda_t\,P_t=0\\
+    & \dfrac{\p \cal L}{\p N_t}=U_{N,t}+\lambda_t\,W_t=0\\
+    & \dfrac{\p \cal L}{\p B_t}=-\beta^t\,\lambda_t\,Q_t+\beta^{t+1}\,\lambda_{t+1}=0
+\end{align*}
+将第一式代入第二、第三式，一阶条件被整合为
+\begin{empheq}[left=\empheqlbrace]{align*}
+    & \ -\dfrac{U_{N,t}}{U_{C,t}}=\dfrac{W_t}{P_t}\\
+    & \ Q_t=\beta\,\meant\bks{\dfrac{U_{C,t+1}}{U_{C,t}}\dfrac{P_t}{P_{t+1}}}=\beta\,\meant\bks{\dfrac{U_{C,t+1}}{U_{C,t}}\dfrac{1}{\Pi_{t+1}}}
+\end{empheq}
+假设效用函数为 CRRA 形式，直接写出对数线性化系统，同\ref{sec:CMM-fluctuation}
+\begin{empheq}[left=\empheqlbrace]{align*}
+    & \ \hat w_t-\hat p_t=\sigma\,\hat c_t+\n{MC}\,\hat n_t\\
+    & \ \hat c_t=\meant\,\hat c\nt-\dfrac1\sigma\bka{\hat\imath_t-\hat\pi\nt}
+\end{empheq}
+
+\subsection{厂商行为}
+
+在中级微观经济学中，我们会先学习成本最小化问题（成本是要素的函数），知道它和产量最大化是对偶问题，然后再学习利润最大化问题（利润是产出的函数）。接下来我们会看到：如果利润函数用要素表示，那么它和成本最小化问题也是等价的。
+
+\mysec{成本最小化问题}
+
+部门 \(i\) 中的厂商面临如下成本最小化要素选择问题
+\begin{align*}
+    \min_{N_t\bki}\quad & W_t\,N_t\bki\\
+    \text{s.t.}\quad & Y_t\bki=A_t\,N_t\bki^{1-\alpha}\sidenote{严格来说，约束应为不等式，根据最优化问题的标准形式写作 \scalebox{0.8}{\(Y_t-A_t\,N_t\bki^{1-\alpha}\le0\)}，故有后续拉格朗日函数的写法；此处的严谨事关后续 \sidemath{\(\mu_t\)} 的符号}
+\end{align*}
+构建拉格朗日函数
+\begin{align*}
+    \cal L=W_t\,N_t\bki+\mu_t\bks{Y_t\bki-A_t\,N_t\bki^{1-\alpha}}
+\end{align*}
+一阶条件为
+\begin{align*}
+    & \dfrac{\p \cal L}{\p N_t\bki}=0 \quad\Rightarrow\quad W_t=\mu_t\cdot\bka{1-\alpha}A_t\,N_t\bki^{-\alpha}
+\end{align*}
+根据拉格朗日乘子代表“放松约束引起的最优值变化”可知：\(\mu_t\) 代表增加 1 单位产出 \(Y_t\bki\) 而多付出的成本，即边际成本。那么边际成本的表达式为
+\begin{align}
+    \n{MC}_t\bki=\dfrac{W_t}{\n{MPN}_t\bki}=\dfrac{W_t}{\bka{1-\alpha}A_t\,N_t\bki^{-\alpha}}\label{eq:MC}
+\end{align}
+NK 模型是我们第一次接触到有垄断势力的市场结构，此前我们非常习惯 \(W_t^r=\n{MPN}_t\bki\) 条件，在上式中构造该结构
+\begin{align*}
+    \dfrac{\n{MC}_t\bki}{P_t\bki}=\dfrac{W_t/P_t\bki}{\n{MPN}_t\bki}=\dfrac{W_t^r}{\n{MPN}_t\bki}
+\end{align*}
+如果完全竞争市场成立，则左侧为 1，即 \(P_t\bki=\n{MC}_t\bki\)，逻辑闭环。所以我们在此得到的是更为一般的方程，同时其中 \(\n{MC}_t\bki\) 是名义变量。
+
+\mysec{利润最大化问题}
+
+具有市场势力的厂商能在生产中控制产量（如我们所熟悉的），也能控制价格，但不能二者都控制。在本模型中，厂商通过价格实现利润最大化，决策问题如下
+\begin{align*}
+    \n{Profit}_t\bki=\max_{P_t\bki} \ & P_t\bki \,Y_t\bki-W_t\bks{\dfrac{Y_t\bki}{A_t}}^{\frac1{1-\alpha}}
+\end{align*}
+一阶条件为
+\begin{align*}
+    \dfrac{\p\n{Profit}_t\bki}{\p P_t\bki}=Y_t\bki+P_t\bki\dfrac{\p Y_t\bki}{\p P_t\bki}-W_t\cdot\dfrac1{1-\alpha}\bks{\dfrac{Y_t\bki}{A_t}}^{\frac\alpha{1-\alpha}}\dfrac1{A_t}\dfrac{\p Y_t\bki}{\p P_t\bki}=0
+\end{align*}
+使用产品市场出清条件 \(Y_t\bki=C_t\bki\) 和 产品需求 \ref{eq:CES-demand}，再标准化 \(P_t=1\)，有
+\begin{align}
+    \dfrac{\p Y_t\bki}{\p P_t\bki}=\dfrac{\p P_t\bki^{-\varepsilon}\,Y_t}{\p P_t\bki}=-\varepsilon\,P_t\bki^{-\varepsilon-1}\,Y_t\bki=-\varepsilon\cdot\dfrac{Y_t\bki}{P_t\bki}\sidenote{代入需求函数说明市场是非完全竞争的；本式结合 \ref{eq:CES-demand} 的旁注，不难发现 \sidemath{\(-\varepsilon\)} 是需求价格弹性}\label{eq:dYdP}
+\end{align}
+上式同工资水平 \(W_t=\n{MC}_t\bki\cdot\n{MPN}_t\bki\) 代回一阶条件得
+\begin{align*}
+    P_t\bki=\underbrace{\dfrac{\varepsilon}{\varepsilon-1}}_{>\;1}\cdot\;\n{MC}_t\bki
+\end{align*}
+我们在这得到了\,\xmured{加成定价法则}（markup pricing rule），它表明具有市场势力的厂商会根据弹性索取高于边际成本的价格。如果不同部门产品毫无差异，商品间极富替代性（\(\varepsilon\to\infty\)），那么价格就趋近于边际成本；反之，部门可以任意高索取价格。
+
+\subsection{黏性价格}
+
+当冲击发生时，我们根据价格水平完全反应、完全不反应、二者之间三种情况，称价格水平具有弹性、刚性、\xmured{黏性}（sticky）。显然，黏性更符合现实，并且在理论上可以兼顾弹性和刚性两种极端情况。
+
+对黏性的刻画，我们采用 Calvo (1983) \footnote{Guillermo A. Calvo, ``Staggered Prices in a Utility-Maximizing Framework'', \emph{Journal of Monetary Economics} (1983)} 的\,\xmured{交错定价}（staggered pricing）机制：假设在每期的经济波动中，有 \(\theta\) 比例的厂商完全不改动价格，\(1-\theta\) 比例的厂商会重新设定价格，根据价格水平的定义 \ref{eq:price-level} 有
+\begin{align*}
+    P_t^{1-\varepsilon}&=\int_{\n{stay}} P_t\bki^{1-\varepsilon}\mathrm di+\int_{\n{reset}} P_t\bki^{1-\varepsilon}\mathrm di\\&=\theta\,\int^1_0 P\lt\bki^{1-\varepsilon}\mathrm di+\bka{1-\theta}\int^1_0 P_t^*\bki^{1-\varepsilon}\mathrm di\\&=\theta\,P\lt^{1-\varepsilon}+\bka{1-\theta}\bka{P_t^*}^{1-\varepsilon}
+\end{align*}
+由 \(\hat\pi_t=\pi_t=\hat P_t-\hat P\lt\) 知该式对数线性化结果为
+\begin{align*}
+    \hat\pi_t=\bka{1-\theta}\bka{\hat P^*_t-\hat P\lt}
+\end{align*}
+该式表明，在交错定价机制下\sidenote{通缩同理，为方便只考虑通胀}，只有能重新定价并定出更高价格的厂商会推动价格水平上升（即通货膨胀）；\(1-\theta\) 是传导系数，同样影响通胀程度
+\begin{align*}
+    0<P^*_t-P\lt=\bka{P^*_t-\bar P}-\bka{P\lt-\bar P}=\hat P^*_t-\hat P\lt>0
+\end{align*}
+
+\mysec{黏性价格下的厂商行为}
+
+我们也可以将 \(\theta\) 理解为是不能调整价格概率，那么厂商应当把未来风险纳入决策；而一旦能够重新定价，相当于重来一次该决策，所以上式不考虑调整价格的情况。依此，我们重做利润最大化问题。令
+\begin{align*}
+    V_t\bki &\equiv \max_{P_t^*\bki} \ \n{Profit}_t\bki+\theta\,\meant\bkd{Q_{t,t+1}\cdot\n{Profit}\nt\bki}+\theta^2\,\meant\bkd{Q_{t,t+2}\cdot\n{Profit}\nnt\bki}+\cdots
+\end{align*}
+虽然生产是分部门的\sidenote{还有在 \sidemath{\(t\)} 期无法调价的部门，它们在不同期调价会引起在 \sidemath{\(t\)} 期所有部门间产量差异}，但技术、工资、需求等都是部门间无差异的，不同部门面临相同的最优化问题会做出相同的定价决策，所以我们在目标函数中省略 \(i\)，直接写出该问题的表达式
+\begin{align*}
+    V_t\bki=\max_{P_t^*}& \ \ \meant\bkd{\sum^\infty_{k=0}\,\theta^k\,Q_{t,t+k}\bks{P_t^*\, Y_{t+k\ivbar t}-\psi_{t+k}\bka{Y_{t+k\ivbar t}}}}\\
+    \n{s.t.}& \ \ Y_{t+k\ivbar t}=\bka{\dfrac{P_t^*}{P_{t+k}}}^{-\varepsilon}C_{t+k}
+\end{align*}
+其中，\(Q_{t,t+k}=\beta^k\bka{C_{t+k}/C_t}^{-\sigma}\bka{P_t/P_{t+k}}\) 是从 \(t+k\) 期贴现到 \(t\) 期的因子，表达式由欧拉方程导出；\(\psi_{t+k}\) 是 \(t+k\) 期的成本函数；\(Y_{t+k\ivbar t}\) 是给定 \(t\) 期价格 \(P_t^*\) 在 \(t+k\) 期产量；\(\theta^k\) 可以衡量要多大程度上在面前的决策中重视 \(k\) 期后利润。
+
+开始对目标函数求导
+\begin{align*}
+    \dfrac{\p V_t\bki}{\p P^*_t}=\meant\bkd{\sum^\infty_{k=0}\theta^k\,Q_{t,t+k}\bka{Y_{t+k\ivbar t}+P_t^*\,\dfrac{\p Y_{t+k\ivbar t}}{\p P^*_t}-\dfrac{\p \psi_{t+k}}{\p Y_{t+k\ivbar t}}\dfrac{\p Y_{t+k\ivbar t}}{\p P^*_t}}}
+\end{align*}
+模仿 \ref{eq:dYdP} 有
+\begin{align*}
+    \dfrac{\p Y_{t+k\ivbar t}}{\p P^*_t}=-\varepsilon\cdot\dfrac{Y_{t+k\ivbar t}}{P^*_t}
+\end{align*}
+再根据经济含义定义 \(\n{MC}_{t+k\ivbar t}\equiv\dfrac{\p \psi_{t+k}}{\p Y_{t+k\ivbar t}}\)
+改写求导结果得一阶条件
+\begin{align*}
+    \dfrac{\p V_t\bki}{\p P^*_t}=\meant\bkd{\sum^\infty_{k=0}\theta^k\,Q_{t,t+k}\bks{Y_{t+k\ivbar t}-\varepsilon\cdot\dfrac{Y_{t+k\ivbar t}}{P^*_t}\cdot\bka{P_t^*-\n{MC}_{t+k\ivbar t}}}}=0
+\end{align*}
+再整理，最终得到（两个加和指标都为 \(k\) 但属不同运算）
+\begin{align}
+    P_t^*&=\dfrac{\varepsilon}{\varepsilon-1}\cdot\dfrac{\meant\sum\limits^\infty_{k=0}\theta^k\,Q_{t,t+k}\,Y_{t+k\ivbar t}\,\n{MC}_{t+k\ivbar t}}{\meant\sum\limits^\infty_{k=0}\theta^k\,Q_{t,t+k}\,Y_{t+k\ivbar t}}\label{eq:staggered-markup}\\
+    &=\underbrace{ \ \dfrac{\varepsilon}{\varepsilon-1} \ }_{\n{markup}}\cdot \ \meant\sum^\infty_{k=0}\underbrace{ \ \dfrac{\theta^k\,Q_{t,t+k}\,Y_{t+k\ivbar t}}{\meant\sum\limits^\infty_{k=0}\theta^k\,Q_{t,t+k}\,Y_{t+k\ivbar t}} \ }_{\n{weight}}\cdot \ \underbrace{ \ \n{MC}_{t+k\ivbar t} \ }_{\n{MC}}\notag
+\end{align}
+该式为交错定价机制下的加成定价法则。如果 \(\theta\) 趋近 0 或 1，上式会退化为之前讨论的加成法则，其中的直觉是：加成定价是从利润最大化中得到的法则，是厂商定价的唯一法则；引入交错定价对对利润最大化问题进行扩展并不改变这一法则的本质，就如引入完全竞争假设，加成定价依旧适用，能进一步退化。
+
+\mysec{对数线性化加成法则}
+
+我们的处理从 \ref{eq:staggered-markup} 开始，根据结构简化记号
+\begin{align*}
+    P^*_t=\mu\cdot\meant\sum^\infty_{k=0}A_{k,t}\,\n{MC}_{k,t}
+\end{align*}
+对数线性化结果为
+\begin{align*}
+    \hat P^*_t=\meant\sum^\infty_{k=0}\dfrac{\bar A_k\,\overline{\n{MC}}_k}{\sum\limits^{\infty}_{j=0}\bar A_j\,\overline{\n{MC}}_j}\bka{\hat a_{k,t}+\widehat{\n{mc}}_{k,t}}
+\end{align*}
+其中
+\begin{align*}
+    \hat a_t=\hat q_{k,t}+\hat y_{k,t}-\meant\sum^\infty_{k=0}\dfrac{\bar Q_k\,\bar Y_k}{\sum\limits^{\infty}_{j=0}\bar Q_j\,\bar Y_j}\bka{\hat q_{k,t}+\hat y_{k,t}}
+\end{align*}
+所以
+\begin{align*}
+    \hat P^*_t&=\meant\sum^\infty_{k=0}\dfrac{\bar A_k\,\overline{\n{MC}}_k}{\sum\limits^{\infty}_{j=0}\bar A_j\,\overline{\n{MC}}_j}\bks{\hat q_{k,t}+\hat y_{k,t}-\meant\sum^\infty_{k=0}\dfrac{\bar Q_k\,\bar Y_k}{\sum\limits^{\infty}_{j=0}\bar Q_j\,\bar Y_j}\bka{\hat q_{k,t}+\hat y_{k,t}}+\widehat{\n{mc}}_{k,t}}\\
+    &=\meant\sum^\infty_{k=0}\dfrac{\bar A_k\,\overline{\n{MC}}_k}{\sum\limits^{\infty}_{j=0}\bar A_j\,\overline{\n{MC}}_j}\bka{\hat q_{k,t}+\hat y_{k,t}+\widehat{\n{mc}}_{k,t}}-\underbrace{\meant\sum^\infty_{k=0}\dfrac{\bar A_k\,\overline{\n{MC}}_k}{\sum\limits^{\infty}_{j=0}\bar A_j\,\overline{\n{MC}}_j}}_{= \; 1}\cdot\meant\sum^\infty_{k=0}\dfrac{\bar Q_k\,\bar Y_k}{\sum\limits^{\infty}_{j=0}\bar Q_j\,\bar Y_j}\bka{\hat q_{k,t}+\hat y_{k,t}}
+\end{align*}
+
+% \PrintChapterBibliography
+
+\SymmetricGeometry

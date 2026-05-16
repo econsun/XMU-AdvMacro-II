@@ -1,0 +1,139 @@
+% config/hyperref.tex — 超链接、PDF 书签与交叉引用
+% ===================================================
+
+% hyperref 必须在大多数包之后加载
+\usepackage{hyperref}
+\usepackage{bookmark}   % 更好的 PDF 书签，消除 rerun 警告
+\renewcommand{\UrlFont}{\TTTFont}
+
+\ifprintmode
+  \hypersetup{
+    colorlinks         = false,
+    pdfborder          = {0 0 0},
+    hypertexnames      = false,
+    bookmarksnumbered  = true,
+    bookmarksopen      = true,
+    bookmarksopenlevel = 2,
+    pdfstartview       = FitH,
+    pdftitle           = {高级宏观经济学笔记},
+    pdfauthor          = {作者},
+    pdfsubject         = {Advanced Macroeconomics},
+  }
+\else
+  \hypersetup{
+    colorlinks         = true,
+    linkcolor          = fafugreen,
+    citecolor          = fafugreen,
+    urlcolor           = fafugreen,
+    hypertexnames      = false,
+    bookmarksnumbered  = true,
+    bookmarksopen      = true,
+    bookmarksopenlevel = 2,
+    pdfstartview       = FitH,
+    pdftitle           = {高级宏观经济学笔记},
+    pdfauthor          = {作者},
+    pdfsubject         = {Advanced Macroeconomics},
+  }
+\fi
+
+% cleveref 必须在 hyperref 之后加载
+\usepackage[nameinlink]{cleveref}
+
+% ----- 数学公式编号：章-序号（如 1-1） -----
+\makeatletter
+\renewcommand{\theequation}{\thechapter-\arabic{equation}}
+\renewcommand{\theHequation}{chap.\thechapter.eq.\arabic{equation}}
+\renewcommand{\theHfigure}{chap.\thechapter.fig.\arabic{figure}}
+\renewcommand{\theHtable}{chap.\thechapter.tab.\arabic{table}}
+\makeatother
+
+% ----- cleveref 中文名称与格式 -----
+\crefformat{chapter}{第~#2#1#3~章}
+\Crefformat{chapter}{第~#2#1#3~章}
+\crefrangeformat{chapter}{第~#3#1#4~章至第~#5#2#6~章}
+
+\crefformat{section}{第~#2#1#3~节}
+\Crefformat{section}{第~#2#1#3~节}
+\crefrangeformat{section}{第~#3#1#4~节至第~#5#2#6~节}
+\crefformat{subsection}{第~#2#1#3~小节}
+\Crefformat{subsection}{第~#2#1#3~小节}
+\crefrangeformat{subsection}{第~#3#1#4~小节至第~#5#2#6~小节}
+
+\crefformat{equation}{式~(#2#1#3)}
+\Crefformat{equation}{式~(#2#1#3)}
+\crefrangeformat{equation}{式~(#3#1#4)\textendash (#5#2#6)}
+
+\crefname{figure}{图}{图}
+\Crefname{figure}{图}{图}
+
+\crefname{table}{表}{表}
+\Crefname{table}{表}{表}
+
+% ----- \ref 显示“编号 + 标题名” -----
+% 对 ch:/sec:/subsec: 前缀标签生效；其他标签保持标准 \ref 文本。
+\let\AdvMacroRawRef\ref
+\newcommand{\AdvMacroRefWithTitle}[1]{%
+  \IfBeginWith{#1}{ch:}
+    {第~\AdvMacroRawRef{#1}~章《\nameref*{#1}》}
+    {%
+      \IfBeginWith{#1}{part:}
+        {第~\AdvMacroRawRef{#1}~部分《\nameref*{#1}》}
+        {%
+      \IfBeginWith{#1}{sec:}
+        {第~\AdvMacroRawRef{#1}~节《\nameref*{#1}》}
+        {%
+          \IfBeginWith{#1}{subsec:}
+            {第~\AdvMacroRawRef{#1}~小节《\nameref*{#1}》}
+            {%
+              \IfBeginWith{#1}{fig:}
+                {图~\AdvMacroRawRef{#1}}
+                {%
+                  \IfBeginWith{#1}{tab:}
+                    {表~\AdvMacroRawRef{#1}}
+                    {%
+                      \IfBeginWith{#1}{eq:}
+                        {(\AdvMacroRawRef{#1})}
+                        {\AdvMacroRawRef{#1}}%
+                    }%
+                }%
+            }%
+        }%
+        }%
+    }%
+}
+\AtBeginDocument{%
+  \let\AdvMacroRawRef\ref
+  \let\ref\AdvMacroRefWithTitle
+}
+
+% ----- tcolorbox 定理类计数器映射 -----
+\makeatletter
+\crefalias{tcb@cnt@definitionbox}{definition}
+\crefalias{tcb@cnt@theorembox}{theorem}
+\crefalias{tcb@cnt@lemmabox}{lemma}
+\crefalias{tcb@cnt@propositionbox}{proposition}
+\crefalias{tcb@cnt@corollarybox}{corollary}
+\crefalias{tcb@cnt@assumptionbox}{assumption}
+\crefalias{tcb@cnt@examplebox}{example}
+\makeatother
+
+\crefname{definition}{定义}{定义}
+\Crefname{definition}{定义}{定义}
+
+\crefname{theorem}{定理}{定理}
+\Crefname{theorem}{定理}{定理}
+
+\crefname{lemma}{引理}{引理}
+\Crefname{lemma}{引理}{引理}
+
+\crefname{proposition}{命题}{命题}
+\Crefname{proposition}{命题}{命题}
+
+\crefname{corollary}{推论}{推论}
+\Crefname{corollary}{推论}{推论}
+
+\crefname{assumption}{假设}{假设}
+\Crefname{assumption}{假设}{假设}
+
+\crefname{example}{例}{例}
+\Crefname{example}{例}{例}

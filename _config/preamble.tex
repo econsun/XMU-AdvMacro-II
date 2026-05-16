@@ -1,0 +1,80 @@
+% _config/preamble.tex -- 主导言区（在 \documentclass 之后加载）
+% ===========================================================
+
+% ===== 数学 =====
+\usepackage{mathtools}          % 包含 amsmath
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage[warnings-off={mathtools-overbracket,mathtools-colon}]{unicode-math}
+
+% ===== 排版工具 =====
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\setlength{\cmidrulesep}{0pt}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage[bottom]{footmisc}
+\usepackage{marginnote}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{emptypage}          % twoside 空白页无页码无页眉
+\usepackage{etoolbox}
+\usepackage{xstring}
+\usepackage{xcolor}
+\usepackage{etoc}               % 局部目录
+
+
+% ===== tcolorbox =====
+\usepackage[most]{tcolorbox}
+
+% ===== 参考文献 =====
+\providecommand{\AMaNRoot}{}
+\usepackage[
+  backend    = biber,
+  style      = authoryear-comp,
+  sorting    = nyt,
+  maxbibnames= 99,
+  giveninits = true,
+  uniquename = init,
+  dashed     = false,
+  natbib     = true,
+]{biblatex}
+\IfFileExists{\AMaNRoot _asset/bib/references.bib}{%
+  \addbibresource{\AMaNRoot _asset/bib/references.bib}%
+}{}
+
+\NewDocumentCommand{\MaybeIncludeGraphics}{O{}m}{%
+  \IfFileExists{\AMaNRoot#2}{%
+    \includegraphics[#1]{\AMaNRoot#2}%
+  }{%
+    \IfFileExists{#2}{\includegraphics[#1]{#2}}{}%
+  }%
+}
+
+% ===== 加载子配置（顺序敏感）=====
+\input{_config/colors}
+\input{_config/fonts}
+\input{_config/layout}
+\input{_config/mathcmds}
+\input{_config/numbering}
+\input{_config/theorems-boxes}
+\input{_config/setting.tex}
+
+% ===== hyperref + cleveref（最后加载）=====
+\input{_config/hyperref}
+
+% ===== 条件特性 =====
+\ifshowonlyrefs
+  \mathtoolsset{showonlyrefs=true}
+\fi

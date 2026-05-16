@@ -1,0 +1,39 @@
+{
+  "empheq align environment": {
+    "prefix": "empheq",
+    "body": [
+      "\\begin{empheq}[left=\\empheqlbrace]{align}",
+      "    & \\\\ $0",
+      "\\end{empheq}"
+    ],
+    "description": "Create empheq environment with align"
+  },
+  "empheq align* environment": {
+    "prefix": "empheq*",
+    "body": [
+      "\\begin{empheq}[left=\\empheqlbrace]{align*}",
+      "    & \\\\ $0",
+      "\\end{empheq}"
+    ],
+    "description": "Create empheq environment with align*"
+  },
+  "sidemath": {
+    "prefix": "sidemath",
+    "body": [
+      "\\sidemath{\\($0\\)}"
+    ],
+    "description": "Create sidemath"
+  },
+  "underbrace clipboard": {
+    "prefix": "ub",
+    "body": [
+      "\\underbrace{${CLIPBOARD}}_{$0}"
+    ],
+    "description": "Create \\underbrace{clipboard}_{cursor}"
+  },
+  "Clipboard to ref": {
+    "prefix": "ref",
+    "body": "\\ref{${CLIPBOARD/^(?:.*\\{)?([^{}]+)(?:\\}.*)?$/$1/}}",
+    "description": "快速生成 ref"
+  }
+}

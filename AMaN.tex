@@ -1,7 +1,7 @@
 % !TeX program = xelatex
 % AMaN.tex -- full book entry
 
-\input{00_Config/switches}
+\input{_config/switches}
 
 \ifdefined\SinglePart
   \twosidemodefalse
@@ -16,7 +16,7 @@
   \expanded{\noexpand\documentclass[oneside,openany,zihao=\BaseZihao,UTF8,fontset=none]{ctexbook}}
 \fi
 
-\input{00_Config/preamble}
+\input{_config/preamble}
 
 \def\AMaNMaster{1}
 
@@ -27,23 +27,23 @@
 }
 
 \newcommand{\IncludePartOne}{%
-  \input{20_MainMatter/01_Part01/PartCover}
-  \IncludeChapter{20_MainMatter/01_Part01/Chap01}
-  \IncludeChapter{20_MainMatter/01_Part01/Chap02}
+  \input{200_MainMatter/Part01/PartCover01}
+  \IncludeChapter{200_MainMatter/Part01/Chap01}
+  \IncludeChapter{200_MainMatter/Part01/Chap02}
 }
 
 \newcommand{\IncludePartTwo}{%
-  \input{20_MainMatter/02_Part02/PartCover}
-  \IncludeChapter{20_MainMatter/02_Part02/Chap03}
-  \IncludeChapter{20_MainMatter/02_Part02/Chap04}
-  \IncludeChapter{20_MainMatter/02_Part02/Chap05}
-  \IncludeChapter{20_MainMatter/02_Part02/Chap06}
-  \IncludeChapter{20_MainMatter/02_Part02/Chap07}
+  \input{200_MainMatter/Part02/PartCover02}
+  \IncludeChapter{200_MainMatter/Part02/Chap03}
+  \IncludeChapter{200_MainMatter/Part02/Chap04}
+  \IncludeChapter{200_MainMatter/Part02/Chap05}
+  \IncludeChapter{200_MainMatter/Part02/Chap06}
+  \IncludeChapter{200_MainMatter/Part02/Chap07}
 }
 
 \newcommand{\IncludePartThree}{%
-  \input{20_MainMatter/03_Part03/PartCover}
-  \IncludeChapter{20_MainMatter/03_Part03/Chap08}
+  \input{200_MainMatter/Part03/PartCover03}
+  \IncludeChapter{200_MainMatter/Part03/Chap08}
 }
 
 \begin{document}
@@ -77,17 +77,17 @@
 
   \hypersetup{pageanchor=false}
   \pagenumbering{gobble}
-  \input{10_FrontMatter/cover}
-  \input{10_FrontMatter/attribute}
+  \input{100_FrontMatter/cover}
+  \input{100_FrontMatter/attribute}
   \hypersetup{pageanchor=true}
 
   \cleardoublepage
   \pagenumbering{roman}
   \setcounter{page}{1}
 
-  \input{10_FrontMatter/preface}
-  \input{10_FrontMatter/declaration}
-  \input{10_FrontMatter/legend}
+  \input{100_FrontMatter/preface}
+  \input{100_FrontMatter/declaration}
+  \input{100_FrontMatter/legend}
 
   \etocsettagdepth{backmatter}{chapter}
   \setlength{\parskip}{0ex plus 0.4ex minus 0.2ex}
@@ -103,9 +103,9 @@
   \SymmetricGeometry
   \etocdepthtag.toc{backmatter}
 
-  \input{90_BackMatter/changelog}
-  \input{90_BackMatter/afterword}
-  \input{90_BackMatter/acknowledgements}
+  \input{300_BackMatter/changelog}
+  \input{300_BackMatter/afterword}
+  \input{300_BackMatter/acknowledge}
 \fi\fi
 
 \end{document}

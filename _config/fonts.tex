@@ -1,0 +1,212 @@
+% config/fonts.tex — 字体配置（XeLaTeX + ctex fontset=none）
+% ==========================================================
+
+% IfFontExistsTF fallback（兼容旧版 fontspec）
+\ifdefined\IfFontExistsTF\else
+  \newcommand{\IfFontExistsTF}[3]{#3}
+\fi
+
+% \xeCJKsetup{PunctStyle=plain}
+
+% ---------- 英文正文（Palatino 风格，使用 TeX Live OTF）----------
+\setmainfont{texgyrepagella}[
+  Extension      = .otf,
+  UprightFont    = *-regular,
+  BoldFont       = *-bold,
+  ItalicFont     = *-italic,
+  BoldItalicFont = *-bolditalic,
+]
+\setsansfont{texgyreheros}[
+  Extension      = .otf,
+  UprightFont    = *-regular,
+  BoldFont       = *-bold,
+  ItalicFont     = *-italic,
+  BoldItalicFont = *-bolditalic,
+]
+\setmonofont{Menlo}
+
+% ---------- 数学字体 ----------
+\setmathfont{texgyrepagella-math.otf}
+
+% ---------- 中文正文 —— 思源字体 ----------
+\IfFileExists{\AMaNRoot _asset/fonts/SourceHanSerifSC-Regular.otf}{%
+  \setCJKmainfont{SourceHanSerifSC-Regular.otf}[
+    Path           = {\AMaNRoot _asset/fonts/},
+    BoldFont       = SourceHanSerifSC-Bold.otf,
+    ItalicFont     = SourceHanSerifSC-Regular.otf,
+    BoldItalicFont = SourceHanSerifSC-Bold.otf,
+  ]
+}{%
+  \setCJKmainfont{Source Han Serif SC}[
+    BoldFont       = Source Han Serif SC Bold,
+    ItalicFont     = Source Han Serif SC,
+    BoldItalicFont = Source Han Serif SC Bold,
+  ]
+}
+\IfFileExists{\AMaNRoot _asset/fonts/SourceHanSansSC-Regular.otf}{%
+  \setCJKsansfont{SourceHanSansSC-Regular.otf}[
+    Path     = {\AMaNRoot _asset/fonts/},
+    BoldFont = SourceHanSansSC-Bold.otf,
+  ]
+  \setCJKmonofont{SourceHanSansSC-Regular.otf}[
+    Path = {\AMaNRoot _asset/fonts/},
+  ]
+}{%
+  \setCJKsansfont{Source Han Sans SC}[
+    BoldFont = Source Han Sans SC Bold,
+  ]
+  \setCJKmonofont{Source Han Sans SC}
+}
+
+% ---------- 中文黑体 ----------
+\IfFileExists{\AMaNRoot _asset/fonts/SourceHanSansSC-Bold.otf}{%
+  \setCJKfamilyfont{zhhei}{SourceHanSansSC-Bold.otf}[
+    Path = {\AMaNRoot _asset/fonts/},
+  ]
+}{%
+  \setCJKfamilyfont{zhhei}{Source Han Sans SC Bold}
+}
+\newcommand{\heiti}{\CJKfamily{zhhei}}
+
+% ---------- 中文楷体（最小定义，供 \kaiti 使用） ----------
+\setCJKfamilyfont{zhkai}{FandolKai-Regular.otf}
+\newcommand{\kaiti}{\CJKfamily{zhkai}}
+
+% ---------- 等宽文字（与 URL 共用字号） ----------
+\newcommand{\TTTFont}{\fontsize{9.5pt}{\baselineskip}\selectfont\ttfamily}
+\DeclareRobustCommand{\ttt}[1]{{\TTTFont #1}}
+
+% ==========================================
+% 全角中文标点统一压缩
+% 仍然直接输入：（），《》，“”，，。！？：；、……
+% 编译时自动应用新的左右间距
+% 需要：XeLaTeX 或 LuaLaTeX
+% ==========================================
+
+\usepackage{newunicodechar}
+
+% ------------------------------------------
+% 统一可调参数
+% ------------------------------------------
+\newdimen\CJKPunctOuterKern   % 标点外侧压缩
+\newdimen\CJKPunctInnerKern   % 成对标点内侧压缩
+\newdimen\CJKDashKern         % 破折号两侧统一间距
+
+% 你主要调这两个值
+\CJKPunctOuterKern=-0.2em
+\CJKPunctInnerKern=+0.08em
+\CJKDashKern=-0.06em
+
+% ------------------------------------------
+% 工具宏
+% ------------------------------------------
+\makeatletter
+
+% 单体标点：左右都用 outer
+\newcommand{\CJKPunctSingle}[1]{%
+  \nobreak\hspace*{\CJKPunctInnerKern}#1\hspace*{\CJKPunctOuterKern}%
+}
+
+% 破折号单独处理，避免左右间距不对称
+\newcommand{\CJKDash}[1]{%
+  \nobreak\hspace*{\CJKDashKern}#1\hspace*{\CJKDashKern}%
+}
+
+% 左半边成对标点：外侧 outer，内侧 inner
+\newcommand{\CJKPunctOpen}[1]{%
+  \nobreak\hspace*{\CJKPunctOuterKern}#1\nobreak\hspace*{\CJKPunctInnerKern}%
+}
+
+% 右半边成对标点：内侧 inner，外侧 outer
+\newcommand{\CJKPunctClose}[1]{%
+  \nobreak\hspace*{\CJKPunctInnerKern}#1\hspace*{\CJKPunctOuterKern}%
+}
+
+% 中文省略号需要把“……”当成一个整体处理，不能把两个“…”分别加间距。
+\newcommand{\CJKEllipsisSingle}{%
+  \nobreak\hspace*{\CJKPunctInnerKern}\char"2026\hspace*{\CJKPunctOuterKern}%
+}
+\newcommand{\CJKEllipsisPairOutput}{%
+  \nobreak\hspace*{\CJKPunctInnerKern}\char"2026\char"2026\hspace*{\CJKPunctOuterKern}%
+}
+\begingroup
+\lccode`\~=`\…
+\lowercase{%
+\endgroup
+\def\CJKEllipsis{%
+  \futurelet\nexttoken\CJKEllipsisAux
+}
+\def\CJKEllipsisAux{%
+  \ifx\nexttoken~
+    \expandafter\CJKEllipsisPair
+  \else
+    \CJKEllipsisSingle
+  \fi
+}
+\def\CJKEllipsisPair~{%
+  \CJKEllipsisPairOutput
+}
+}
+
+\makeatother
+
+% ------------------------------------------
+% 成对标点：圆括号 / 方头括号 / 方括号 / 花括号
+% ------------------------------------------
+\newunicodechar{（}{\CJKPunctOpen{\char"FF08}}
+\newunicodechar{）}{\CJKPunctClose{\char"FF09}}
+
+\newunicodechar{【}{\CJKPunctOpen{\char"3010}}
+\newunicodechar{】}{\CJKPunctClose{\char"3011}}
+
+\newunicodechar{〔}{\CJKPunctOpen{\char"3014}}
+\newunicodechar{〕}{\CJKPunctClose{\char"3015}}
+
+\newunicodechar{［}{\CJKPunctOpen{\char"FF3B}}
+\newunicodechar{］}{\CJKPunctClose{\char"FF3D}}
+
+\newunicodechar{｛}{\CJKPunctOpen{\char"FF5B}}
+\newunicodechar{｝}{\CJKPunctClose{\char"FF5D}}
+
+% ------------------------------------------
+% 成对标点：书名号 / 尖括号
+% ------------------------------------------
+\newunicodechar{《}{\CJKPunctOpen{\char"300A}}
+\newunicodechar{》}{\CJKPunctClose{\char"300B}}
+
+\newunicodechar{〈}{\CJKPunctOpen{\char"3008}}
+\newunicodechar{〉}{\CJKPunctClose{\char"3009}}
+
+% ------------------------------------------
+% 成对标点：中文引号
+% ------------------------------------------
+\newunicodechar{「}{\CJKPunctOpen{\char"300C}}
+\newunicodechar{」}{\CJKPunctClose{\char"300D}}
+
+\newunicodechar{『}{\CJKPunctOpen{\char"300E}}
+\newunicodechar{』}{\CJKPunctClose{\char"300F}}
+
+\newunicodechar{“}{\CJKPunctOpen{\char"201C}}
+\newunicodechar{”}{\CJKPunctClose{\char"201D}}
+
+\newunicodechar{‘}{\CJKPunctOpen{\char"2018}}
+\newunicodechar{’}{\CJKPunctClose{\char"2019}}
+
+% ------------------------------------------
+% 单体标点：顿号、逗号、句号、分号、冒号、问号、叹号、省略号
+% ------------------------------------------
+\newunicodechar{、}{\CJKPunctSingle{\char"3001}}
+\newunicodechar{，}{\CJKPunctSingle{\char"FF0C}}
+\newunicodechar{。}{\CJKPunctSingle{\char"3002}}
+\newunicodechar{；}{\CJKPunctSingle{\char"FF1B}}
+\newunicodechar{：}{\CJKPunctSingle{\char"FF1A}}
+\newunicodechar{？}{\CJKPunctSingle{\char"FF1F}}
+\newunicodechar{！}{\CJKPunctSingle{\char"FF01}}
+\newunicodechar{…}{\CJKEllipsis}
+
+% ------------------------------------------
+% 可选：连接号 / 破折号
+% 这一类视觉差异较大，先给统一版本
+% ------------------------------------------
+\newunicodechar{—}{\CJKDash{\char"2014}}
+\newunicodechar{～}{\CJKPunctSingle{\char"FF5E}}
