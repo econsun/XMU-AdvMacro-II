@@ -84,7 +84,7 @@
     \underbrace{y^c\nt+a\,y^c_t}_{=\,0} \ + \ \underbrace{y^p\nt+a\,y^p_t}_{=\,C}&=C
 \end{align}
 
-求解齐次方程我们使用 “特征方程法”，关于这个方法的细节，在本讲附录 \ref{sec:CharEquMethod} 中展开。猜测齐次解的形式为 \(y_t^c=A\,\lambda^{-t}\)，将其代入齐次方程
+求解齐次方程我们使用 “特征方程法”，关于这个方法的细节，在本讲附录\ref{sec:CharEquMethod} 中展开。猜测齐次解的形式为 \(y_t^c=A\,\lambda^{-t}\)，将其代入齐次方程
 \begin{equation}
     y\nt+a\,y_t=0
 \end{equation}
@@ -95,7 +95,7 @@
 \end{align}
 解得特征值 \(\lambda=-1/a\)，齐次解为 \(y_t^c=A\bka{-a}^{t}\)。
 
-求解特解仍然需要进行猜测。观察差分方程的形式，不难发现 \(\bkd{y_t}\) 是线性增长的，根据 \ref{subsec:DiffProp} 所提供的常见差分，只有 \(k\) 和 \(k\,t\) 的差分结果是常数，满足差分方程形式。我们猜测特解的形式为 \(y_t^p=k\)，将其代入差分方程 \ref{eq:DiffEqu} 得
+求解特解仍然需要进行猜测。观察差分方程的形式，不难发现 \(\bkd{y_t}\) 是线性增长的，根据\ref{subsec:DiffProp} 所提供的常见差分，只有 \(k\) 和 \(k\,t\) 的差分结果是常数，满足差分方程形式。我们猜测特解的形式为 \(y_t^p=k\)，将其代入差分方程 \ref{eq:DiffEqu} 得
 \begin{align}
     k + a\,k&=C\\
     y_t^p=k&=\frac C{1+a}
@@ -147,7 +147,7 @@
 
 讨论一个问题：{\kaiti 为什么要对变量取对数？} 可能的原因如下
 \begin{itemize}
-    \item 许多经济数据遵循\,\xmured{复合增长}（compound growth），取对数才满足线性差分方程形式\sidenote{详见附录 \ref{sec:CompGrow}}
+    \item 许多经济数据遵循\,\xmured{复合增长}（compound growth），取对数才满足线性差分方程形式\sidenote{详见附录\ref{sec:CompGrow}}
     \item 对数变量的差具有良好的经济含义，并且可比较。例如大国和小国 GDP 的绝对增长量没有比较的意义，但它们的增长率却可以比较
     \item 通过取对数缩小数据的量级，避免数据过大而在数值计算中的溢出问题
 \end{itemize}
@@ -194,7 +194,7 @@
 
 \noxmubluebf{方法一：求出通解}
 
-既然我们要判断经济变量 \(y_t\) 的稳定性，那么使用其表达式毫无疑问是最直白的判断方法。我们在 \ref{sec:DiffEquBasicSoln} 已经求解出该差分方程的通解
+既然我们要判断经济变量 \(y_t\) 的稳定性，那么使用其表达式毫无疑问是最直白的判断方法。我们在\ref{sec:DiffEquBasicSoln} 已经求解出该差分方程的通解
 \begin{equation}
     y_t=\begin{cases}
         \ A\,b^{t}+\dfrac C{1-b} & b\neq 1\\
@@ -330,7 +330,7 @@
     \item 当 \(\Delta=0\) 时，\(\bkf{\lambda_{1,2}}<1\)
     \item 当 \(\Delta<0\) 时，\(\rho<1\)（经计算得 \(\rho=\dsq{a_2}\)）
 \end{itemize}
-我们在 \ref{subsec:HDiffEqu} 中，我们把高阶线性差分系统转成由多个差分方程组成的一阶线性差分系统，可见无论几阶，线性差分系统的稳定性条件是相似的。这为我们的结论提供直觉，具体的证明略去。
+我们在\ref{subsec:HDiffEqu} 中，我们把高阶线性差分系统转成由多个差分方程组成的一阶线性差分系统，可见无论几阶，线性差分系统的稳定性条件是相似的。这为我们的结论提供直觉，具体的证明略去。
 
 \noxmubluebf{深入稳定性}
 
@@ -346,8 +346,8 @@
 \end{align*}
 根据线性代数的知识，该特征方程的一次项系数为矩阵 \(\bsA\) 的迹，常数项为矩阵 \(\bsA\) 的行列式。具体来说\sidenote{本笔记的 \sidemath{\(\bsA\)} 定义和课堂上的不同，相当于课堂上的 \sidemath{\(-\bsA\)}，所以计算出行列式相同但迹的符号相反}
 \begin{align*}
-    &T\coloneq \n{trace}\bka{\bsA}=\lambda_1+\lambda_2=a_1\\
-    &D\coloneq \n{det}\bka{\bsA}=\lambda_1\,\lambda_2=a_2
+    &T\coloneq \tr\bka{\bsA}=\lambda_1+\lambda_2=a_1\\
+    &D\coloneq \det\bka{\bsA}=\lambda_1\,\lambda_2=a_2
 \end{align*}
 
 接下来，我们在不计算特征值的情况下，仅利用 \(T\) 和 \(D\) 对稳定性进行分析。对 \(\bka{T,D}\) 平面进行划分，划分依据有：
@@ -513,7 +513,7 @@
     \label{fig:TDStabilityMap}
 \end{figure}
 
-% 从上小节 \ref{subsec:FDiffSysStable} 我们看出，一个系统是否稳定，只关系到齐次方程中的参数。故我们依 \ref{eq:DiffEquMatrix} 写出高阶差分系统的齐次方程组
+% 从上小节\ref{subsec:FDiffSysStable} 我们看出，一个系统是否稳定，只关系到齐次方程中的参数。故我们依 \ref{eq:DiffEquMatrix} 写出高阶差分系统的齐次方程组
 % \begin{equation}
 %     \bsX\nt+\bsA\,\bsX_t=\bs 0 \label{eq:DiffEquMatrixHom}
 % \end{equation}
@@ -557,6 +557,7 @@
     \end{tabular}
     \caption{奇点类型与稳定性的判定表}
     \label{tab:SingularityClassification}
+    \renewcommand{\arraystretch}{0}
 \end{table}
 
 \ref{fig:Sing} 以微分系统为例（因为差分系统是离散的，不便展示），汇总了各种稳定和不稳定奇点类型的图像 —— 红色曲线是序列随时间运动的轨线，灰色箭头是系统在每个位置的运动方向。

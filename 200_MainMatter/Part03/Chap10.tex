@@ -1,17 +1,15 @@
-% !TeX root = Part03.tex
+% !TeX root = Chap10.tex
 % !TeX program = xelatex
-% 200_MainMatter/Part03/Part03.tex -- Part 03 entry
 
 \let\AMaNStandaloneEntry\relax
-\ifdefined\AMaNMaster
-  \AMaNIncludePart{3}
-\else
+\ifdefined\AMaNMaster\else
   \makeatletter
   \def\input@path{{../../}}
   \def\AMaNRoot{../../}
   \makeatother
 
-  \def\SinglePart{3}
+  \def\SingleChapter{200_MainMatter/Part03/Chap10}
+  \def\SingleChapterNumber{10}
   \def\AMaNStandaloneEntry{%
     \InputIfFileExists{../../AMaN_Private.tex}{}{%
       \input{../../AMaN_Public.tex}%
@@ -20,3 +18,13 @@
   }%
 \fi
 \AMaNStandaloneEntry
+
+% 200_MainMatter/Part03/Chap10.tex -- Chapter 10
+
+\ChapterGeometry
+
+\chapter{NK 模型：相机抉择}\label{ch:10}
+
+% \PrintChapterBibliography
+
+\SymmetricGeometry

@@ -8,7 +8,7 @@
 AMaN_Private.tex   完整版主文件；存在时 Makefile 优先使用它
 AMaN_Public.tex    公开版主文件；仅在 AMaN_Private.tex 不存在时作为 fallback
 AMaN_Two.tex       双面版主文件，会自动选择 AMaN_Private.tex 或 AMaN_Public.tex
-Makefile           批量构建入口，负责生成 full、part、chapter 正式 PDF
+Makefile           批量构建入口，会自动发现 full、part、chapter 正式 PDF
 
 _asset/
   bib/             BibLaTeX 参考文献数据库
@@ -16,22 +16,24 @@ _asset/
   fonts/           仓库内置思源宋体、思源黑体及对应 OFL 许可证
   scripts/         辅助生成图形或数值结果的脚本
 
-_config/           导言区拆分配置：字体、版式、编号、颜色、超链接、定理盒等
+_config/           导言区拆分配置；build-structure.tex 由 Makefile 自动生成
 100_FrontMatter/   封面、献词、前言、说明、凡例
-200_MainMatter/    正文内容，按 Part01、Part02、Part03 排列
+200_MainMatter/    正文内容，按 Partxx/Chapxx 自动发现
 300_BackMatter/    日志、后记、致谢、附录等后置内容
 900_PDF/           正式 PDF 输出目录
 ```
 
-`200_MainMatter/Partxx/` 中同时有 Part 汇总文件和章节文件：
+`200_MainMatter/Partxx/` 中可以同时有 Part 入口、Part 封面和章节文件：
 
 ```text
 200_MainMatter/Part02/Part02.tex   Part 02 汇总入口
-200_MainMatter/Part02/Chap04.tex   Chapter 04 正文与独立编译入口
+200_MainMatter/Part02/Chap04.tex   Chapter 04 正文
 200_MainMatter/Part02/PartCover02.tex  Part 02 封面内容，不单独编译
 ```
 
-每个 `Chapxx.tex` 和 `Partxx.tex` 都可以直接作为 LaTeX Workshop 的当前项目编译。它们会先声明自己对应的 `SingleChapter` 或 `SinglePart`，再输入根目录主文件：优先使用 `AMaN_Private.tex`，不存在时回退到 `AMaN_Public.tex`。
+批量构建以 `Makefile` 的自动发现为准：新增 `200_MainMatter/Part04/Chap11.tex` 后，`make chapters` 会自动加入 `AMaN_Chap11.pdf`，`make parts` 会自动加入 `AMaN_Part04.pdf`。如果 `Part04.tex` 不存在，`make` 会生成一个入口文件；如果存在 `PartCover04.tex`，它会被自动纳入 Part 04。
+
+已有 `Chapxx.tex` 和 `Partxx.tex` 仍可作为 LaTeX Workshop 的当前项目编译。新章节如果只写正文、不写独立编译头，也可以直接用 `make chapxx` 构建。
 
 ## 构建环境
 
@@ -56,14 +58,23 @@ make all
 
 ```bash
 make full      # AMaN_One.pdf 和 AMaN_Two.pdf
-make parts     # AMaN_Part01.pdf 到 AMaN_Part03.pdf
-make chapters  # AMaN_Chap01.pdf 到 AMaN_Chap08.pdf
+make parts     # 自动发现所有 Partxx
+make chapters  # 自动发现所有 Chapxx
 make chap03    # 单独构建 Chapter 03
+make part03    # 单独构建 Part 03
+make list      # 列出当前发现的 Part 和 Chapter
 make clean     # 清理 LaTeX 辅助文件
 make distclean # 清理辅助文件和生成的 PDF
 ```
 
-`Makefile` 是正式 PDF 的批量产出入口。它会直接编译根目录主文件、`200_MainMatter/Partxx/Partxx.tex` 和 `200_MainMatter/Partxx/Chapxx.tex`，并在临时目录中运行 `latexmk`，最后只把 PDF 复制到 `900_PDF/`。`make` 不负责保留 `.aux` 或 SyncTeX；需要 `.aux`、`.synctex.gz` 和本地预览 PDF 时，直接在 `200_MainMatter/` 中用 LaTeX Workshop Build。
+`Makefile` 是正式 PDF 的批量产出入口。它会先刷新 `_config/build-structure.tex`，必要时创建缺失的 `Partxx.tex`，再在临时目录中运行 `latexmk`，最后只把 PDF 复制到 `900_PDF/`。`make` 不负责保留 `.aux` 或 SyncTeX；需要 `.aux`、`.synctex.gz` 和本地预览 PDF 时，直接在 `200_MainMatter/` 中用 LaTeX Workshop Build。
+
+备份默认不随 `make all` 执行。需要备份时显式传入目标目录：
+
+```bash
+make backup BACKUP_DESTINATION="/path/to/backup"
+make all BACKUP=1 BACKUP_DESTINATION="/path/to/backup"
+```
 
 ## PDF 输出
 
@@ -74,10 +85,10 @@ make distclean # 清理辅助文件和生成的 PDF
 900_PDF/01_Full/AMaN_Two.pdf
 900_PDF/02_Parts/AMaN_Part01.pdf
 900_PDF/02_Parts/AMaN_Part02.pdf
-900_PDF/02_Parts/AMaN_Part03.pdf
+...
 900_PDF/03_Chapters/AMaN_Chap01.pdf
 ...
-900_PDF/03_Chapters/AMaN_Chap08.pdf
+900_PDF/03_Chapters/AMaN_Chap10.pdf
 ```
 
 命名规则为 `AMaN_One`、`AMaN_Two`、`AMaN_Partxx`、`AMaN_Chapxx`。目录用数字前缀保持排序：full 在 part 上方，part 在 chapter 上方。

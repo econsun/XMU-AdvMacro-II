@@ -27,20 +27,20 @@
 
 % 什么是数值求解：通过迭代找到路径
 
-在 \ref{sec:SolveRBC}，我们会用比较简单的形式
+在\ref{sec:SolveRBC}，我们会用比较简单的形式
 \begin{equation}
     \begin{cases}
         \ \hat k_t=V_{kk}\,\hat k\lt+V_{kz}\,\hat z_t\\
         \ \hat c_t=V_{ck}\,\hat k\lt+V_{cz}\,\hat z_t
     \end{cases}
 \end{equation}
-替代相比下略微复杂的对数线性化结果，来近似描述资本存量和消费的动态路径。通过待定系数法，我们可以轻松求解迭代系数 \(V_{kk}\)、\(V_{kz}\)、\(V_{ck}\) 和 \(V_{cz}\)，虽然他们的表达式看起来不简单；迭代系数帮助我们在 \ref{sec:IRF}分析技术脉冲对经济体的影响，校准和模拟为此做好了准备。\ref{sec:Comparative}和 \ref{sec:Saddle}会沿用我们辛苦计算出的结果，共同构成完整的 RBC 模型分析。
+替代相比下略微复杂的对数线性化结果，来近似描述资本存量和消费的动态路径。通过待定系数法，我们可以轻松求解迭代系数 \(V_{kk}\)、\(V_{kz}\)、\(V_{ck}\) 和 \(V_{cz}\)，虽然他们的表达式看起来不简单；迭代系数帮助我们在\ref{sec:IRF}分析技术脉冲对经济体的影响，校准和模拟为此做好了准备。\ref{sec:Comparative}和\ref{sec:Saddle}会沿用我们辛苦计算出的结果，共同构成完整的 RBC 模型分析。
 
 % 待完成：Vkk 其实就是差分系统的稳定根
 
 \section{RBC 模型的求解}\label{sec:SolveRBC}
 
-在 \ref{ch:03}中，我们已经实现了 RBC 模型的对数线性化
+在\ref{ch:03}中，我们已经实现了 RBC 模型的对数线性化
 \begin{empheq}[left=\empheqlbrace]{align}
         & \ \hat k_t=\dfrac1\beta\,\hat k\lt+\dfracb{Y}{K}\,\hat z_t-\dfracb{C}{K}\,\hat c_t\label{eq:logline1}\\
         & \ \sigma\,\hat c_t=\sigma\,\meant\,\hat c\nt+\tilde\delta\bka{1-\alpha}\hat k_t-\tilde\delta\,\meant\,\hat z\nt\label{eq:logline2}\\
@@ -131,6 +131,7 @@
     \end{tabularx}
     \caption{RBC 模型参数设定}
     \label{tab:params}
+    \renewcommand{\arraystretch}{0}
 \end{table}
 
 根据以上设定，计算得
@@ -228,7 +229,7 @@
     \item \(V_{kz}\) 上升：既然消费少吸收一部分冲击，更多资源就会转化为投资和资本积累，因此资本对技术冲击的反应增强。
 \end{itemize}
 
-我们在 \ref{sec:CRRA} 中已经说明过 \(\sigma\) 上升会引起消费的增长率 \(g_{C,t}\) 下降。这里进一步看到：\(\sigma\) 上升后 \(V_{ck}\) 和 \(V_{cz}\) 下降，那么消费会较快回到稳态水平，然后以较低 \(g_{C,t}\) 增长率保持平稳。
+我们在\ref{sec:CRRA} 中已经说明过 \(\sigma\) 上升会引起消费的增长率 \(g_{C,t}\) 下降。这里进一步看到：\(\sigma\) 上升后 \(V_{ck}\) 和 \(V_{cz}\) 下降，那么消费会较快回到稳态水平，然后以较低 \(g_{C,t}\) 增长率保持平稳。
 
 \subsection{δ 变动的影响}\label{sec:CompaDelta}
 

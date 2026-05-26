@@ -4,75 +4,155 @@ SHELL := /bin/bash
 ROOT := $(CURDIR)
 LATEXMK ?= latexmk
 VERBOSE ?= 0
+PROJECT_CODE ?= AMaN
+PDF_PREFIX ?= $(PROJECT_CODE)
+BUILD_TITLE ?= $(PROJECT_CODE) LaTeX Build
+BACKUP ?= 0
+BACKUP_DESTINATION ?=
 
 CONFIG_DIR := _config
 FRONT_DIR := 100_FrontMatter
 MAIN_DIR := 200_MainMatter
 BACK_DIR := 300_BackMatter
 PDF_DIR := 900_PDF
-PRIVATE_BOOK_TEX := AMaN_Private.tex
-PUBLIC_BOOK_TEX := AMaN_Public.tex
-TWOSIDE_BOOK_TEX := AMaN_Two.tex
+BUILD_DIR := .latex-build
+GENERATED_ENTRY_DIR := $(BUILD_DIR)/entries
+STRUCTURE_TEX := $(CONFIG_DIR)/build-structure.tex
+BACKUP_PDFS := _asset/tools/backup_pdfs.py
+PRIVATE_BOOK_TEX ?= $(PROJECT_CODE)_Private.tex
+PUBLIC_BOOK_TEX ?= $(PROJECT_CODE)_Public.tex
+TWOSIDE_BOOK_TEX ?= $(PROJECT_CODE)_Two.tex
 
-ONE_PDF := $(PDF_DIR)/01_Full/AMaN_One.pdf
+ONE_PDF := $(PDF_DIR)/01_Full/$(PDF_PREFIX)_One.pdf
 
 TWO_TEX := $(TWOSIDE_BOOK_TEX)
-TWO_PDF := $(PDF_DIR)/01_Full/AMaN_Two.pdf
+TWO_PDF := $(PDF_DIR)/01_Full/$(PDF_PREFIX)_Two.pdf
 
 FULL_PDF := $(ONE_PDF) $(TWO_PDF)
 
-PART01_TEX := $(MAIN_DIR)/Part01/Part01.tex
-PART02_TEX := $(MAIN_DIR)/Part02/Part02.tex
-PART03_TEX := $(MAIN_DIR)/Part03/Part03.tex
-PART_TEX := $(PART01_TEX) $(PART02_TEX) $(PART03_TEX)
+PART_DIRS := $(sort $(wildcard $(MAIN_DIR)/Part[0-9][0-9]))
+CHAP_TEX := $(sort $(wildcard $(MAIN_DIR)/Part[0-9][0-9]/Chap[0-9][0-9].tex))
 
-PART01_PDF := $(PDF_DIR)/02_Parts/AMaN_Part01.pdf
-PART02_PDF := $(PDF_DIR)/02_Parts/AMaN_Part02.pdf
-PART03_PDF := $(PDF_DIR)/02_Parts/AMaN_Part03.pdf
-PART_PDF := $(PART01_PDF) $(PART02_PDF) $(PART03_PDF)
+PART_IDS := $(patsubst Part%,%,$(notdir $(PART_DIRS)))
+PART_TEX := $(foreach id,$(PART_IDS),$(MAIN_DIR)/Part$(id)/Part$(id).tex)
 
-CHAP01_TEX := $(MAIN_DIR)/Part01/Chap01.tex
-CHAP02_TEX := $(MAIN_DIR)/Part01/Chap02.tex
-CHAP03_TEX := $(MAIN_DIR)/Part02/Chap03.tex
-CHAP04_TEX := $(MAIN_DIR)/Part02/Chap04.tex
-CHAP05_TEX := $(MAIN_DIR)/Part02/Chap05.tex
-CHAP06_TEX := $(MAIN_DIR)/Part02/Chap06.tex
-CHAP07_TEX := $(MAIN_DIR)/Part02/Chap07.tex
-CHAP08_TEX := $(MAIN_DIR)/Part03/Chap08.tex
-CHAP_TEX := $(CHAP01_TEX) $(CHAP02_TEX) $(CHAP03_TEX) $(CHAP04_TEX) \
-            $(CHAP05_TEX) $(CHAP06_TEX) $(CHAP07_TEX) $(CHAP08_TEX)
-
-CHAP01_PDF := $(PDF_DIR)/03_Chapters/AMaN_Chap01.pdf
-CHAP02_PDF := $(PDF_DIR)/03_Chapters/AMaN_Chap02.pdf
-CHAP03_PDF := $(PDF_DIR)/03_Chapters/AMaN_Chap03.pdf
-CHAP04_PDF := $(PDF_DIR)/03_Chapters/AMaN_Chap04.pdf
-CHAP05_PDF := $(PDF_DIR)/03_Chapters/AMaN_Chap05.pdf
-CHAP06_PDF := $(PDF_DIR)/03_Chapters/AMaN_Chap06.pdf
-CHAP07_PDF := $(PDF_DIR)/03_Chapters/AMaN_Chap07.pdf
-CHAP08_PDF := $(PDF_DIR)/03_Chapters/AMaN_Chap08.pdf
-CHAP_PDF := $(CHAP01_PDF) $(CHAP02_PDF) $(CHAP03_PDF) $(CHAP04_PDF) \
-            $(CHAP05_PDF) $(CHAP06_PDF) $(CHAP07_PDF) $(CHAP08_PDF)
+PART_PDF := $(foreach tex,$(PART_TEX),$(PDF_DIR)/02_Parts/$(PDF_PREFIX)_$(basename $(notdir $(tex))).pdf)
+CHAP_PDF := $(foreach tex,$(CHAP_TEX),$(PDF_DIR)/03_Chapters/$(PDF_PREFIX)_$(basename $(notdir $(tex))).pdf)
 
 ALL_PDF := $(FULL_PDF) $(PART_PDF) $(CHAP_PDF)
-LEGACY_ROOT_PDF := advmacro-one.pdf advmacro-two.pdf advmacro.pdf \
+LEGACY_ROOT_PDF := $(notdir $(ALL_PDF)) \
+                   advmacro-one.pdf advmacro-two.pdf advmacro.pdf \
                    advmacro-part01.pdf advmacro-part02.pdf advmacro-part03.pdf \
                    advmacro-chap01.pdf advmacro-chap02.pdf advmacro-chap03.pdf advmacro-chap04.pdf \
                    advmacro-chap05.pdf advmacro-chap06.pdf advmacro-chap07.pdf advmacro-chap08.pdf \
+                   advmacro-chap09.pdf advmacro-chap10.pdf \
                    AMaN_One.pdf AMaN_Two.pdf AMaN_Part01.pdf AMaN_Part02.pdf AMaN_Part03.pdf \
                    AMaN_Chap01.pdf AMaN_Chap02.pdf AMaN_Chap03.pdf AMaN_Chap04.pdf \
-                   AMaN_Chap05.pdf AMaN_Chap06.pdf AMaN_Chap07.pdf AMaN_Chap08.pdf
+                   AMaN_Chap05.pdf AMaN_Chap06.pdf AMaN_Chap07.pdf AMaN_Chap08.pdf \
+                   AMaN_Chap09.pdf AMaN_Chap10.pdf
 
-.PHONY: all full one two parts chapters clean distclean __build_pdf \
-        $(ALL_PDF) \
-        part01 part02 part03 \
-        chap01 chap02 chap03 chap04 chap05 chap06 chap07 chap08
+.PHONY: all full one two parts chapters clean distclean refresh-structure list backup __build_pdf FORCE
+
+FORCE:
+
+define refresh_structure
+	@set -euo pipefail; \
+	cd "$(ROOT)"; \
+	mkdir -p "$(CONFIG_DIR)"; \
+	find "$(MAIN_DIR)" -mindepth 1 -maxdepth 1 -type d -name 'Part[0-9][0-9]' | sort | while IFS= read -r part_dir; do \
+	  part_base="$$(basename "$$part_dir")"; \
+	  part_id="$${part_base#Part}"; \
+	  part_num=$$((10#$$part_id)); \
+	  part_tex="$$part_dir/Part$$part_id.tex"; \
+	  if [ ! -f "$$part_tex" ]; then \
+	    { \
+	      printf '%% !TeX root = Part%s.tex\n' "$$part_id"; \
+	      printf '%% !TeX program = xelatex\n'; \
+	      printf '%% %s -- auto-generated Part %s entry\n\n' "$$part_tex" "$$part_id"; \
+	      printf '\\let\\AMaNStandaloneEntry\\relax\n'; \
+	      printf '\\ifdefined\\AMaNMaster\n'; \
+	      printf '  \\AMaNIncludePart{%s}\n' "$$part_num"; \
+	      printf '\\else\n'; \
+	      printf '  \\makeatletter\n'; \
+	      printf '  \\def\\input@path{{../../}}\n'; \
+	      printf '  \\def\\AMaNRoot{../../}\n'; \
+	      printf '  \\makeatother\n\n'; \
+	      printf '  \\def\\SinglePart{%s}\n' "$$part_num"; \
+	      printf '  \\def\\AMaNStandaloneEntry{%%\n'; \
+	      printf '    \\InputIfFileExists{../../%s}{}{%%\n' "$(PRIVATE_BOOK_TEX)"; \
+	      printf '      \\input{../../%s}%%\n' "$(PUBLIC_BOOK_TEX)"; \
+	      printf '    }%%\n'; \
+	      printf '    \\endinput\n'; \
+	      printf '  }%%\n'; \
+	      printf '\\fi\n'; \
+	      printf '\\AMaNStandaloneEntry\n'; \
+	    } > "$$part_tex"; \
+	  fi; \
+	done; \
+	tmp="$$(mktemp "$(CONFIG_DIR)/build-structure.XXXXXX")"; \
+	trap 'rm -f "$$tmp"' EXIT; \
+	{ \
+	  printf '%% Generated by Makefile refresh-structure. Do not edit by hand.\n'; \
+	  printf '%% It is derived from %s/Partxx and %s/Partxx/Chapxx files.\n\n' "$(MAIN_DIR)" "$(MAIN_DIR)"; \
+	  printf '\\newcommand{\\AMaNIncludeAllParts}{%%\n'; \
+	  find "$(MAIN_DIR)" -mindepth 2 -maxdepth 2 -type f -name 'Part[0-9][0-9].tex' | sort | while IFS= read -r part_tex; do \
+	    printf '  \\input{%s}%%\n' "$$part_tex"; \
+	  done; \
+	  printf '}%%\n\n'; \
+	  printf '\\newcommand{\\AMaNIncludeSinglePart}[1]{%%\n'; \
+	  find "$(MAIN_DIR)" -mindepth 2 -maxdepth 2 -type f -name 'Part[0-9][0-9].tex' | sort | while IFS= read -r part_tex; do \
+	    part_dir="$$(dirname "$$part_tex")"; \
+	    part_base="$$(basename "$${part_tex%.tex}")"; \
+	    part_id="$${part_base#Part}"; \
+	    part_num=$$((10#$$part_id)); \
+	    part_before=$$((part_num - 1)); \
+	    chapter_before=0; \
+	    first_chap="$$(find "$$part_dir" -maxdepth 1 -type f -name 'Chap[0-9][0-9].tex' | sort | head -n 1)"; \
+	    if [ -n "$$first_chap" ]; then \
+	      chap_base="$$(basename "$${first_chap%.tex}")"; \
+	      chap_id="$${chap_base#Chap}"; \
+	      chapter_before=$$((10#$$chap_id - 1)); \
+	    fi; \
+	    printf '  \\ifnum#1=%s\\relax\n' "$$part_num"; \
+	    printf '    \\setcounter{part}{%s}%%\n' "$$part_before"; \
+	    printf '    \\setcounter{chapter}{%s}%%\n' "$$chapter_before"; \
+	    printf '    \\input{%s}%%\n' "$$part_tex"; \
+	    printf '  \\fi\n'; \
+	  done; \
+	  printf '}%%\n\n'; \
+	  printf '\\newcommand{\\AMaNIncludePart}[1]{%%\n'; \
+	  find "$(MAIN_DIR)" -mindepth 2 -maxdepth 2 -type f -name 'Part[0-9][0-9].tex' | sort | while IFS= read -r part_tex; do \
+	    part_dir="$$(dirname "$$part_tex")"; \
+	    part_base="$$(basename "$${part_tex%.tex}")"; \
+	    part_id="$${part_base#Part}"; \
+	    part_num=$$((10#$$part_id)); \
+	    cover_tex="$$part_dir/PartCover$$part_id.tex"; \
+	    printf '  \\ifnum#1=%s\\relax\n' "$$part_num"; \
+	    if [ -f "$$cover_tex" ]; then \
+	      printf '    \\input{%s}%%\n' "$$cover_tex"; \
+	    fi; \
+	    find "$$part_dir" -maxdepth 1 -type f -name 'Chap[0-9][0-9].tex' | sort | while IFS= read -r chap_tex; do \
+	      printf '    \\IncludeChapter{%s}%%\n' "$${chap_tex%.tex}"; \
+	    done; \
+	    printf '  \\fi\n'; \
+	  done; \
+	  printf '}%%\n'; \
+	} > "$$tmp"; \
+	if [ -f "$(STRUCTURE_TEX)" ] && cmp -s "$$tmp" "$(STRUCTURE_TEX)"; then \
+	  rm -f "$$tmp"; \
+	else \
+	  mv "$$tmp" "$(STRUCTURE_TEX)"; \
+	fi; \
+	trap - EXIT
+endef
 
 define run_targets
+	@"$(MAKE)" --no-print-directory --silent refresh-structure
 	@set -uo pipefail; \
 	target_name="$(1)"; \
 	items="$(2)"; \
 	if [ -z "$$items" ]; then \
-	  printf '\nAMaN LaTeX Build\n'; \
+	  printf '\n%s\n' "$(BUILD_TITLE)"; \
 	  printf 'Result : FAILED\n'; \
 	  printf 'Reason : no build target was resolved\n\n'; \
 	  exit 2; \
@@ -84,7 +164,7 @@ define run_targets
 	  book_label="Public"; \
 	  book_file="$(PUBLIC_BOOK_TEX)"; \
 	else \
-	  printf '\nAMaN LaTeX Build\n'; \
+	  printf '\n%s\n' "$(BUILD_TITLE)"; \
 	  printf '%s\n' '=============================='; \
 	  printf 'Result : FAILED\n'; \
 	  printf 'Reason : missing %s or %s\n\n' "$(PRIVATE_BOOK_TEX)" "$(PUBLIC_BOOK_TEX)"; \
@@ -103,7 +183,7 @@ define run_targets
 	number_width="$${#item_total}"; \
 	if [ "$$number_width" -lt 2 ]; then number_width=2; fi; \
 	output_rule="$$(printf '%*s' "$$output_width" '' | tr ' ' '-')"; \
-	printf '\nAMaN LaTeX Build\n'; \
+	printf '\n%s\n' "$(BUILD_TITLE)"; \
 	printf '%s\n' '================================================================'; \
 	printf 'Target   : %s\n' "$$target_name"; \
 	printf 'Items    : %s\n' "$$item_total"; \
@@ -153,8 +233,30 @@ define run_targets
 	exit "$$status"
 endef
 
+refresh-structure:
+	$(refresh_structure)
+
+list: refresh-structure
+	@printf 'Parts (%s)\n' "$(words $(PART_TEX))"; \
+	for tex in $(PART_TEX); do printf '  %s\n' "$$tex"; done; \
+	printf '\nChapters (%s)\n' "$(words $(CHAP_TEX))"; \
+	for tex in $(CHAP_TEX); do printf '  %s\n' "$$tex"; done
+
+backup:
+	@set -euo pipefail; \
+	if [ ! -f "$(BACKUP_PDFS)" ]; then \
+	  printf 'Missing backup script: %s\n' "$(BACKUP_PDFS)"; \
+	  exit 2; \
+	fi; \
+	args=(--prefix "$(PDF_PREFIX)"); \
+	if [ -n "$(BACKUP_DESTINATION)" ]; then \
+	  args+=(--destination "$(BACKUP_DESTINATION)"); \
+	fi; \
+	PDF_PREFIX="$(PDF_PREFIX)" python3 "$(BACKUP_PDFS)" "$${args[@]}"
+
 all:
 	$(call run_targets,all,$(ALL_PDF))
+	@if [ "$(BACKUP)" = "1" ]; then "$(MAKE)" --no-print-directory --silent backup; fi
 
 full:
 	$(call run_targets,full,$(FULL_PDF))
@@ -171,40 +273,25 @@ parts:
 chapters:
 	$(call run_targets,chapters,$(CHAP_PDF))
 
-part01:
-	$(call run_targets,part01,$(PART01_PDF))
+part%:
+	@set -euo pipefail; \
+	id="$*"; \
+	if [[ "$$id" =~ ^[0-9]+$$ ]]; then id="$$(printf '%02d' "$$((10#$$id))")"; fi; \
+	"$(MAKE)" --no-print-directory "$(PDF_DIR)/02_Parts/$(PDF_PREFIX)_Part$$id.pdf"
 
-part02:
-	$(call run_targets,part02,$(PART02_PDF))
+chap%:
+	@set -euo pipefail; \
+	id="$*"; \
+	if [[ "$$id" =~ ^[0-9]+$$ ]]; then id="$$(printf '%02d' "$$((10#$$id))")"; fi; \
+	"$(MAKE)" --no-print-directory "$(PDF_DIR)/03_Chapters/$(PDF_PREFIX)_Chap$$id.pdf"
 
-part03:
-	$(call run_targets,part03,$(PART03_PDF))
+$(ONE_PDF) $(TWO_PDF): FORCE
+	$(call run_targets,$@,$@)
 
-chap01:
-	$(call run_targets,chap01,$(CHAP01_PDF))
+$(PDF_DIR)/02_Parts/$(PDF_PREFIX)_Part%.pdf: FORCE
+	$(call run_targets,$@,$@)
 
-chap02:
-	$(call run_targets,chap02,$(CHAP02_PDF))
-
-chap03:
-	$(call run_targets,chap03,$(CHAP03_PDF))
-
-chap04:
-	$(call run_targets,chap04,$(CHAP04_PDF))
-
-chap05:
-	$(call run_targets,chap05,$(CHAP05_PDF))
-
-chap06:
-	$(call run_targets,chap06,$(CHAP06_PDF))
-
-chap07:
-	$(call run_targets,chap07,$(CHAP07_PDF))
-
-chap08:
-	$(call run_targets,chap08,$(CHAP08_PDF))
-
-$(ALL_PDF):
+$(PDF_DIR)/03_Chapters/$(PDF_PREFIX)_Chap%.pdf: FORCE
 	$(call run_targets,$@,$@)
 
 __build_pdf:
@@ -222,21 +309,44 @@ __build_pdf:
 	  exit 2; \
 	fi; \
 	pdf="$${PDF:?PDF is required}"; \
+	base="$$(basename "$$pdf")"; \
+	stem="$${base%.pdf}"; \
+	entry="$${stem#$(PDF_PREFIX)_}"; \
+	entry_kind=""; \
+	entry_id=""; \
 	case "$$pdf" in \
-	  $(ONE_PDF)) tex="$$book_tex" ;; \
-	  $(TWO_PDF)) tex="$(TWO_TEX)" ;; \
-	  $(PART01_PDF)) tex="$(PART01_TEX)" ;; \
-	  $(PART02_PDF)) tex="$(PART02_TEX)" ;; \
-	  $(PART03_PDF)) tex="$(PART03_TEX)" ;; \
-	  $(CHAP01_PDF)) tex="$(CHAP01_TEX)" ;; \
-	  $(CHAP02_PDF)) tex="$(CHAP02_TEX)" ;; \
-	  $(CHAP03_PDF)) tex="$(CHAP03_TEX)" ;; \
-	  $(CHAP04_PDF)) tex="$(CHAP04_TEX)" ;; \
-	  $(CHAP05_PDF)) tex="$(CHAP05_TEX)" ;; \
-	  $(CHAP06_PDF)) tex="$(CHAP06_TEX)" ;; \
-	  $(CHAP07_PDF)) tex="$(CHAP07_TEX)" ;; \
-	  $(CHAP08_PDF)) tex="$(CHAP08_TEX)" ;; \
-	  *) printf 'Unknown PDF target: %s\n' "$$pdf"; exit 2 ;; \
+	  $(ONE_PDF)) tex="$$book_tex"; entry_kind="full" ;; \
+	  $(TWO_PDF)) tex="$(TWO_TEX)"; entry_kind="full" ;; \
+	  *) \
+	    case "$$entry" in \
+	      Part[0-9][0-9]) \
+	        id="$${entry#Part}"; \
+	        tex="$(MAIN_DIR)/Part$$id/Part$$id.tex"; \
+	        entry_kind="part"; \
+	        entry_id="$$id"; \
+	        ;; \
+	      Chap[0-9][0-9]) \
+	        id="$${entry#Chap}"; \
+	        matches="$$(find "$(MAIN_DIR)" -type f -path "*/Chap$$id.tex" | sort)"; \
+	        match_count="$$(printf '%s\n' "$$matches" | sed '/^$$/d' | wc -l | tr -d ' ')"; \
+	        if [ "$$match_count" -eq 1 ]; then \
+	          tex="$$matches"; \
+	          entry_kind="chapter"; \
+	          entry_id="$$id"; \
+	        elif [ "$$match_count" -eq 0 ]; then \
+	          printf 'Missing chapter TeX entry for %s\n' "$$entry"; \
+	          exit 2; \
+	        else \
+	          printf 'Ambiguous chapter TeX entries for %s:\n%s\n' "$$entry" "$$matches"; \
+	          exit 2; \
+	        fi; \
+	        ;; \
+	      *) \
+	        printf 'Unknown PDF target: %s\n' "$$pdf"; \
+	        exit 2; \
+	        ;; \
+	    esac \
+	    ;; \
 	esac; \
 	if [ ! -f "$$tex" ]; then \
 	  printf 'Missing TeX entry: %s\n' "$$tex"; \
@@ -247,10 +357,30 @@ __build_pdf:
 	log="$$tmp/latexmk.log"; \
 	cleanup() { rm -rf "$$tmp"; }; \
 	trap cleanup EXIT; \
+	build_tex="$$tex"; \
+	if [ "$$entry_kind" = "chapter" ]; then \
+	  driver_dir="$(GENERATED_ENTRY_DIR)"; \
+	  mkdir -p "$$driver_dir"; \
+	  build_tex="$$driver_dir/$(PDF_PREFIX)_Chap$$entry_id.tex"; \
+	  { \
+	    printf '%% Generated by Makefile for chapter-only builds. Do not edit by hand.\n'; \
+	    printf '\\makeatletter\n'; \
+	    printf '\\def\\input@path{{../../}}\n'; \
+	    printf '\\def\\AMaNRoot{../../}\n'; \
+	    printf '\\makeatother\n'; \
+	    printf '\\def\\SingleChapter{%s}\n' "$${tex%.tex}"; \
+	    printf '\\def\\SingleChapterNumber{%s}\n' "$$((10#$$entry_id))"; \
+	    printf '\\InputIfFileExists{../../%s}{%%\n' "$(PRIVATE_BOOK_TEX)"; \
+	    printf '  \\input{../../%s}%%\n' "$(PRIVATE_BOOK_TEX)"; \
+	    printf '}{%%\n'; \
+	    printf '  \\input{../../%s}%%\n' "$(PUBLIC_BOOK_TEX)"; \
+	    printf '}\n'; \
+	  } > "$$build_tex"; \
+	fi; \
 	if [ "$(VERBOSE)" = "1" ]; then \
-	  "$(LATEXMK)" -cd -xelatex -interaction=nonstopmode -halt-on-error -file-line-error -outdir="$$tmp" -auxdir="$$tmp" "$$tex"; \
+	  "$(LATEXMK)" -gg -cd -xelatex -interaction=nonstopmode -halt-on-error -file-line-error -outdir="$$tmp" -auxdir="$$tmp" "$$build_tex"; \
 	else \
-	  if "$(LATEXMK)" -cd -xelatex -interaction=nonstopmode -halt-on-error -file-line-error -outdir="$$tmp" -auxdir="$$tmp" "$$tex" >"$$log" 2>&1; then \
+	  if "$(LATEXMK)" -gg -cd -xelatex -interaction=nonstopmode -halt-on-error -file-line-error -outdir="$$tmp" -auxdir="$$tmp" "$$build_tex" >"$$log" 2>&1; then \
 	    :; \
 	  else \
 	    code=$$?; \
@@ -261,7 +391,7 @@ __build_pdf:
 	    exit "$$code"; \
 	  fi; \
 	fi; \
-	out="$$tmp/$$(basename "$${tex%.tex}").pdf"; \
+	out="$$tmp/$$(basename "$${build_tex%.tex}").pdf"; \
 	if [ ! -f "$$out" ]; then \
 	  printf 'Expected PDF was not produced: %s\n' "$$out"; \
 	  exit 3; \
@@ -275,14 +405,17 @@ clean:
 	  -o -name '*.out' -o -name '*.run.xml' -o -name '*.toc' \
 	  -o -name '*.xdv' -o -name '*.synctex.gz' -o -name 'texput.log' \
 	\) ! -path "$(ROOT)/$(MAIN_DIR)/*" -delete
-	@find "$(ROOT)/$(PDF_DIR)" -type f -name '*.synctex.gz' -delete
+	@if [ -d "$(ROOT)/$(PDF_DIR)" ]; then find "$(ROOT)/$(PDF_DIR)" -type f -name '*.synctex.gz' -delete; fi
 	@rm -rf "$(ROOT)/$(PDF_DIR)/.latex-workshop-view"
-	@rm -rf "$(ROOT)/.latex-build"
+	@rm -rf "$(ROOT)/$(BUILD_DIR)"
 	@printf 'Cleaned LaTeX auxiliary files.\n'
 
 distclean: clean
 	@set -euo pipefail; \
 	for pdf in $(ALL_PDF) $(LEGACY_ROOT_PDF); do \
 	  rm -f "$(ROOT)/$$pdf"; \
-	done
+	done; \
+	find "$(ROOT)" -maxdepth 1 -type f \( \
+	  -name 'advmacro*.pdf' -o -name '$(PDF_PREFIX)_*.pdf' -o -name 'AMaN_*.pdf' \
+	\) -delete
 	@printf 'Removed generated PDFs.\n'

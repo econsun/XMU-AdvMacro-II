@@ -63,6 +63,9 @@
 % ======================================================
 
 \setlength{\jot}{6pt}
+\newlength{\MathArrayJot}
+\setlength{\MathArrayJot}{4pt}
+\NewDocumentCommand{\MathArrayCr}{O{\MathArrayJot}}{\\[#1]}
 
 \AtBeginDocument{%
     \setlength{\abovedisplayskip}{8pt plus 2pt minus 2pt}%
@@ -74,6 +77,7 @@
 % `setstretch` 会把 array 类数学环境的 strut 一起放大，
 % 导致 matrix / cases 第一行上方和最后一行下方出现额外留白。
 \newcommand{\ResetMathArraySpacing}{%
+    \linespread{1}\selectfont
     \renewcommand{\arraystretch}{1}%
 }
 

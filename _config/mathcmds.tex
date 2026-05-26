@@ -167,8 +167,6 @@
 
 % E4. 矩阵/向量括号模板：默认给一个固定尺寸，不再自动伸缩
 \newcommand{\matspace}{\mspace{2mu}}
-\newcommand{\vectorarraystretch}{0}
-\newcommand{\matrixarraystretch}{1.05}
 
 \newcommand{\matbka}[1]{\left(\matspace\begin{matrix}#1\end{matrix}\matspace\right)}
 \newcommand{\matbks}[1]{\left[\matspace\begin{matrix}#1\end{matrix}\matspace\right]}
@@ -294,6 +292,7 @@
 \newcommand{\bsy}{\symbfit{y}}
 \newcommand{\bsz}{\symbfit{z}}
 \newcommand{\bsA}{\symbfit{A}}
+\newcommand{\bsM}{\symbfit{M}}
 \newcommand{\bsI}{\symbfit{I}}
 \newcommand{\bsX}{\symbfit{X}}
 
@@ -417,3 +416,8 @@
 \RenewDocumentCommand{\ln}{}{\operatorname{ln}}
 \let\oldlog\log
 \RenewDocumentCommand{\log}{}{\operatorname{log}}
+\DeclareMathOperator{\tr}{tr}
+
+
+\newcommand{\means}{\quad\Rightarrow\quad}
+\newcommand{\rmeans}{\Rightarrow\quad}

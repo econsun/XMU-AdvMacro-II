@@ -159,7 +159,7 @@
 \begin{align*}
     \log Z_t=\underbrace{\bka{1-\psi}\log\bar Z}_{=\,0}+\psi\log Z\lt+\varepsilon_t=\psi\log Z\lt+\varepsilon_t
 \end{align*}
-上式是带有随机性的一阶差分方程。不严谨地分析，我们使用 \ref{subsec:FDiffSysStable}中的结论：由于 \(\psi\) 的取值范围为 \(\bka{0,1}\)，所以 \(Z_t\) 的随机性会逐渐衰减，表现为 \(Z_t\) 的期望为常数、不为无穷大
+上式是带有随机性的一阶差分方程。不严谨地分析，我们使用\ref{subsec:FDiffSysStable}中的结论：由于 \(\psi\) 的取值范围为 \(\bka{0,1}\)，所以 \(Z_t\) 的随机性会逐渐衰减，表现为 \(Z_t\) 的期望为常数、不为无穷大
 \begin{equation*}
     \mean\bks{\log Z_t}=\psi\,\mean\bks{\log Z\lt}+\underbrace{\mean\bks{\varepsilon_t}}_{=\,0} \quad\Rightarrow\quad \mean\bks{\log Z_t}=\log\bar Z
 \end{equation*}
@@ -230,7 +230,7 @@
         \ \log Z_t=\bka{1-\psi}\log\bar Z+\psi\log Z\lt+\varepsilon_t
     \end{cases}
 \end{equation}
-在 \ref{subsec:RBCModel}得知技术是稳定的。我们沿用假设 \(\bar Z=1\)。经济系统的稳态形式为
+在\ref{subsec:RBCModel}得知技术是稳定的。我们沿用假设 \(\bar Z=1\)。经济系统的稳态形式为
 \begin{equation}
     \begin{cases}
         \ \bar K=\bar K^\alpha+\bka{1-\delta}\bar K-\bar C \\
@@ -304,7 +304,7 @@
 
 \subsection{判定 RBC 模型的稳定性}\label{subsec:RBCStable}
 
-将 \ref{subsec:LogLinRBC}的结果汇总为
+将\ref{subsec:LogLinRBC}的结果汇总为
 \begin{equation}
     \begin{cases}
         \ \hat k_t=\bks{\alpha\,\dfrac{\bar Y}{\bar K}+\bka{1-\delta}}\cdot\hat k\lt+\dfracb{Y}{K}\cdot\hat z_t-\dfracb{C}{K}\cdot\hat c_t \\[2ex]
@@ -312,7 +312,7 @@
         \ \hat z\nt=\psi\,\hat z_t+\varepsilon_{t}
     \end{cases}
 \end{equation}
-目前，系统中还有很多未知项，好在我们已经在 \ref{subsec:RBCSS}求解了一系列稳态值，主要使用 \(\bar Y\islash\bar K\) 和 \(\bar C\islash\bar K\)，将它们代入对数线性化系统，使之参数化
+目前，系统中还有很多未知项，好在我们已经在\ref{subsec:RBCSS}求解了一系列稳态值，主要使用 \(\bar Y\islash\bar K\) 和 \(\bar C\islash\bar K\)，将它们代入对数线性化系统，使之参数化
 \begin{equation}
     \begin{cases}
         \ \hat k_t=\dfrac1\beta\cdot\hat k\lt+\dfrac{\tilde\delta}{\alpha\,\beta}\cdot\hat z_t-\bka{\dfrac{\tilde\delta}{\alpha\,\beta}-\delta}\cdot\hat c_t \\[2ex]
@@ -345,9 +345,9 @@
 \end{align*}
 称 \(\bs J=\bs M\inv\bs N\) 为\,\xmured{Jacobi 矩阵}（Jacobian matrix，或转移矩阵）。应用 \(\bar C\islash\bar K\) 的表达式，计算 \(\bs J\) 的迹和行列式
 \begin{align*}
-    \n{trace}\,\bs J=1+\dfrac1\beta+\dfrac{\tilde\delta\bka{1-\alpha}}{\sigma}\dfracb{C}{K}\qquad \& \qquad\n{det}\,\bs J=\dfrac1\beta
+    \tr\bs J=1+\dfrac1\beta+\dfrac{\tilde\delta\bka{1-\alpha}}{\sigma}\dfracb{C}{K}\qquad \& \qquad\det\bs J=\dfrac1\beta
 \end{align*}
-根据 \ref{subsec:HDiffSysStable}的结论，我们要计算对判定稳定性至关重要的 \(p\bka{1}\) 和 \(p\bka{-1}\)。计算它们并不复杂
+根据\ref{subsec:HDiffSysStable}的结论，我们要计算对判定稳定性至关重要的 \(p\bka{1}\) 和 \(p\bka{-1}\)。计算它们并不复杂
 \begin{align*}
     &p\bka\lambda=\lambda^2-T\,\lambda+D\\
     \Rightarrow\quad &p\bka{1}=1-T+D=-\dfrac{\tilde\delta\bka{1-\alpha}}{\sigma}\dfracb{C}{K}<0\\
@@ -494,7 +494,7 @@ R\nt&=\n{MPK}\nt+1-\delta
 
 \subsection{回答比较静态分析问题}\label{subsec:ReplyCompStatic}
 
-\(\sigma\) 衡量不确定性，更具体地说，衡量家庭有多厌恶消费波动。现在我们能对比较静态分析问题进行回答了\sidenote{比较静态分析问题在 \ref{subsec:LogLinRBC}}：当 \(\sigma\) 上升时，家庭对消费波动的厌恶程度上升，因此会更倾向于平滑消费，保证每期消费量相当，即消费增长率 \(g_{C,t}\)（的绝对值，后文同）变小；反之，\(\sigma\) 下降会引起 \(g_{C,t}\) 变大，此时家庭更敢于冒风险（或是对未来足够乐观），无所谓本期多消费可能会导致以后消费减少。\footnote{2026 年 3 月 29 日勘误：此前 “\(\sigma\) 越大，\(g_{C,t}\) 越大；\(\sigma\) 越小，\(g_{C,t}\) 越小”说法有误。}
+\(\sigma\) 衡量不确定性，更具体地说，衡量家庭有多厌恶消费波动。现在我们能对比较静态分析问题进行回答了\sidenote{比较静态分析问题在\ref{subsec:LogLinRBC}}：当 \(\sigma\) 上升时，家庭对消费波动的厌恶程度上升，因此会更倾向于平滑消费，保证每期消费量相当，即消费增长率 \(g_{C,t}\)（的绝对值，后文同）变小；反之，\(\sigma\) 下降会引起 \(g_{C,t}\) 变大，此时家庭更敢于冒风险（或是对未来足够乐观），无所谓本期多消费可能会导致以后消费减少。\footnote{2026 年 3 月 29 日勘误：此前 “\(\sigma\) 越大，\(g_{C,t}\) 越大；\(\sigma\) 越小，\(g_{C,t}\) 越小”说法有误。}
 
 换一个角度，我们使用\,\xmured{边际替代率}（marginal rate of substitution，MRS）来回答。计算家庭愿意放弃多少下期消费来获得 1 单位本期消费
 \begin{equation*}

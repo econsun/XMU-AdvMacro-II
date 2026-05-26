@@ -17,6 +17,7 @@
 \fi
 
 \input{_config/preamble}
+\input{_config/build-structure}
 
 \def\AMaNMaster{1}
 
@@ -24,18 +25,6 @@
   \begin{refsection}
   \input{#1}
   \end{refsection}
-}
-
-\newcommand{\IncludePartOne}{%
-  \input{200_MainMatter/Part01/Part01}
-}
-
-\newcommand{\IncludePartTwo}{%
-  \input{200_MainMatter/Part02/Part02}
-}
-
-\newcommand{\IncludePartThree}{%
-  \input{200_MainMatter/Part03/Part03}
 }
 
 \begin{document}
@@ -48,21 +37,7 @@
   \IncludeChapter{\SingleChapter}
 \else\ifdefined\SinglePart
   \mainmatter
-  \ifnum\SinglePart=1
-    \setcounter{part}{0}
-    \setcounter{chapter}{0}
-    \IncludePartOne
-  \fi
-  \ifnum\SinglePart=2
-    \setcounter{part}{1}
-    \setcounter{chapter}{2}
-    \IncludePartTwo
-  \fi
-  \ifnum\SinglePart=3
-    \setcounter{part}{2}
-    \setcounter{chapter}{7}
-    \IncludePartThree
-  \fi
+  \AMaNIncludeSinglePart{\SinglePart}
 \else
   \frontmatter
   \SymmetricGeometry
@@ -87,17 +62,15 @@
   \setlength{\parskip}{1.5ex plus 0.4ex minus 0.2ex}
 
   \mainmatter
-  \IncludePartOne
-  \IncludePartTwo
-  \IncludePartThree
+  \AMaNIncludeAllParts
 
   \backmatter
   \SymmetricGeometry
   \etocdepthtag.toc{backmatter}
 
-  \input{300_BackMatter/changelog}
   \input{300_BackMatter/afterword}
   \input{300_BackMatter/acknowledge}
+  \input{300_BackMatter/changelog}
 \fi\fi
 
 \end{document}

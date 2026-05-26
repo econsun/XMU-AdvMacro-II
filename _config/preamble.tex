@@ -5,7 +5,12 @@
 \usepackage{mathtools}          % 包含 amsmath
 \usepackage{amsthm}
 \usepackage{empheq}
-\usepackage[warnings-off={mathtools-overbracket,mathtools-colon}]{unicode-math}
+\usepackage[T1]{fontenc}
+\usepackage[theoremfont]{newpxtext}
+\usepackage[vvarbb]{newpxmath}
+\usepackage[scr=boondoxo]{mathalfa}
+\usepackage{bm}
+\providecommand{\symbfit}[1]{\bm{#1}}
 
 % ===== 排版工具 =====
 \usepackage{graphicx}
@@ -68,7 +73,6 @@
 \input{_config/layout}
 \input{_config/mathcmds}
 \input{_config/numbering}
-\input{_config/theorems-boxes}
 \input{_config/setting.tex}
 
 % ===== hyperref + cleveref（最后加载）=====

@@ -53,19 +53,19 @@
 
 假设效用函数为
 \begin{equation*}
-    U\bka{C_t,N_t}=\dfrac{C_t^{1-\sigma}}{1-\sigma}-\dfrac{N_t^{1+\varphi}}{1+\varphi}
+    U\bka{C_t,N_t}=\dfrac{C_t^{1-\sigma}}{1-\sigma}-\dfrac{N_t^{1+\phi}}{1+\phi}
 \end{equation*}
 从 \ref{eq:FOC_C} 和 \ref{eq:FOC_N} 知家庭消费决策均衡条件
 \begin{align}    
-    -\dfrac{U_{N_t}}{U_{C_t}}=\dfrac{W_t}{P_t}=C_t^\sigma\,N^\varphi_t\notag
+    -\dfrac{U_{N_t}}{U_{C_t}}=\dfrac{W_t}{P_t}=C_t^\sigma\,N^\phi_t\notag
 \end{align}
 反解 \(N_t\) 得家庭的劳动供给
 \begin{align}
-    N_t=\bka{\dfrac{W_t}{P_t}\cdot C_t^\sigma}^{\frac{1}{\varphi}}\notag
+    N_t=\bka{\dfrac{W_t}{P_t}\cdot C_t^\sigma}^{\frac{1}{\phi}}\notag
 \end{align}
 不难计算劳动供给对实际工资的弹性
 \begin{align*}
-    E_{W/P}=\dfrac{\partial\log N_t}{\partial \log \bka{W_t/P_t}}=\dfrac1\varphi
+    E_{W/P}=\dfrac{\partial\log N_t}{\partial \log \bka{W_t/P_t}}=\dfrac1\phi
 \end{align*}
 
 将 \ref{eq:FOC_C} 代入 \ref{eq:FOC_B} 消去 \(\lambda\)，再代入新的效用函数
@@ -107,7 +107,7 @@
 
 定义实际工资 \(W^r_t\coloneq W_t/P_t\)，先关注其中产品和劳动市场的四个方程
 \begin{align}
-    & W^r_t=C_t^\sigma\,N^\varphi_t \label{eq:CMM-equilibrium-1}\\
+    & W^r_t=C_t^\sigma\,N^\phi_t \label{eq:CMM-equilibrium-1}\\
     & W^r_t=\bka{1-\alpha}A_t\,N^{-\alpha}_t\\
     & Y_t=A_t\,N^{1-\alpha}_t \\
     & Y_t=C_t \label{eq:CMM-equilibrium-4}
@@ -118,17 +118,17 @@
 \end{equation*}
 将该结果代入前两式联立结果
 \begin{align*}
-    \bka{1-\alpha}\bar A\,\bar N^{-\alpha}&=\bar C^\sigma\,\bar N^{\varphi}\\
-    \bka{1-\alpha}\bar N^{-\alpha}&=\bar N^{\sigma\bka{1-\alpha}+\varphi}
+    \bka{1-\alpha}\bar A\,\bar N^{-\alpha}&=\bar C^\sigma\,\bar N^{\phi}\\
+    \bka{1-\alpha}\bar N^{-\alpha}&=\bar N^{\sigma\bka{1-\alpha}+\phi}
 \end{align*}
 得到稳态劳动供给
 \begin{equation*}
-    \bar N=\bka{1-\alpha}^{\frac1{\sigma\bka{1-\alpha}+\varphi+\alpha}}
+    \bar N=\bka{1-\alpha}^{\frac1{\sigma\bka{1-\alpha}+\phi+\alpha}}
 \end{equation*}
 从而得到如下稳态
 \begin{align*}
-    \bar Y=\bar C&=\bka{1-\alpha}^{\frac{1-\alpha}{\sigma\bka{1-\alpha}+\varphi+\alpha}}\\
-    \bar W^r&=\bka{1-\alpha}^{\frac{\sigma\bka{1-\alpha}+\varphi}{\sigma\bka{1-\alpha}+\varphi+\alpha}}
+    \bar Y=\bar C&=\bka{1-\alpha}^{\frac{1-\alpha}{\sigma\bka{1-\alpha}+\phi+\alpha}}\\
+    \bar W^r&=\bka{1-\alpha}^{\frac{\sigma\bka{1-\alpha}+\phi}{\sigma\bka{1-\alpha}+\phi+\alpha}}
 \end{align*}
 
 \subsection{波动分析}\label{sec:CMM-fluctuation}
@@ -137,20 +137,20 @@
 
 对数线性化 \ref{eq:CMM-equilibrium-1} 到 \ref{eq:CMM-equilibrium-4} 得
 \begin{align}
-    & \hat w^r_t=\sigma\,\hat c_t+\varphi\,\hat n_t \label{eq:CMM-log-linear-1}\sidenote{如果效用函数为 GHH 型（可分离），左侧结果中不会有消费项，说明工资变动不影响消费，则不存在财富效应}\\
+    & \hat w^r_t=\sigma\,\hat c_t+\phi\,\hat n_t \label{eq:CMM-log-linear-1}\sidenote{如果效用函数为 GHH 型（可分离），左侧结果中不会有消费项，说明工资变动不影响消费，则不存在财富效应}\\
     & \hat w^r_t=\hat a_t-\alpha\,\hat n_t \label{eq:CMM-log-linear-2}\\
     & \hat y_t=(1-\alpha)\,\hat n_t+\hat a_t \label{eq:CMM-log-linear-3}\\
     & \hat y_t=\hat c_t \label{eq:CMM-log-linear-4}
 \end{align}
 联立 \ref{eq:CMM-log-linear-1} 和 \ref{eq:CMM-log-linear-2}，代入 \ref{eq:CMM-log-linear-4}，再代入 \ref{eq:CMM-log-linear-3}，得到只有 \(\hat n_t\) 和 \(\hat a_t\) 的方程\sidenote{这里求稳态和求系数，都代 3 和 4 入 1 和 2 联立的方程，解出 \sidemath{\(N\)}，再到 \sidemath{\(Y\)} 和 \sidemath{\(C\)}，最后 \sidemath{\(W^r\)}}
 \begin{align*}
-    \sigma\,\hat a_t&+\sigma\bka{1-\alpha}\hat n_t+\varphi\,\hat n_t=\hat a_t-\alpha\,\hat n_t\\
-    &\hat n_t=\dfrac{1-\sigma}{\sigma\bka{1-\alpha}+\varphi+\alpha}\cdot \hat a_t=\psi_{na}\,\hat a_t
+    \sigma\,\hat a_t&+\sigma\bka{1-\alpha}\hat n_t+\phi\,\hat n_t=\hat a_t-\alpha\,\hat n_t\\
+    &\hat n_t=\dfrac{1-\sigma}{\sigma\bka{1-\alpha}+\phi+\alpha}\cdot \hat a_t=\psi_{na}\,\hat a_t
 \end{align*}
 那么
 \begin{align}
-    &\hat y_t=\hat c_t=\dfrac{1+\varphi}{\sigma\bka{1-\alpha}+\varphi+\alpha}\cdot \hat a_t=\psi_{ya}\,\hat a_t\label{eq:CMM-log-linear-5}\\
-    &\hat w^r_t=\dfrac{\sigma+\varphi}{\sigma\bka{1-\alpha}+\varphi+\alpha}\cdot \hat a_t=\psi_{wa}\,\hat a_t\notag
+    &\hat y_t=\hat c_t=\dfrac{1+\phi}{\sigma\bka{1-\alpha}+\phi+\alpha}\cdot \hat a_t=\psi_{ya}\,\hat a_t\label{eq:CMM-log-linear-5}\\
+    &\hat w^r_t=\dfrac{\sigma+\phi}{\sigma\bka{1-\alpha}+\phi+\alpha}\cdot \hat a_t=\psi_{wa}\,\hat a_t\notag
 \end{align}
 其中 \(\psi_{ya}\) 和 \(\psi_{wa}\) 都大于零，说明技术进步会提高产出和实际工资。\(\psi_{na}\) 的符号取决于 \(1-\sigma\)，技术进步让劳动投入减少还是增加，看有多厌恶消费的跨期波动 —— 如果 \(\sigma>1\) 较大，家庭会厌恶消费波动，更倾向于减少当前工作，避免财富过多导致未来消费过多；也可理解为技术进步带来收入增加，此时收入效应占主导，多“消费”闲暇。
 
@@ -189,10 +189,9 @@
 
 从 \ref{eq:CMM-log-linear} 能看出只有实际变量的波动能引起实际利率的波动；货币变动对其不会有任何影响，经济波动的时候不要采取任何货币政策。但传统货币模型无法匹配数据，货币中性并不成立，所以有了接下来的 MIU 模型。
 
-\newpage
 \section{货币进入效用模型}
 
-\subsection{家庭行为}
+\subsection{家庭行为}\label{sec:MIU-household}
 
 \noxmubluebf{基本设定}
 
@@ -236,7 +235,7 @@
 
 假设效用函数为
 \begin{align*}
-    U\bka{C_t,\cal M_t,N_t}=\dfrac{C_t^{1-\sigma}}{1-\sigma}+\dfrac{\cal M_t^{1-\nu}}{1-\nu}-\dfrac{N_t^{1+\varphi}}{1+\varphi}
+    U\bka{C_t,\cal M_t,N_t}=\dfrac{C_t^{1-\sigma}}{1-\sigma}+\dfrac{\cal M_t^{1-\nu}}{1-\nu}-\dfrac{N_t^{1+\phi}}{1+\phi}
 \end{align*}
 将计算出来的边际效用代入均衡式
 \begin{align}
@@ -262,7 +261,7 @@
 
 假设效用函数为
 \begin{align*}
-    U\bka{C_t,\cal M_t,N_t}=\dfrac{X_t^{1-\sigma}}{1-\sigma}-\dfrac{N_t^{1+\varphi}}{1+\varphi}
+    U\bka{C_t,\cal M_t,N_t}=\dfrac{X_t^{1-\sigma}}{1-\sigma}-\dfrac{N_t^{1+\phi}}{1+\phi}
 \end{align*}
 其中
 \begin{equation*}
@@ -286,12 +285,12 @@
 同理，对实际货币余额和劳动求导
 \begin{align*}
     &U_{\cal M_t}=\theta\,X_t^{\nu-\sigma}\cal M_t^{-\nu}\\
-    &U_{N_t}=-N_t^\varphi
+    &U_{N_t}=-N_t^\phi
 \end{align*}
 
 回到均衡条件 \ref{eq:MIU-equilibrium}，将边际效用代入其中
 \begin{align}
-    -\dfrac{U_{N_t}}{U_{C_t}}=\dfrac{W_t}{P_t}=\dfrac1{1-\theta}\cdot N_t^\varphi\,X_t^{\sigma-\nu}C_t^\nu\label{eq:MIU-labor-equilibrium}
+    -\dfrac{U_{N_t}}{U_{C_t}}=\dfrac{W_t}{P_t}=\dfrac1{1-\theta}\cdot N_t^\phi\,X_t^{\sigma-\nu}C_t^\nu\label{eq:MIU-labor-equilibrium}
 \end{align}
 以及
 \begin{align*}
@@ -322,11 +321,11 @@
 
 对数线性化
 \begin{align*}
-    \dfrac{W_t}{P_t}&=\dfrac1{1-\theta}\cdot N_t^\varphi\,X_t^{\sigma-\nu}\,C_t^\nu\\
-    \hat w_t-\hat p_t&=\varphi\,\hat n_t+\bka{\sigma-\nu}\hat x_t+\nu\,\hat c_t\\
-    \Rightarrow\quad \hat w_t-\hat p_t&=\varphi\,\hat n_t+\sigma\,\hat c_t+\bka{\nu-\sigma}\bka{\hat c_t-\hat x_t}
+    \dfrac{W_t}{P_t}&=\dfrac1{1-\theta}\cdot N_t^\phi\,X_t^{\sigma-\nu}\,C_t^\nu\\
+    \hat w_t-\hat p_t&=\phi\,\hat n_t+\bka{\sigma-\nu}\hat x_t+\nu\,\hat c_t\\
+    \Rightarrow\quad \hat w_t-\hat p_t&=\phi\,\hat n_t+\sigma\,\hat c_t+\bka{\nu-\sigma}\bka{\hat c_t-\hat x_t}
 \end{align*}
-其中 \(\hat x_t\) 要单独计算，我们使用 \ref{sec:LogLinearGeneralMethod} 中的通用方法。首先回顾 \(X_t\) 的定义
+其中 \(\hat x_t\) 要单独计算，我们使用\ref{subsec:LogLineGeneral} 中的通用方法。首先回顾 \(X_t\) 的定义
 \begin{align}
     X_t=\bks{\bka{1-\theta}C_t^{1-\nu}+\theta\cal M_t^{1-\nu}}^{\frac{1}{1-\nu}}\label{eq:MIU-X}
 \end{align}
@@ -350,17 +349,17 @@
 \end{align*}
 将右侧系数记作 \(\chi\)，最终得到
 \begin{align*}
-    \hat w_t-\hat p_t&=\varphi\,\hat n_t+\sigma\,\hat c_t+\bka{\nu-\sigma}\chi\bks{\hat c_t-\bka{\hat m_t-\hat p_t}}
+    \hat w_t-\hat p_t&=\phi\,\hat n_t+\sigma\,\hat c_t+\bka{\nu-\sigma}\chi\bks{\hat c_t-\bka{\hat m_t-\hat p_t}}
 \end{align*}
 再代入消费-货币选择方程的对数线性化结果 \ref{eq:MIU-money-equilibrium-log-linear}，得到
 \begin{align}
-    \hat w_t-\hat p_t&=\sigma\,\hat c_t+\varphi\,\hat n_t+\omega\,\hat\imath_t\qquad\qquad\omega\coloneq\bka{\nu-\sigma}\chi\,\eta\label{eq:MIU-labor-equilibrium-log-linear}
+    \hat w_t-\hat p_t&=\sigma\,\hat c_t+\phi\,\hat n_t+\omega\,\hat\imath_t\qquad\qquad\omega\coloneq\bka{\nu-\sigma}\chi\,\eta\label{eq:MIU-labor-equilibrium-log-linear}
 \end{align}
 目前我们的对数线性化系统是
 \begin{equation*}
     \begin{cases}
         \ \hat m_t-\hat p_t=\hat c_t-\eta\,\hat\imath_t\\
-        \ \hat w_t-\hat p_t=\sigma\,\hat c_t+\varphi\,\hat n_t+\omega\,\hat\imath_t
+        \ \hat w_t-\hat p_t=\sigma\,\hat c_t+\phi\,\hat n_t+\omega\,\hat\imath_t
     \end{cases}
 \end{equation*}
 
@@ -384,7 +383,7 @@
     \begin{cases}
         \ \hat m_t-\hat p_t=\hat c_t-\eta\,\hat\imath_t\\
         \ \hat c_t-\hat x_t=\chi\bks{\hat c_t-\bka{\hat m_t-\hat p_t}}\\
-        \ \hat w_t-\hat p_t=\sigma\,\hat c_t+\varphi\,\hat n_t+\omega\,\hat\imath_t
+        \ \hat w_t-\hat p_t=\sigma\,\hat c_t+\phi\,\hat n_t+\omega\,\hat\imath_t
     \end{cases}
 \end{equation*}
 名义利率 \(\hat\imath_t\) 上升且 \(\eta>0\) \(\Rightarrow\) \(\hat m_t-\hat p_t\) 下降 \(\Rightarrow\) \(\hat x_t\) 下降\sidenote{假设货币和消费是互补品，即 \(U_{C\cal M}>0\)，并给定实际工资水平} \(\Rightarrow\) \(U_{C,t}\) 下降 \(\Rightarrow\) \(\hat n_t\) 下降。直观来说，货币和劳动同向变动。流动性下降时，\(U_{C,t}\) 下降，消费变得不那么有价值，工作带来的收益也下降，因此家庭会减少劳动供给。
@@ -433,12 +432,12 @@
 \end{align}
 将上式联立劳动供给的对数线性化方程 \ref{eq:MIU-labor-equilibrium-log-linear}
 \begin{align*}
-    \hat y_t-\hat n_t&=\sigma\,\hat c_t+\varphi\,\hat n_t+\omega\,\hat\imath_t\\
-    \hat n_t&=\dfrac{1-\sigma}{1-\varphi}\,\hat y_t+\dfrac{\omega}{1-\varphi}\,\hat\imath_t
+    \hat y_t-\hat n_t&=\sigma\,\hat c_t+\phi\,\hat n_t+\omega\,\hat\imath_t\\
+    \hat n_t&=\dfrac{1-\sigma}{1-\phi}\,\hat y_t+\dfrac{\omega}{1-\phi}\,\hat\imath_t
 \end{align*}
 最后再次代入 \ref{eq:MIU-production-log-linear} 整理得
 \begin{align*}
-    \hat y_t=\dfrac{1+\varphi}{\sigma\bka{1-\alpha}+\sigma+\varphi}\,\hat a_t+\dfrac{\bka{1-\alpha}\omega}{\sigma\bka{1-\alpha}+\sigma+\varphi}\,\hat\imath_t
+    \hat y_t=\dfrac{1+\phi}{\sigma\bka{1-\alpha}+\sigma+\phi}\,\hat a_t+\dfrac{\bka{1-\alpha}\omega}{\sigma\bka{1-\alpha}+\sigma+\phi}\,\hat\imath_t
 \end{align*}
 \(\hat a_t\) 的系数和我们在传统货币模型中得到的 \ref{eq:CMM-log-linear-5} 一致，但不同在于多了 \(\hat\imath_t\) 项，说明现在实际变量不是货币中性的。
 
@@ -447,23 +446,23 @@
 总结我们现在有的方程，并加入两式
 \begin{equation*}
     \begin{cases}
-        \ \hat y_t=\dfrac{1+\varphi}{\sigma\bka{1-\alpha}+\sigma+\varphi}\,\hat a_t+\dfrac{\bka{1-\alpha}\omega}{\sigma\bka{1-\alpha}+\sigma+\varphi}\,\hat\imath_t\\[2ex]
+        \ \hat y_t=\dfrac{1+\phi}{\sigma\bka{1-\alpha}+\sigma+\phi}\,\hat a_t+\dfrac{\bka{1-\alpha}\omega}{\sigma\bka{1-\alpha}+\sigma+\phi}\,\hat\imath_t\\[2ex]
         \ \hat y_t=\meant\,\hat y\nt-\dfrac{1}{\sigma}\bks{\hat\imath_t-\meant\,\hat\pi\nt-\omega\,\meant\bka{\hat\imath\nt-\hat\imath_t}}\\[2ex]
-        \ \hat\imath_t=\varphi_\pi\,\pi_t+v_t\,,\qquad v_t=\rho_v\,v\lt+\varepsilon_{v,t}\\
+        \ \hat\imath_t=\phi_\pi\,\pi_t+v_t\,,\qquad v_t=\rho_v\,v\lt+\varepsilon_{v,t}\\
         \ \hat a_t=\rho_a\,\hat a\lt+\varepsilon_{a,t}
     \end{cases}
 \end{equation*}
 通过待定系数法解出
 \begin{equation*}
     \begin{cases}
-        \ \hat \pi_t=-\dfrac{\sigma\bka{1-\rho_a}\psi_{ya}}{\varphi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_a}}\cdot\hat a_t-\dfrac{1+\bka{1-\rho_v}\omega\,\psi}{\varphi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_v}}\cdot v_t\\[2.5ex]
-        \ \hat\imath_t=-\dfrac{\sigma\bka{1-\rho_a}\psi_{ya}}{\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_a}}\cdot\hat a_t-\dfrac{\rho_v}{\varphi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_v}}\cdot v_t\\[2.5ex]
-        \ \hat y_t=\psi_{ya}\bks{1+\dfrac{\sigma\bka{1-\rho_a}\psi_{yi}}{\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_a}}}\cdot\hat a_t+\dfrac{\rho_v\,\psi_{yi}}{\varphi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_v}}\cdot v_t
+        \ \hat \pi_t=-\dfrac{\sigma\bka{1-\rho_a}\psi_{ya}}{\phi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_a}}\cdot\hat a_t-\dfrac{1+\bka{1-\rho_v}\omega\,\psi}{\phi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_v}}\cdot v_t\\[2.5ex]
+        \ \hat\imath_t=-\dfrac{\sigma\bka{1-\rho_a}\psi_{ya}}{\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_a}}\cdot\hat a_t-\dfrac{\rho_v}{\phi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_v}}\cdot v_t\\[2.5ex]
+        \ \hat y_t=\psi_{ya}\bks{1+\dfrac{\sigma\bka{1-\rho_a}\psi_{yi}}{\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_a}}}\cdot\hat a_t+\dfrac{\rho_v\,\psi_{yi}}{\phi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_v}}\cdot v_t
     \end{cases}
 \end{equation*}
 其中
 \begin{align*}
-    \xi=\dfrac{1+\omega\,\psi\,\varphi_\pi}{\bka{1+\omega\,\psi}\varphi_\pi}\qquad\qquad \psi=\dfrac{\alpha+\varphi}{\sigma\bka{1-\alpha}+\alpha+\varphi}
+    \xi=\dfrac{1+\omega\,\psi\,\phi_\pi}{\bka{1+\omega\,\psi}\phi_\pi}\qquad\qquad \psi=\dfrac{\alpha+\phi}{\sigma\bka{1-\alpha}+\alpha+\phi}
 \end{align*}
 
 \subsection{模型的缺陷}\sidenote{从此至文档结束，全部由 ChatGPT 4.2 Thinking 转写贺老师笔记完成}
@@ -517,51 +516,51 @@
 \end{align*}
 考虑一个简单的通胀反馈规则
 \begin{align}
-    \hat\imath_t=\varphi_\pi\,\pi_t\,,\qquad \varphi_\pi\ge0\label{eq:MIU-simple-Taylor-rule}
+    \hat\imath_t=\phi_\pi\,\pi_t\,,\qquad \phi_\pi\ge0\label{eq:MIU-simple-Taylor-rule}
 \end{align}
 联立 Fisher 方程 \ref{eq:MIU-Fisher}，得到
 \begin{align}
-    \varphi_\pi\,\pi_t=\meant\,\pi\nt+\hat r_t\label{eq:MIU-inflation-difference}
+    \phi_\pi\,\pi_t=\meant\,\pi\nt+\hat r_t\label{eq:MIU-inflation-difference}
 \end{align}
 
 \myskip
-\noxmubluebf{情况一：\(\varphi_\pi>1\)}
+\noxmubluebf{情况一：\(\phi_\pi>1\)}
 
 如果中央银行对通胀的反应超过一比一，那么 \ref{eq:MIU-inflation-difference} 向前迭代得
 \begin{align*}
     \pi_t
-    =\dfrac{1}{\varphi_\pi}\,\meant\,\pi\nt+\dfrac{1}{\varphi_\pi}\,\hat r_t
-    =\sum^\infty_{k=0}\varphi_\pi^{-\bka{k+1}}\meant\bks{\hat r_{t+k}}
+    =\dfrac{1}{\phi_\pi}\,\meant\,\pi\nt+\dfrac{1}{\phi_\pi}\,\hat r_t
+    =\sum^\infty_{k=0}\phi_\pi^{-\bka{k+1}}\meant\bks{\hat r_{t+k}}
 \end{align*}
-因为 \(\varphi_\pi^{-1}<1\)，所以前向和收敛，存在唯一的有界解。再回顾此前已经得到的实际利率过程
+因为 \(\phi_\pi^{-1}<1\)，所以前向和收敛，存在唯一的有界解。再回顾此前已经得到的实际利率过程
 \begin{align*}
     \hat r_t=\sigma\,\psi_{ya}\bka{\rho_a-1}\hat a_t=-\sigma\,\psi_{ya}\bka{1-\rho_a}\hat a_t
 \end{align*}
 猜测线性解 \(\pi_t=K\,\hat a_t\)，代入 \ref{eq:MIU-inflation-difference} 得
 \begin{align*}
-    \varphi_\pi K\,\hat a_t
+    \phi_\pi K\,\hat a_t
     =K\,\rho_a\,\hat a_t-\sigma\,\psi_{ya}\bka{1-\rho_a}\hat a_t
 \end{align*}
 于是
 \begin{align*}
-    K=-\dfrac{\sigma\,\psi_{ya}\bka{1-\rho_a}}{\varphi_\pi-\rho_a}
+    K=-\dfrac{\sigma\,\psi_{ya}\bka{1-\rho_a}}{\phi_\pi-\rho_a}
     \qquad\Rightarrow\qquad
-    \pi_t=-\dfrac{\sigma\,\psi_{ya}\bka{1-\rho_a}}{\varphi_\pi-\rho_a}\,\hat a_t
+    \pi_t=-\dfrac{\sigma\,\psi_{ya}\bka{1-\rho_a}}{\phi_\pi-\rho_a}\,\hat a_t
 \end{align*}
-\(\varphi_\pi\) 越大，技术冲击引起的通胀波动越小。直观来说，只要通胀上升，中央银行就会更大幅度地提高名义利率，于是均衡只能沿唯一的鞍路径调整。
+\(\phi_\pi\) 越大，技术冲击引起的通胀波动越小。直观来说，只要通胀上升，中央银行就会更大幅度地提高名义利率，于是均衡只能沿唯一的鞍路径调整。
 
 \myskip
-\noxmubluebf{情况二：\(\varphi_\pi\le1\)}
+\noxmubluebf{情况二：\(\phi_\pi\le1\)}
 
-如果 \(\varphi_\pi\le1\)，那么 \(\varphi_\pi^{-1}\ge1\)，前向迭代无法利用有界性选出唯一解。此时为了满足 \ref{eq:MIU-inflation-difference}，可以写成
+如果 \(\phi_\pi\le1\)，那么 \(\phi_\pi^{-1}\ge1\)，前向迭代无法利用有界性选出唯一解。此时为了满足 \ref{eq:MIU-inflation-difference}，可以写成
 \begin{align*}
-    \pi\nt=\varphi_\pi\,\pi_t-\hat r_t+\xi_{t+1}\,,\qquad \meant\bks{\xi_{t+1}}=0
+    \pi\nt=\phi_\pi\,\pi_t-\hat r_t+\xi_{t+1}\,,\qquad \meant\bks{\xi_{t+1}}=0
 \end{align*}
 这里的 \(\xi_{t+1}\) 是 sunspot 冲击，所以通胀和价格水平都不再唯一。换成 Blanchard-Kahn 条件来表述也是一样。系统
 \begin{align*}
-    \meant\,\pi\nt=\varphi_\pi\,\pi_t-\hat r_t
+    \meant\,\pi\nt=\phi_\pi\,\pi_t-\hat r_t
 \end{align*}
-中，\(\pi_t\) 是跳变量，特征根是 \(\varphi_\pi\)。只有在 \(\varphi_\pi>1\) 时，系统才有一个不稳定根来约束这个跳变量；若 \(\varphi_\pi\le1\)，就会出现多条有界均衡路径。这就是 Taylor 原则。
+中，\(\pi_t\) 是跳变量，特征根是 \(\phi_\pi\)。只有在 \(\phi_\pi>1\) 时，系统才有一个不稳定根来约束这个跳变量；若 \(\phi_\pi\le1\)，就会出现多条有界均衡路径。这就是 Taylor 原则。
 
 \subsection{最优货币政策}
 
@@ -629,19 +628,19 @@
 
 如果既想实现 Friedman rule，又想排除名义不确定性，那么就要把“零利率目标”写进一个满足决定性的反馈规则中。令
 \begin{align*}
-    \hat\imath_t=\varphi\bka{\hat r_{t-1}+\pi_t}\,,\qquad \varphi>1
+    \hat\imath_t=\phi\bka{\hat r_{t-1}+\pi_t}\,,\qquad \phi>1
 \end{align*}
 并与 Fisher 方程联立。向前一期看
 \begin{align*}
     \meant\,\hat\imath_{t+1}
-    =\varphi\bka{\hat r_t+\meant\,\pi\nt}
-    =\varphi\,\hat\imath_t
+    =\phi\bka{\hat r_t+\meant\,\pi\nt}
+    =\phi\,\hat\imath_t
 \end{align*}
 从而递推得到
 \begin{align*}
-    \meant\bks{\hat\imath_{t+s}}=\varphi^s\,\hat\imath_t
+    \meant\bks{\hat\imath_{t+s}}=\phi^s\,\hat\imath_t
 \end{align*}
-由于 \(\varphi>1\)，若均衡路径有界，那么唯一可能就是 \(\hat\imath_t=0\)。再代回政策规则得
+由于 \(\phi>1\)，若均衡路径有界，那么唯一可能就是 \(\hat\imath_t=0\)。再代回政策规则得
 \begin{align*}
     \pi_t=-\hat r_{t-1}
 \end{align*}

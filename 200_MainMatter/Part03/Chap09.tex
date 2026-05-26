@@ -1,0 +1,57 @@
+% !TeX root = Chap09.tex
+% !TeX program = xelatex
+
+\let\AMaNStandaloneEntry\relax
+\ifdefined\AMaNMaster\else
+  \makeatletter
+  \def\input@path{{../../}}
+  \def\AMaNRoot{../../}
+  \makeatother
+
+  \def\SingleChapter{200_MainMatter/Part03/Chap09}
+  \def\SingleChapterNumber{9}
+  \def\AMaNStandaloneEntry{%
+    \InputIfFileExists{../../AMaN_Private.tex}{}{%
+      \input{../../AMaN_Public.tex}%
+    }%
+    \endinput
+  }%
+\fi
+\AMaNStandaloneEntry
+
+% 200_MainMatter/Part03/Chap09.tex -- Chapter 09
+
+\ChapterGeometry
+
+\chapter{NK 模型：政策设计}\label{ch:09}
+
+\section{NK 模型的无效率}
+
+经济体中资源分配是有效率的，当边际替代率、边际转换率和边际产出相等时，即
+\begin{align*}
+  \n{MRS}_{C,N,t}=\n{MRT}_{C,N,t}=\n{MPN}_t
+\end{align*}
+NK 模型中有两大微观机制会导致资源分配无效率：1. 市场势力；2. 价格黏性。
+
+有市场势力的厂商会采取加成定价策略来最大化利润，那么
+\begin{align*}
+  \n{MRS}_{C,N,t}=-\dfrac{U_{N,t}}{U_{C,t}}=\dfrac{W_t}{P_t}=\dfrac1\mu\cdot\dfrac{\n{MPN}_t\,P_t}{P_t}=\dfrac{\n{MPN}_t}{\mu}\le\n{MPN}_t
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+\begin{align*}
+  W=\dfrac12\,\meano\sum^\infty_{t=0}\,\beta^t\bks{\bka{\sigma+\dfrac{\phi+\alpha}{1-\alpha}}\tilde y^2_t+\dfrac\varepsilon\kappa\,\hat\pi_t^2}
+\end{align*}
+
+
+% \PrintChapterBibliography
+
+\SymmetricGeometry
