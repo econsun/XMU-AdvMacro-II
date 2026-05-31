@@ -1,0 +1,40 @@
+\makeatletter
+\def\input@path{{../}}
+\def\AMaNRoot{../}
+\makeatother
+
+\input{_config/switches}
+\documentclass[oneside,openany,zihao=5,UTF8,fontset=none]{ctexbook}
+\input{_config/preamble}
+
+\begin{document}
+
+% ==================== 封面、前言、目录 ====================
+\frontmatter
+\SymmetricGeometry
+
+\hypersetup{pageanchor=false}
+\pagenumbering{gobble}
+\input{cover}
+\hypersetup{pageanchor=true}
+
+\cleardoublepage
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+% \input{preface}
+
+\setlength{\parskip}{0ex plus 0.4ex minus 0.2ex}
+\renewcommand{\contentsname}{目\hspace{1em}录}
+\tableofcontents
+\setlength{\parskip}{1.5ex plus 0.4ex minus 0.2ex}
+
+% ==================== 正文 ====================
+\mainmatter
+\ChapterGeometry
+
+\input{01_math-tool.tex}
+\input{02_RBC-model.tex}
+\input{03_MIU-model.tex}
+
+\end{document}

@@ -1,0 +1,379 @@
+% !TEX root = 00_MidReview.tex
+
+\chapter{数学工具}
+
+\section{线性差分系统}
+
+\subsection{求解一阶线性差分方程}
+
+考虑如下差分方程\sidenote{通解由齐次解和特解构成：求齐次解使用特征方程法；求特解用猜测形式法}
+\begin{align*}
+    y\nt+a\,y_t=C
+\end{align*}
+写出特征方程
+\begin{align*}
+    \lambda+a=0
+\end{align*}
+解得特征根 \(\lambda=-a\)，差分方程的齐次解 \(y^c_t=A\,\bka{-a}^t\)，其中 \(A\) 是任意常数。
+
+猜测特解 \(y^p_t=k\) 代入差分方程
+\begin{align*}
+    k+a\,k=C \qquad\Rightarrow\qquad k=\frac{C}{1+a}
+\end{align*}
+结果要求 \(a\ne-1\)。单独考虑 \(a=-1\) 的情况，猜测特解 \(y^p_t=k\,t\) 代入差分方程
+\begin{align*}
+    k\,(t+1)-k\,t=C \qquad\Rightarrow\qquad k=C
+\end{align*}
+因此差分方程的通解为
+\begin{equation*}
+    y_t=y_t^c+y_t^p=\begin{cases}
+        \ A\bka{-a}^{t}+\dfrac C{1+a} & a\neq -1\\
+        \ A+C\,t & a=-1
+    \end{cases}
+\end{equation*}
+假设系统的初始位置为 \(y_0\)，代入上式求解 \(A\) 的值
+\begin{equation*}
+    y_0=\begin{cases}
+        \ A\bka{-a}^0 + \dfrac C{1+a} & a\neq -1\\
+        \ A+C\,t & a=-1
+    \end{cases} \quad \Longrightarrow \quad A=\begin{cases}
+        \ y_0-\dfrac C{1+a} & a\neq -1\\
+        \ y_0 & a=-1
+    \end{cases}
+\end{equation*}
+
+\subsection{求解二阶线性差分方程}
+
+考虑如下差分方程
+\begin{align*}
+    y\nnt+a\,y\nt+b\,y_t=C
+\end{align*}
+写出特征方程
+\begin{align*}
+    \lambda^2+a\,\lambda+b=0
+\end{align*}
+这是一元二次方程，判别式 \(\Delta=a^2-4\,b\) 的符号决定了特征根的类型，影响到差分方程齐次解的形式：
+\begin{equation*}
+    y^c=\begin{cases}
+        \ A_1\,b^t_1+A_2\,b^t_2 & \n{ if}\quad \Delta>0\\
+        \ A_3\,b^t + A_4\,t\,b^t & \n{ if}\quad \Delta=0\\
+        \ \rho^t\bks{A_5\,\cos\bka{t\,\theta} + A_6\,\sin\bka{t\,\theta}} & \n{ if}\quad \Delta<0
+    \end{cases}
+\end{equation*}
+再分别假设特解 \(y^p=k\)、\(y^p=k\,t\)、\(y^p_t=k\,t^2\) 代入差分方程解得 \footnote{2026 年 4 月 21 日勘误：此前第二种情况表达式有误}
+\begin{equation*}
+    y^p=\begin{cases}
+       \ \dfrac C{1+a_1+a_2} & \n{ if}\quad 1+a_1+a_2\neq 0\\[3ex]
+       \ \dfrac {C\,t}{2+a_1} & \n{ if}\quad 1+a_1+a_2=0\ \n{ and }\ a_1\neq-2\\[3ex]
+       \ \dfrac {C\,t^2 }{2}& \n{ if}\quad a_1=-2\ \n{ and }\ a_2=1
+    \end{cases}
+\end{equation*}
+根据方程的具体形式组合需要的齐次解和特解得到通解，匹配的条件已在公式中给出，不可随意组合以上结果。
+
+\subsection{差分系统的稳定性}
+
+\noxmubluebf{一阶系统的稳定性}
+
+回顾一阶线性系统通解
+\begin{equation*}
+    y_t=\begin{cases}
+        \ A\bka{-a}^{t}+\dfrac C{1+a} & a\neq -1\\
+        \ A+C\,t & a=-1
+    \end{cases}
+\end{equation*}
+根据指数函数 \(\bka{-a}^t\) 的收敛性，我们可以得出如下结论
+\begin{itemize}
+    \item 当 \(\bkf{a}<1\) 时，\(b^t\to 0\)，\(y_t\to C\,/\bka{1-a}\)，系统具有稳态 \(\bar y = C\,/\bka
+    {1-a}\)\sidenote{\sidemath{\(\bkf{a}<1\)} 是差分系统具有稳态的充分条件，含 \sidemath{\(a=0\)}}
+    \item 当 \(\bkf{a}>1\) 时，\(\bka{-a}^t\to \infty\)，\(y_t\to \infty\)，系统不具有稳态
+    \item 当 \(a=-1\) 时，\(y_t=A+C\,t\)，系统不具有稳态
+    \item 当 \(a=1\) 时，\(y_t=\bka{-1
+    }^tA\)，系统不具有稳态
+\end{itemize}
+更严谨地说，以上 “不具有稳态” 要求系统的初始位置不在稳态上及其他值得忽略的情况。如果 \(a>0\)，\(y_t-\bar y\) 的符号会随着 \(t\) 交替变化，系统交替震荡收敛或交替震荡发散。
+
+\myskip
+\noxmubluebf{二阶系统的稳定性}
+
+改写二阶线性差分方程，令 \(x_t=y\nt\)，有
+\begin{equation*}
+    \begin{cases}
+        \ x\nt + a_1\,x_t + a_2\,y_t = C\\
+        \ y\nt - x_t = 0
+    \end{cases}
+\end{equation*}
+用矩阵符号表示为
+\begin{align}
+    \underbrace{\matbks{x\nt\\y\nt}}_{\bs X\nt}&=\underbrace{\matbks{-a_1 & -a_2\\1 & 0}}_{\bs A}\underbrace{\matbks{x_t\\y_t}}_{\bs X_t}+\underbrace{\matbks{C\\0}}_{\bs C}\\
+    \bsX\nt&=\bsA\,\bsX_t+\bs C\label{eq:DiffEquMatrix}
+\end{align}
+关注矩阵 \(\bsA\)，设其迹为 \(T\)，行列式为 \(D\)，则特征方程为
+\begin{align*}
+    p\bka\lambda&=\bka{\lambda-\lambda_1}\bka{\lambda-\lambda_2}\\
+    &= \lambda^2 - \bka{\lambda_1+\lambda_2}\lambda + \lambda_1\,\lambda_2\\
+    &= \lambda^2 - T\,\lambda + D=0
+\end{align*}
+根据以下四个关键边界方程划分 \(\bka{T,D}\) 平面
+\begin{align*}
+    &(\n a)\qquad \Delta=T^2-4D=0\\
+    &(\n b)\qquad D=\lambda_1\cdot\lambda_2=1\\
+    &(\n c)\qquad p\bka1=1-T+D=0\\
+    &(\n d)\qquad p\bka{-1}=1+T+D=0
+\end{align*}
+由 (b)、(c)、(d) 围出的 (6) 和 (7) 区域 —— \( \ p\bka{1},\,p\bka{-1}>0\) 且 \(D>1\) 为稳定区域，无论系统初始位置在何处，都会收敛至稳态。此外同样值得关注的是 (1) 和 (3) 区域 —— \( \ p\bka{1}\) 和 \(p\bka{-1}\) 异号，即 \(\bkf T>\bkf{1+D}\)，这样的系统具有鞍路径，存在两条（同一直线的两个方向）收敛路径。
+
+\begin{figure}[H]
+    \centering
+    \sidenote{落在边界上也是不可能稳定的（排除特殊情况）；箭头表示大于的方向，如 \sidemath{\(p\bka{1}>1\)}}
+    \begin{tikzpicture}[
+        scale=1.0,
+        line cap=round,
+        line join=round,
+        >=Latex
+    ]
+        % ---- User-tunable geometry ----
+        \def\xmin{-5.2}
+        \def\xmax{5.4}
+        \def\ymin{-1.85}
+        \def\ymax{4.1}
+        \def\parabL{-4.00}
+        \def\parabR{4.00}
+        \def\lineL{-4.25}
+        \def\lineR{4.25}
+        \def\BaseLineWidth{0.85pt}
+        \def\GuideLineWidth{0.60pt}
+        
+        \def\MirrorArrowLineWidth{1.00pt}
+        \def\MirrorArrowALength{0.40}
+        \def\MirrorArrowBLength{0.35}
+        \def\MirrorArrowCLength{0.55}
+        \def\MirrorArrowAY{3.35}
+        \def\MirrorArrowBY{2.75}
+        \def\MirrorArrowCY{1.00}
+        \def\MirrorArrowAHalfGap{3.70}
+        \def\MirrorArrowBHalfGap{3.75}
+        \def\MirrorArrowCHalfGap{1.20}
+        \def\MirrorArrowAAngle{-40}
+        \def\MirrorArrowBAngle{135}
+        \def\MirrorArrowCAngle{90}
+
+        % ---- User-tunable number colors ----
+        \colorlet{NumOneColor}{red!75!black}
+        \colorlet{NumTwoColor}{red!75!black}
+        \colorlet{NumThreeColor}{red!75!black}
+        \colorlet{NumFourColor}{red!75!black}
+        \colorlet{NumFiveColor}{red!75!black}
+        \colorlet{NumSixColor}{red!75!black}
+        \colorlet{NumSevenColor}{red!75!black}
+        
+        % ---- User-tunable label positions ----
+        \def\pOneLabelX{-3.95}     \def\pOneLabelY{2.76}
+        \def\pMinusOneLabelX{3.95} \def\pMinusOneLabelY{2.76}
+        \def\DeltaLabelX{2.60}     \def\DeltaLabelY{3.85}
+        \def\DOneLabelX{5.00}     \def\DOneLabelY{0.70}
+
+        \def\labOneX{2.00}   \def\labOneY{-1.00}
+        \def\labThreeX{-2.00}\def\labThreeY{-1.00}
+        \def\labOneXX{3.00}   \def\labOneYY{0.50}
+        \def\labThreeXX{-3.00}\def\labThreeYY{0.50}
+        \def\labOneXXX{3.50}   \def\labOneYYY{1.70}
+        \def\labThreeXXX{-3.50}\def\labThreeYYY{1.70}
+
+        \def\labTwoX{0.35}   \def\labTwoY{-1.70}
+        \def\labFiveX{1.50}  \def\labFiveY{2.72}
+        \def\labSixX{0.85}   \def\labSixY{0.65}
+        \def\labSevenX{0.35}\def\labSevenY{-0.27}
+
+        \def\labFourX{4.20} \def\labFourY{3.60}
+
+        \pgfmathsetmacro{\xcutL}{\ymin+1}
+        \pgfmathsetmacro{\xcutR}{-1-\ymin}
+        \pgfmathsetmacro{\MirrorArrowADx}{\MirrorArrowALength*cos(\MirrorArrowAAngle)}
+        \pgfmathsetmacro{\MirrorArrowADy}{\MirrorArrowALength*sin(\MirrorArrowAAngle)}
+        \pgfmathsetmacro{\MirrorArrowBDx}{\MirrorArrowBLength*cos(\MirrorArrowBAngle)}
+        \pgfmathsetmacro{\MirrorArrowBDy}{\MirrorArrowBLength*sin(\MirrorArrowBAngle)}
+        \pgfmathsetmacro{\MirrorArrowCDx}{\MirrorArrowCLength*cos(\MirrorArrowCAngle)}
+        \pgfmathsetmacro{\MirrorArrowCDy}{\MirrorArrowCLength*sin(\MirrorArrowCAngle)}
+
+        % Axes
+        \draw[-{Latex[length=2.8mm,width=2mm]}, line width=\BaseLineWidth] (\xmin,0) -- (\xmax,0) node[below] {\(T\)};
+        \draw[-{Latex[length=2.8mm,width=2mm]}, line width=\BaseLineWidth] (0,\ymin) -- (0,\ymax) node[right] {\(D\)};
+
+        % Reference lines
+        \draw[line width=\BaseLineWidth, black] (\lineL,{-\lineL-1}) -- (\xcutR,\ymin);
+        \draw[line width=\BaseLineWidth, black] (\xcutL,\ymin) -- (\lineR,{\lineR-1});
+        \draw[black, line width=\BaseLineWidth] (-5,1) -- (5,1);
+        \draw[black, line width=\BaseLineWidth, domain=\parabL:\parabR, samples=320] plot (\x, {(\x*\x)/4});
+
+        % Tick marks and labels
+        \foreach \x/\lab in {-2/-2,-1/-1,1/1,2/2} {
+            \draw (\x,0.06) -- (\x,-0.06);
+            \node[below] at (\x,0) {\lab};
+        }
+        \draw (0.06,-1) -- (-0.06,-1);
+        \node[right] at (0,-1) {\(-1\)};
+        \draw (0.06,1) -- (-0.06,1);
+        \node[above right] at (0,1) {\(1\)};
+
+        % Helper guides at T = ±2
+        \draw[black, densely dashed, line width=\GuideLineWidth] (-2,0) -- (-2,1);
+        \draw[black, densely dashed, line width=\GuideLineWidth] (2,0) -- (2,1);
+
+        % Labels for loci
+        \node[black, anchor=west] at (\pMinusOneLabelX,\pMinusOneLabelY) {\(p\bka{-1}=0\)};
+        \node[black, anchor=east] at (\pOneLabelX,\pOneLabelY) {\(p\bka{1}=0\)};
+        \node[black] at (\DeltaLabelX,\DeltaLabelY) {\(\Delta=0\)};
+        \node[black, left] at (\DOneLabelX,\DOneLabelY) {\(D=1\)};
+
+        % Circled region numbers
+        \newcommand{\RegionMarker}[4]{%
+            \draw[color=#4, line width=0.55pt] (#1,#2) circle (0.15);
+            \node[text=#4, font=\scriptsize\bfseries] at (#1,#2) {#3};
+        }
+        \RegionMarker{\labOneX}{\labOneY}{1}{NumOneColor}
+        \RegionMarker{\labTwoX}{\labTwoY}{2}{NumTwoColor}
+        \RegionMarker{-\labTwoX}{\labTwoY}{2}{NumTwoColor}
+        \RegionMarker{\labThreeX}{\labThreeY}{3}{NumThreeColor}
+        \RegionMarker{\labFourX}{\labFourY}{4}{NumFourColor}
+        \RegionMarker{\labFiveX}{\labFiveY}{5}{NumFiveColor}
+        \RegionMarker{\labSixX}{\labSixY}{6}{NumSixColor}
+        \RegionMarker{\labSevenX}{\labSevenY}{7}{NumSevenColor}
+        \RegionMarker{-\labFiveX}{\labFiveY}{5}{NumFiveColor}
+        \RegionMarker{-\labSixX}{\labSixY}{6}{NumSixColor}
+        \RegionMarker{-\labSevenX}{\labSevenY}{7}{NumSevenColor}
+        \RegionMarker{-\labFourX}{\labFourY}{4}{NumFourColor}
+        \RegionMarker{\labOneXX}{\labOneYY}{1}{NumOneColor}
+        \RegionMarker{\labThreeXX}{\labThreeYY}{3}{NumThreeColor}
+        \RegionMarker{\labOneXXX}{\labOneYYY}{1}{NumOneColor}
+        \RegionMarker{\labThreeXXX}{\labThreeYYY}{3}{NumThreeColor}
+
+        % User-tunable mirrored arrows
+        \draw[-{Latex[length=2.4mm,width=1.7mm]}, black, line width=\MirrorArrowLineWidth]
+            (\MirrorArrowAHalfGap,\MirrorArrowAY)
+            -- ({\MirrorArrowAHalfGap+\MirrorArrowADx},{\MirrorArrowAY+\MirrorArrowADy});
+        \draw[-{Latex[length=2.4mm,width=1.7mm]}, black, line width=\MirrorArrowLineWidth]
+            (-\MirrorArrowAHalfGap,\MirrorArrowAY)
+            -- ({-\MirrorArrowAHalfGap-\MirrorArrowADx},{\MirrorArrowAY+\MirrorArrowADy});
+        \draw[-{Latex[length=2.4mm,width=1.7mm]}, black, line width=\MirrorArrowLineWidth]
+            (\MirrorArrowBHalfGap,\MirrorArrowBY)
+            -- ({\MirrorArrowBHalfGap+\MirrorArrowBDx},{\MirrorArrowBY+\MirrorArrowBDy});
+        \draw[-{Latex[length=2.4mm,width=1.7mm]}, black, line width=\MirrorArrowLineWidth]
+            (-\MirrorArrowBHalfGap,\MirrorArrowBY)
+            -- ({-\MirrorArrowBHalfGap-\MirrorArrowBDx},{\MirrorArrowBY+\MirrorArrowBDy});
+        \draw[-{Latex[length=2.4mm,width=1.7mm]}, black, line width=\MirrorArrowLineWidth]
+            (\MirrorArrowCHalfGap,\MirrorArrowCY)
+            -- ({\MirrorArrowCHalfGap+\MirrorArrowCDx},{\MirrorArrowCY+\MirrorArrowCDy});
+        \draw[-{Latex[length=2.4mm,width=1.7mm]}, black, line width=\MirrorArrowLineWidth]
+            (-\MirrorArrowCHalfGap,\MirrorArrowCY)
+            -- ({-\MirrorArrowCHalfGap-\MirrorArrowCDx},{\MirrorArrowCY+\MirrorArrowCDy});
+    \end{tikzpicture}
+    \caption{\(\bka{T,D}\) 平面中的稳定性分类示意图}
+    \label{fig:TDStabilityMap}
+\end{figure}
+
+\myskip
+\noxmubluebf{Blanchard-Kahn 条件}
+
+经济系统中存在两类变量：前定变量，在决策时已经确定的变量；跳跃变量，在决策时还未确定，可以自由选择的变量。BK 条件称，如果
+\begin{itemize}
+    \item \# 不稳定根 = \# 跳跃变量，存在唯一均衡路径（鞍路径）
+    \item \# 不稳定根 > \# 跳跃变量，不存在稳定均衡路径
+    \item \# 不稳定根 < \# 跳跃变量，稳定均衡路径不唯一
+\end{itemize}
+
+
+
+\newpage
+\section{对数线性化}
+
+\subsection{对数线性化的方法}
+
+对数线性化常用本小节介绍的三种方法，各有优缺点，应在具体情况中灵活使用\sidenote{建议掌握多种方法，尤其后两种}。以下以柯布-道格拉斯生产函数为例
+\begin{equation*}
+    Y_t=K_t^\alpha\,L_t^{1-\alpha}
+\end{equation*}
+展示三种方法的原理和使用步骤。
+
+\myskip
+\noxmubluebf{方法一：直接方法}
+
+对等式两侧去对数得
+\begin{align*}
+    \log Y_t & = \alpha\log K_t + \bka{1-\alpha}\log L_t\\ 
+    \log \bar Y & = \alpha\log \bar K + \bka{1-\alpha}\log \bar L\label{eq:CDProdLog}
+\end{align*}
+两式相减
+\begin{equation*}
+    \log Y_t - \log \bar Y = \alpha\log K_t - \alpha\log \bar K + \bka{1-\alpha}\log L_t - \bka{1-\alpha}\log \bar L
+\end{equation*}
+定义对数偏离量，得
+\begin{equation*}
+    \hat y_t = \alpha\,\hat k_t + \bka{1-\alpha}\hat l_t\label{eq:CDProdLogLinear}
+\end{equation*}
+
+\myskip
+\noxmubluebf{方法二：基础方法}
+
+该方法要频繁使用到 \(X_t=\bar X\cdot e^{\hat x_t}\) 或近似结果 \(X_t=\bar X\bka{1+\hat x_t}\)，前者更常用。据此，有 \(X^\alpha_t=\bar X^\alpha\cdot e^{\alpha\,\hat x_t}\)（注意 \(\alpha\) 的位置，这也是常见性质），应用到生产函数中
+\begin{align*}
+    \bar Y\,e^{\hat y_t}=\bar K^\alpha\,e^{\alpha\,\hat k_t}\cdot \bar L^{1-\alpha}\,e^{\bka{1-\alpha}\hat l_t}
+\end{align*}
+此时可以取对数
+\begin{align*}
+    {\log\bar Y}+\hat y_t={\alpha\log\bar K}+\alpha\,\hat k_t+{\bka{1-\alpha}\log\bar L}+\bka{1-\alpha}\hat l_t
+\end{align*}
+消去稳态项即可得到结果；或使用 \(e^x\approx 1+x\) 近似
+\begin{align*}
+    \bar Y\bka{1+\hat y_t}&=\bar K^\alpha\,\bar L^{1-\alpha}\cdot\pa{1+\alpha\,\hat k_t}\ps{1+\pa{1-\alpha}\hat l_t}\\
+    \bar Y\pa{1+\hat y_t}&=\bar K^\alpha\,\bar L^{1-\alpha}\cdot\ps{1+\alpha\,\hat k_t + \pa{1-\alpha}\hat l_t + \alpha\,\pa{1-\alpha}\underbrace{ \ \hat k_t\,\hat l_t \ }_{\approx \, 0}}
+\end{align*}
+出于对精度的容忍，丢弃高阶项也是使用本方法过程中的常用手段。剩下步骤省略。
+
+\myskip
+\noxmubluebf{方法三：通用方法}\label{sec:LogLinearGeneralMethod}
+
+对数线性化的目标形如 \(Z_t=f\bka{X_t,Y_t}\)（或更多变量），首先对其取对数
+\begin{align*}
+    & \log Z_t=\log \, f\bka{e^{\log X_t}, \,e^{\log Y_t}}
+\end{align*}
+再求偏导数
+\begin{align*}
+    & \dfrac{\partial\log Z_t}{\partial\log X_t}\bka{\bar X,\bar Y}= \dfrac1{\bar Z}\cdot\dfrac{\p Z_t}{\p X_t}\bka{\bar X,\bar Y}\cdot \underbrace{ \ e^{\log \bar X} \ }_{=\,\bar X}=\underbrace{ \ \dfrac{\bar X}{\bar Z}\cdot\dfrac{\p Z_t}{\p X_t}\bka{\bar X,\bar Y} \ }_{\eqcolon\ \bar \eta_{zx}}
+\end{align*}
+此时再应用泰勒公式
+\begin{align*}
+    \log Z_t&\approx\log\bar Z+\dfrac{\bar X}{\bar Z}\dfrac{\p Z_t}{\p X_t}\bka{\bar X,\bar Y}\cdot\bka{\log X_t-\log\bar X}+\dfrac{\bar Y}{\bar Z}\dfrac{\p Z_t}{\p Y_t}\bka{\bar X,\bar Y}\cdot\bka{\log Y_t-\log\bar Y}
+\end{align*}
+最终得到两个形式
+\begin{align*}
+    \bar Z\,\hat z_t&=\dfrac{\p Z_t}{\p X_t}\bka{\bar X,\bar Y}\cdot\bar X\,\hat x_t+\dfrac{\p Z_t}{\p Y_t}\bka{\bar X,\bar Y}\cdot\bar Y\,\hat y_t\\
+    \hat z_t&=\bar\eta_{zx}\cdot\hat x_t+\bar\eta_{zy}\cdot\hat y_t
+\end{align*}
+根据柯布-道格拉斯函数的经济含义，指数部分即为弹性，可立即得到结果。
+
+使用通用方法需遵循：1. 计算导数并代入稳态；2. 写出泰勒展开式；3. 根据定义替换对数偏离量；4. 整理结果。
+
+\subsection{对数线性化的性质}
+
+下表总结了对数线性化的重要性质。
+\begin{table}[H]
+    \centering
+    \caption{对数线性化的常用性质}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{>{\centering\arraybackslash}p{0.1\textwidth} >{\centering\arraybackslash}p{0.3\textwidth} >{\centering\arraybackslash}p{0.3\textwidth}}
+        \toprule
+        \textbf{序号} & \textbf{原方程} & \textbf{对数线性化形式} \\
+        \midrule
+        1 & \(X_t\,Y_t=c\) & \(\hat x_t+\hat y_t=0\) \\
+        2 & \(X_t\islash Y_t=c\) & \(\hat x_t-\hat y_t=0\) \\
+        3 & \(X_t\pm Y_t=c\) & \(\bar X\,\hat x_t\pm\bar Y\,\hat y_t=0\) \\
+        \midrule
+        4 & \(Z_t=c\,X_t\) & \(\hat z_t=\hat x_t\) \\
+        5 & \(Z_t=X_t\,Y_t\) & \(\hat z_t=\hat x_t+\hat y_t\) \\
+        6 & \(Z_t=X_t\islash Y_t\) & \(\hat z_t=\hat x_t-\hat y_t\) \\
+        7 & \(Z_t=X_t^\alpha\) & \(\hat z_t=\alpha\,\hat x_t\) \\
+        \midrule
+        8 & \rule{0pt}{4ex}\(\dis Z_t=\sum\wsni\,X_{i,t}\) & \(\dis\hat z_t=\sum\wsni\,\frac{\bar X_{i}}{\bar Z}\cdot\hat x_{i,t}\) \\[2ex]
+        \bottomrule
+    \end{tabular}
+\end{table}

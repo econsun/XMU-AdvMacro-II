@@ -2,19 +2,26 @@
 % !TeX program = xelatex
 % 200_MainMatter/Part01/Part01.tex -- Part 01 entry
 
+\iffalse
+\input{../../_config/workshop-intellisense.tex}
+\fi
+
 \let\AMaNStandaloneEntry\relax
 \ifdefined\AMaNMaster
   \AMaNIncludePart{1}
 \else
   \makeatletter
   \def\input@path{{../../}}
+  \def\AMaNInputRootFile#1{\@@input #1\relax}
   \def\AMaNRoot{../../}
   \makeatother
 
   \def\SinglePart{1}
   \def\AMaNStandaloneEntry{%
-    \InputIfFileExists{../../AMaN_Private.tex}{}{%
-      \input{../../AMaN_Public.tex}%
+    \IfFileExists{../../AMaN_Private.tex}{%
+      \AMaNInputRootFile{../../AMaN_Private.tex}%
+    }{%
+      \AMaNInputRootFile{../../AMaN_Public.tex}%
     }%
     \endinput
   }%

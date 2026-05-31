@@ -1,18 +1,25 @@
 % !TeX root = Chap04.tex
 % !TeX program = xelatex
 
+\iffalse
+\input{../../_config/workshop-intellisense.tex}
+\fi
+
 \let\AMaNStandaloneEntry\relax
 \ifdefined\AMaNMaster\else
   \makeatletter
   \def\input@path{{../../}}
+  \def\AMaNInputRootFile#1{\@@input #1\relax}
   \def\AMaNRoot{../../}
   \makeatother
 
   \def\SingleChapter{200_MainMatter/Part02/Chap04}
   \def\SingleChapterNumber{4}
   \def\AMaNStandaloneEntry{%
-    \InputIfFileExists{../../AMaN_Private.tex}{}{%
-      \input{../../AMaN_Public.tex}%
+    \IfFileExists{../../AMaN_Private.tex}{%
+      \AMaNInputRootFile{../../AMaN_Private.tex}%
+    }{%
+      \AMaNInputRootFile{../../AMaN_Public.tex}%
     }%
     \endinput
   }%

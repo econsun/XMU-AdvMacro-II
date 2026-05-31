@@ -1,0 +1,665 @@
+% !TEX root = 00_MidReview.tex
+
+\chapter{RBC 模型}
+
+\section{RBC 基础模型}
+
+\subsection{社会规划者问题}
+
+在这样的 RBC 模型中，只有社会规划者一个经济主体，他要在资源约束条件下最大化社会总效用。最优化问题表述如下
+\begin{align*}
+    \max_{\bkd{C_t,K_t}\wsito} \quad & U= \mean_0\bkd{\sum\wsito \,\beta^t\,\dfrac{C_t^{1-\sigma}-1}{1-\sigma}}\sidenote{\sidemath{\(\sigma\)} 代表相对风险厌恶系数；\sidemath{\(\sigma\inv\)} 代表消费的跨期替代弹性} \\
+    \text{s.t.} \quad & C_t+K_t=Z_t\,K^\alpha\lt+\bka{1-\delta}K_{t-1} \\
+    & \lim_{T\to\infty}\,\beta^T\,\mean_T\bks{\lambda_T\,K_T}=0\,,\quad K_{-1}>0
+\end{align*}
+构建拉格朗日函数（暂时只关注资源约束）
+\begin{align*}
+    \cal L=\mean_0\,\sum\wsito\,\beta^t\bkd{\dfrac{C_t^{1-\sigma}-1}{1-\sigma}+\lambda_t\bks{Z_t\,K\lt^\alpha+\bka{1-\delta}K_{t-1}-C_t-K_t}}
+\end{align*}
+一阶条件为
+\begin{align*}
+    \cal L_{C_t}&=C_t^{-\sigma}-\lambda_t=0 \\
+    \cal L_{K_t}&=-\lambda_t+\beta\,\mean_t\bks{\lambda_{t+1}\bka{\alpha\, Z_{t+1}\,K_t^{\alpha-1}+1-\delta}}=0\\
+    \cal L_{\lambda_t}&=C_t+K_t-Z_t\,K\lt^\alpha-\bka{1-\delta}K\lt=0
+\end{align*}
+整理第一、第二式得欧拉方程\sidenote{欧拉方程描述资源用于当期消费还是投资以获得下期回报的决策平衡}
+\begin{align*}
+    C_t^{-\sigma}=\beta\,\mean_t\bks{C_{t+1}^{-\sigma}\bka{\alpha\, Z_{t+1}\,K_t^{\alpha-1}+1-\delta}}
+\end{align*}
+
+结合资源约束、欧拉方程、技术运动得 RBC 系统
+\begin{empheq}[left=\empheqlbrace]{align*}
+    & \ C_t+K_t=Z_t\,K\lt^\alpha+\bka{1-\delta}K\lt \\
+    & \ C_t^{-\sigma}=\beta\,\mean_t\bks{C_{t+1}^{-\sigma}\bka{\alpha\, Z_{t+1}\,K_t^{\alpha-1}+1-\delta}}\\
+    & \ \log Z_t=\bka{1-\psi}\log\bar Z+\psi\log Z\lt+\varepsilon_t\sidenote{\sidemath{\(\psi\in\bka{0,1}\)} 代表技术冲击衰减系数，它保证 AR(1) 过程稳定}
+\end{empheq}
+
+\subsection{完全竞争市场问题}
+
+\noxmubluebf{家庭行为}
+
+家庭作为资本的持有方，他是资本的供给方，面临如下最优化问题
+\begin{align*}
+    \max_{\bkd{C_t,K^{(s)}_t}\wsito} \ & U= \mean_0\bkd{\sum\wsito \,\beta^t\,\dfrac{C_t^{1-\sigma}-1}{1-\sigma}} \\
+    \text{s.t.} \quad & C_t+K_t^{(s)}=R\s t\,K\lt\w{(s)}+\bka{1-\delta}K\lt\w{(s)}
+\end{align*}
+一阶条件为
+\begin{align*}
+    & \ \cal L_{C_t}=C^{-\sigma}_t-\lambda_t=0\\
+    & \ \cal L_{K_t^{(s)}}=\lambda_t-\beta\,\mean_t\bks{\lambda\nt\bka{R\nt+1-\delta}}=0\\
+    & \ \cal L_{\lambda_t}=C_t+K_t^{(s)}-R\s t\,K\lt\w{(s)}-\bka{1-\delta}K\lt\w{(s)}=0
+\end{align*}
+
+\myskip
+\noxmubluebf{企业行为}
+
+厂商是资本的需求方，面临如下最优化问题（暂不考虑劳动要素）
+\begin{align*}
+    \max_{K^{(d)}\lt} \quad & \Pi_t=Z_t\,K\lt^{(d),\,\alpha}-R_t\, K\lt^{(d)}
+\end{align*}
+一阶条件为
+\begin{align*}
+    \cal L_{K\lt^{(d)}}=\alpha\, Z_t\,K\lt^{(d),\,\alpha-1}-R_t=0
+\end{align*}
+
+\myskip
+\noxmubluebf{市场均衡}
+
+此处我们只考虑资本市场和产品市场，资本市场出清时，根据 Walras 法则，产品市场自动出清。假设 \(K=K^{(s)}=K^{(d)}\)，有
+\begin{empheq}{align*}
+    & K=K^{(s)}=K^{(d)} \\
+    & R_t=\alpha\, Z_t\,K\lt^{\alpha-1} \\
+    & C_t+K_t=Z_t\,K\lt^\alpha+\bka{1-\delta}K\lt
+\end{empheq}
+结合家庭行为、企业行为、市场均衡、技术运动得 RBC 系统
+\begin{empheq}[left=\empheqlbrace]{align*}
+    & \ C_t+K_t=Z_t\,K\lt^\alpha+\bka{1-\delta}K\lt \\
+    & \ C_t^{-\sigma}=\beta\,\mean_t\bks{C_{t+1}^{-\sigma}\bka{\alpha\, Z_{t+1}\,K_t^{\alpha-1}+1-\delta}}\\
+    & \ \log Z_t=\bka{1-\psi}\log\bar Z+\psi\log Z\lt+\varepsilon_t
+\end{empheq}
+该结果和社会规划者问题的结果完全一样，这就是所谓的第一福利定理，它说明在完全竞争市场中，市场均衡能够实现资源的最优配置。同样的，社会规划者问题的结果也可以通过家庭行为、企业行为、市场均衡来实现，这就是所谓的第二福利定理。
+
+\subsection{模型稳态求解}
+
+稳态系统如下
+\begin{empheq}[left=\empheqlbrace]{align*}
+    & \ \bar C+\bar K=\bar Z\,\bar K^\alpha+\bka{1-\delta}\bar K \\
+    & \ \bar C^{-\sigma}=\beta\,\bar C^{-\sigma}\bka{\alpha\, \bar Z\,\bar K^{\alpha-1}+1-\delta} \\
+    & \ \log\bar Z=\bka{1-\psi}\log \bar Z+\psi\log \bar Z
+\end{empheq}
+其中 \(\bar Z\) 值是可以自由选择的，我们设定 \(\bar Z=1\)。再做符号定义
+\begin{align*}
+    &R_t=\underbrace{ \ \alpha\, Z_t\,K\lt^{\alpha-1} \ }_{\n{MPK}_t}+1-\delta\\
+    &\tilde\delta=1-\beta\bka{1-\delta}
+\end{align*}
+此时从第二式能解出
+\begin{align*}
+    &\bar R=\dfrac1\beta\qquad\n{和}\qquad \bar K=\bka{\dfrac{\alpha\,\beta}{\tilde\delta}}^{\frac1{1-\alpha}}
+\end{align*}
+再从第一式解出
+\begin{align*}
+    \dfrac{\bar C}{\bar K}=\dfrac{\tilde\delta}{\alpha\,\beta}-\delta
+\end{align*}
+并注意到下式成立
+\begin{align*}
+    \dfrac{\bar C}{\bar K}=\bar K^{\alpha-1}-\delta=\dfrac{\overline{\n{MPK}}}\alpha-\delta=\dfrac{\bar Y}{\bar K}+\delta
+\end{align*}
+
+\subsection{模型对数线性化}
+
+\noxmubluebf{对数线性化资源约束}
+
+资源约束中，\(K_t\) 分别对 \(K\lt\)、\(Z_t\) 和 \(C_t\) 求偏导数
+\begin{align*}
+    &\dfrac{\p K_t}{\p K\lt}\Biggbar{\n{S.S.}}=\alpha\,Z_t\,K\lt^{\alpha-1}+\bka{1-\delta}=\alpha\,\dfrac{\bar Y}{\bar K}+\bka{1-\delta}\\
+    &\dfrac{\p K_t}{\p Z_t}\Biggbar{\n{S.S.}}=\bar K^\alpha=\dfracb{Y}{Z} \ ,\qquad \dfrac{\p K_t}{\p C_t}\Biggbar{\n{S.S.}}=-1
+\end{align*}
+应用
+\begin{equation*}
+    \bar Z\,\hat z_t=\dfrac{\p Z_t}{\p X_t}\bka{\bar X,\bar Y}\cdot\bar X\,\hat x_t+\dfrac{\p Z_t}{\p Y_t}\bka{\bar X,\bar Y}\cdot\bar Y\,\hat y_t
+\end{equation*}
+得
+\begin{align*}
+    \bar K\,\hat k_t&=\bks{\alpha\,\dfrac{\bar Y}{\bar K}+\bka{1-\delta}}\bar K\,\hat k\lt+\dfracb{Y}{Z}\cdot\bar Z\,\hat z_t-\bar C\,\hat c_t\\
+    \Rightarrow\quad \hat k_t&=\bks{\alpha\,\dfrac{\bar Y}{\bar K}+\bka{1-\delta}}\cdot\hat k\lt+\dfracb{Y}{K}\cdot\hat z_t-\dfracb{C}{K}\cdot\hat c_t
+\end{align*}
+
+\myskip
+\noxmubluebf{对数线性化欧拉方程}
+
+使用 \(R_t\) 的定义，分两步完成对数线性化。首先
+\begin{align*}
+    C_t^{-\sigma}&=\beta\,\meant\bks{C\nt^{-\sigma}\,R\nt}\\
+    -\sigma\,\hat c_t&=0+\meant\bks{-\sigma\,\hat c\nt+\hat r\nt}\\
+    \sigma\,\hat c_t&=\meant\bks{\sigma\,\hat c\nt-\hat r\nt}
+\end{align*}
+以上步骤使用了 \(X_t^\gamma\,Y_t^\eta=\gamma\,\hat x_t+\eta\,\hat y_t\) 性质。接着使用 \(X_t\pm Y_t=C\) 得 \(\bar X\,\hat x_t\pm\bar Y\,\hat y_t=0\) 性质，有
+\begin{align*}
+    R\nt&\n{MPK}\nt+1-\delta\\
+    \bar R\cdot\hat r\nt&=\overline{\n{MPK}} \cdot\widehat{\n{MPK}}\nt\\
+    \hat r\nt&=\dfrac{\overline{\n{MPK}}}{\bar R}\bks{\hat z\nt-\bka{1-\alpha}\hat k_t}\\
+    \hat r\nt&=\tilde\delta\bks{\hat z\nt-\bka{1-\alpha}\hat k_t}
+\end{align*}
+最终得到对数线性化欧拉方程的结果
+\begin{align*}
+    \sigma\,\mean_t\bks{\hat c\nt-\hat c_t}&=\tilde\delta\bks{\mean_t\,\hat z\nt-\bka{1-\alpha}\hat k_t}
+\end{align*}
+从中可知
+\begin{align*}
+    \meant\bks{\hat c\nt-\hat c_t}\propto\meant\,\widehat{\n{MPK}}\nt
+\end{align*}
+意味着 MPK 和 \(\tilde\delta\) 上升会引起未来消费更多（消费增长率上升）；而 \(\sigma\) 上升会引起未来消费更少（消费增长率下降）。
+
+\myskip
+\noxmubluebf{对数线性化技术运动}
+
+应用 \(X_t=\bar X\,e^{\hat x_t}\) 对数线性化技术运动
+\begin{align*}
+    \log\pa{\bar Z\,e^{\hat z\nt}}&=\bka{1-\psi}\log\bar Z+\psi\log\bka{\bar Z\,e^{\hat z_t}}+\varepsilon_t\\
+    \hat z\nt&=\psi\,\hat z_t+\varepsilon_t
+\end{align*}
+
+\subsection{模型稳定性判定}
+
+对数线性化结果汇总为
+\begin{empheq}[left=\empheqlbrace]{align*}
+    & \ \hat k_t=\bks{\alpha\,\dfrac{\bar Y}{\bar K}+\bka{1-\delta}}\cdot\hat k\lt+\dfracb{Y}{K}\cdot\hat z_t-\dfracb{C}{K}\cdot\hat c_t \\
+    & \ \mean_t\bks{\hat c\nt-\hat c_t}=\dfrac{\tilde\delta}{\sigma}\bks{\mean_t\,\hat z\nt-\bka{1-\alpha}\hat k_t} \\
+    & \ \hat z\nt=\psi\,\hat z_t+\varepsilon_{t}
+\end{empheq}
+代入稳态进行参数化
+\begin{empheq}[left=\empheqlbrace]{align*}
+    & \ \hat k_t=\dfrac1\beta\cdot\hat k\lt+\dfrac{\tilde\delta}{\alpha\,\beta}\cdot\hat z_t-\bka{\dfrac{\tilde\delta}{\alpha\,\beta}-\delta}\cdot\hat c_t \\
+    &\ \sigma\,\mean_t\,\hat c\nt+\tilde\delta\bka{1-\alpha}\hat k_t-\tilde\delta\,\mean_t\,\hat z\nt=\sigma\,\hat c_t \\
+    &\ \hat z\nt=\psi\,\hat z_t+\varepsilon_{t}
+\end{empheq}
+矩阵表示为
+\begin{equation*}
+    \matbks{1&0&0\\\tilde\delta\bka{1-\alpha}&\sigma&-\tilde\delta\\0&0&1}
+    \matbks{\hat k_t\\\mean_t\,\hat c\nt\\\mean_t\,\hat z\nt}
+    =
+    \matbks{\dfrac1\beta&\delta-\dfrac{\tilde\delta}{\alpha\,\beta}&\dfrac{\tilde\delta}{\alpha\,\beta}\\0&\sigma&0\\0&0&\psi}
+    \matbks{\hat k\lt\\\hat c_t\\\hat z_t}
+\end{equation*}
+由于技术是稳定的，只考虑消费和资本的稳定性。令
+\begin{equation*}
+    \bs M=\matbks{1&0\\\tilde\delta\bka{1-\alpha}&\sigma}\qquad \bs N =\matbks{\dfrac1\beta&\delta-\dfrac{\tilde\delta}{\alpha\,\beta}\\0&\sigma}\qquad \bs x\nt=\matbks{\hat k\nt\\\hat c\nt}
+\end{equation*}
+进行如下运算
+\begin{align*}
+    \mean_t\bks{\bs x_t}=\bs{M}\inv\bs{N}\,\bs x\lt&=
+    \matbks{1&0\\-\dfrac{\tilde\delta\bka{1-\alpha}}{\sigma}&\dfrac1\sigma}\matbks{\dfrac1\beta&\delta-\dfrac{\tilde\delta}{\alpha\,\beta}\\0&\sigma}\bs x\lt\\
+    &=\matbks{\dfrac1\beta&\delta-\dfrac{\tilde\delta}{\alpha\,\beta}\\[2ex]-\dfrac{\tilde\delta\bka{1-\alpha}}{\sigma\,\beta}&1+\dfrac{\tilde\delta\bka{1-\alpha}}{\sigma}\bka{\dfrac{\tilde\delta}{\alpha\,\beta}-\delta}}\bs x\lt
+\end{align*}
+现在系统的稳定性依赖于矩阵 \(\bs{M}\inv\bs{N}\)。计算它的迹和行列式
+\begin{align*}
+    \n{trace} \ \bs J=1+\dfrac1\beta+\dfrac{\tilde\delta\bka{1-\alpha}}{\sigma}\bka{\dfrac{\tilde\delta}{\alpha\,\beta}-\delta}\qquad \& \qquad\n{det} \ \bs J=\dfrac1\beta
+\end{align*}
+计算两个重要式子 \(p\bka{1}\) 和 \(p\bka{-1}\) 的符号
+\begin{align*}
+    &p\bka\lambda=\lambda^2-T\,\lambda+D\\
+    \Rightarrow\quad &p\bka{1}=1-T+D=-\dfrac{\tilde\delta\bka{1-\alpha}}{\sigma}\bka{\dfrac{\tilde\delta}{\alpha\,\beta}-\delta}<0\\
+    \Rightarrow\quad &p\bka{-1}=1+T+D=2+\dfrac2\beta+\dfrac{\tilde\delta\bka{1-\alpha}}{\sigma}\bka{\dfrac{\tilde\delta}{\alpha\,\beta}-\delta}>0
+\end{align*}
+\(p\bka{1}\) 和 \(p\bka{-1}\) 异号的结果是：系统的稳定根和不稳定根各存在一个。消费和资本中只有消费是跳跃变量，跳跃变量的数量和不稳定根的相同，系统存在唯一收敛路径（鞍路径）。
+
+\subsection{模型数值求解}\label{sec:solveRBC}
+
+此前，我们获得了对数线性化之后的系统
+\begin{empheq}[left=\empheqlbrace]{align}
+        & \ \hat k_t=\dfrac1\beta\,\hat k\lt+\dfracb{Y}{K}\,\hat z_t-\dfracb{C}{K}\,\hat c_t\label{eq:logline1}\\
+        & \ \sigma\,\hat c_t=\sigma\,\meant\,\hat c\nt+\tilde\delta\bka{1-\alpha}\hat k_t-\tilde\delta\,\meant\,\hat z\nt\label{eq:logline2}\\
+        & \ \hat z\nt=\psi\,\hat z_t+\varepsilon_t\label{eq:logline3}
+\end{empheq}
+观察前两式，不难发现满足如下结构
+\begin{equation}
+    \begin{cases}
+        \ \hat k_t=V_{kk}\,\hat k\lt+V_{kz}\,\hat z_t\\
+        \ \hat c_t=V_{ck}\,\hat k\lt+V_{cz}\,\hat z_t
+    \end{cases}\label{eq:MUC}
+\end{equation}
+
+首先，我们将 \ref{eq:MUC} 代入 \ref{eq:logline1} 的第一式得
+\begin{align*}
+    V_{kk}\,\hat k\lt+V_{kz}\,\hat z_t = \dfrac1\beta\,\hat k\lt&+\dfracb{Y}{K}\,\hat z_t-\dfracb{C}{K}\bka{V_{kk}\,\hat k\lt+V_{kz}\,\hat z_t}\\
+    \Rightarrow\quad  \bks{\dfrac1\beta-\dfracb{C}{K}\, V_{ck}-V_{kk}}\hat k\lt&+\bks{\dfracb{Y}{K}-\dfracb{C}{K}\, V_{cz}-V_{kz}}\,\hat z_t=0
+\end{align*}
+通过待定系数法得
+\begin{empheq}[left=\empheqlbrace]{align}
+    & \ V_{kk}=\dfrac1\beta-\dfracb{C}{K}\, V_{ck}=\dfrac1\beta-\ckbar V_{ck}\label{eq:MUC1}\\
+    & \ V_{kz}=\dfracb{Y}{K}-\dfracb{C}{K}\, V_{cz}=\ykbar-\ckbar V_{cz}\label{eq:MUC2}
+\end{empheq}
+
+同理将 \ref{eq:MUC} 代入 \ref{eq:logline2} 的第二式并利用 \(\meant\,\hat z\nt=\psi\,\hat z_t\) 得
+\begin{align*}
+    &\sigma\bka{V_{ck}\,\hat k\lt+V_{cz}\,\hat z_t}=\sigma\,\meant\bka{V_{ck}\,\hat k_t+V_{cz}\,\hat z\nt}+\tilde\delta\bka{1-\alpha}\bka{V_{kk}\,\hat k\lt+V_{kz}\,\hat z_t}-\tilde\delta\,\meant\,\hat z\nt\\
+    &\sigma\,V_{ck}\,\hat k\lt+\sigma\,V_{cz}\,\hat z_t=\sigma\,V_{ck}\,\hat k_t+\sigma\,\psi\,V_{cz}\,\hat z_t+\tilde\delta\bka{1-\alpha}\bka{V_{kk}\,\hat k\lt+V_{kz}\,\hat z_t}-\psi\,\tilde\delta\,\hat z_t\\
+    \Rightarrow \ &\bks{\sigma\,V_{ck}\,V_{kk}+\tilde\delta\bka{1-\alpha}V_{kk}-\sigma\,V_{ck}}\hat k\lt+\bks{\sigma\bka{V_{ck}\,V_{kz}+\psi\,V_{cz}}+\tilde\delta\bka{1-\alpha}V_{kz}-\psi\,\tilde\delta-\sigma\,V_{cz}}\hat z_t=0
+\end{align*}
+通过待定系数法得
+\begin{empheq}[left=\empheqlbrace]{align}
+    & \ \sigma\,V_{ck}\bka{1-V_{kk}}=\tilde\delta\bka{1-\alpha}V_{kk}\label{eq:MUC3}\\
+    & \ \sigma\,V_{cz}\bka{1-\psi}=\bks{\sigma\,V_{ck}+\tilde\delta\bka{1-\alpha}}V_{kz}-\psi\,\tilde\delta\label{eq:MUC4}
+\end{empheq}
+
+现求解四个系数的值。将 \ref{eq:MUC1} 代入 \ref{eq:MUC3}，消去 \(V_{ck}\) 得
+\begin{align*}
+    \sigma\bka{1-V_{kk}}\bka{\dfrac1\beta-V_{kk}}\dfracb{K}{C}=\tilde\delta\bka{1-\alpha}V_{kk}
+\end{align*}
+对上式进行整理，有
+\begin{equation*}
+    V^2_{kk}-\bks{1+\dfrac1\beta+\dfrac{\tilde\delta\bka{1-\alpha}}\sigma\,\dfracb{C}{K}}V_{kk}+\dfrac1\beta=0
+\end{equation*}
+给一次项系数新的符号
+\begin{equation}
+    \gamma\coloneq1+\dfrac1\beta+\dfrac{\tilde\delta\bka{1-\alpha}}\sigma\,\dfracb{C}{K}\label{eq:gamma}
+\end{equation}
+因为 \(\gamma\) 的表达式由多个正数项相加而得，所以其为正数。解出 \(V_{kk}\) 的两个根分别为
+\begin{align}
+    V_{kk}=\dfrac{\gamma-\dsq{\gamma^2-4/\beta}}{2}\qquad\n{和}\qquad V_{kk}'=\dfrac{\gamma+\dsq{\gamma^2-4/\beta}}{2}\label{eq:Vkk}
+\end{align}
+为了得到更精细的数值范围，比较两个根与 1 的关系（关系到系统的稳定性），我们计算
+\begin{align*}
+    \bka{1-V_{kk}}\bka{1-V_{kk}'}&=1+V_{kk}\cdot V_{kk}'-\bka{V_{kk}+V_{kk}'}\\
+    &=1+\dfrac1\beta-\gamma=-\dfrac{\tilde\delta\bka{1-\alpha}}\sigma\,\dfracb{C}{K}<0
+\end{align*}
+因此两根分别在 1 的左侧和右侧，并且通过观察表达式，发现 \(0<V_{kk}<1<V_{kk}'\)。根据 BK 条件，满足稳定性条件的解为 \(V_{kk}\)\sidenote{\sidemath{\(V_{kk}\)} 实际上是 \ref{eq:DiffEquMatrix} 中 \sidemath{\(\bs A\)} 的稳定特征根}，因此我们舍弃 \(V'_{kk}\)，选取 \(V_{kk}\) 作为资本的系数。将 \(V_{kk}\) 代入 \ref{eq:MUC1} 得 \(V_{ck}\)，再将 \(V_{kk}\) 和 \(V_{ck}\) 代入 \ref{eq:MUC2} 和 \ref{eq:MUC4} 分别得 \(V_{kz}\) 和 \(V_{cz}\)。至此，我们得到了满足稳定性条件的解
+\begin{empheq}[left=\empheqlbrace]{align*}
+    & \ V_{kk}=\dfrac{\gamma-\dsq{\gamma^2-4/\beta}}{2}\\[2ex]
+    & \ V_{ck}=\dfracb{K}{C}\bka{\dfrac1\beta-V_{kk}}\\[2ex]
+    & \ V_{cz}=\dfrac{\sigma\,V_{ck}+\tilde\delta\bka{1-\alpha}-\alpha\,\beta\,\psi}{\sigma\bka{1-\psi}-\bks{\sigma\,V_{ck}+\tilde\delta\bka{1-\alpha}}{\bar C}\islash{\bar K}}\\[2ex]
+    & \ V_{kz}=\dfracb{Y}{K}-\dfracb{C}{K}\, V_{cz}
+\end{empheq}
+
+\subsection{脉冲响应分析}
+
+在 \(t=0\) 期，经济体处于稳态，\(\hat k_0=\hat c_0=\hat z_0=0\)；考虑在 \(t=1\) 期出现 \(\varepsilon_1\ne0\)，之后 \(\varepsilon_t=0\)（\(t>1\)）。首先，计算技术的增长路径
+\begin{align*}
+    &\hat z_1=\psi\,\hat z_0+\varepsilon_1=\varepsilon_1\\
+    &\hat z_2=\psi\,\hat z_1+\varepsilon_2=\psi\,\varepsilon_1+0=\psi\,\varepsilon_1\\
+    &\hat z_3=\psi\,\hat z_2+\varepsilon_3=\psi\cdot\psi\,\varepsilon_1+0=\psi^2\,\varepsilon_1
+\end{align*}
+归纳得 \(\hat z_t=\psi^{t-1}\,\varepsilon_1\)。将 \(\hat z_t\) 代入 \ref{eq:MUC}，得资本存量的路径
+\begin{align*}
+    &\hat k_1=V_{kk}\,\hat k_0+V_{kz}\,\hat z_1=V_{kz}\,\varepsilon_1\\
+    &\hat k_2=V_{kk}\,\hat k_1+V_{kz}\,\hat z_2=V_{kk}\,V_{kz}\,\varepsilon_1+V_{kz}\,\psi\,\varepsilon_1=\bka{V_{kk}+\psi}V_{kz}\,\varepsilon_1\\
+    \Rightarrow \quad & \hat k_t=V_{kk}\,\hat k\lt+V_{kz}\,\psi^{t-1}\,\varepsilon_1=\bka{\sum_{i=0}^{t-1}V_{kk}^i\cdot\psi^{t-1-i}}V_{kz}\,\varepsilon_1\eqcolon A\,\varepsilon_1
+\end{align*}
+在这里注意方差的计算
+\begin{align*}
+    \var\bka{\hat k_t}=A^2\,\var\bka{\varepsilon_1}\sidenote{扰动项的方差可能是已知的}
+\end{align*}
+
+\subsection{鞍路径分析}
+
+令对数线性化结果中 \(\hat z_t=0\) 有\sidenote{非线性模型的鞍路径分析方法类似}
+\begin{equation*}
+    \hat k_t=\dfrac1\beta\,\hat k\lt-\dfracb{C}{K}\,\hat c_t \quad \& \quad \sigma\,\hat c_t=\sigma\,\hat c\nt+\tilde\delta\bka{1-\alpha}\hat k_t
+\end{equation*}
+从中整理出作差结果，再让两个式等零，找到边界路径
+\begin{align}
+    & \hat k_t-\hat k\lt=\bka{\dfrac1\beta-1}\hat k\lt-\dfracb{C}{K}\,\hat c_t&\Rightarrow\quad&\hat c_t=\dfrac{\bka{1-\beta}\bar K}{\beta\,\bar C}\cdot\hat k\lt\label{eq:linearsaddle1}\\
+    & \hat c\nt-\hat c_t=\dfrac{\tilde\delta}{\sigma}\bka{1-\alpha}\bka{\dfracb{C}{K}\,\hat c_t-\dfrac1\beta\,\hat k\lt}&\Rightarrow\quad&\hat c_t=\dfrac{\bar K}{\beta\,\bar C}\cdot\hat k\lt\label{eq:linearsaddle2}
+\end{align}
+
+作线性 RBC 系统相图。在\ref{fig:ch04-saddle-linear} 红色边界 \(\D\hat k_t=0\) 之下，由于消费水平较低，从 \ref{eq:linearsaddle1} 知 \(\D\hat k_t>0\)，我们可以推断出：在红色边界之下，向右移动。同理得整张图的运动方向。
+
+\begin{figure}[H]
+    \centering
+    \sidenote{\par \vspace{5em} 鞍路径斜率为 \sidemath{\(V_{kk}\)}}
+    \begin{tikzpicture}[
+        scale=0.95,
+        line cap=round,
+        line join=round,
+        >=Latex,
+        declare function={
+            lone(\x)=\yo+\mone*(\x-\xo);
+            ltwo(\x)=\yo+\mtwo*(\x-\xo);
+            lstable(\x)=\yo+\mstable*(\x-\xo);
+        }
+    ]
+        \pgfmathsetmacro{\xmin}{0}
+        \pgfmathsetmacro{\xmax}{8}
+        \pgfmathsetmacro{\ymin}{0}
+        \pgfmathsetmacro{\ymax}{7}
+
+        % Common intersection, placed slightly upper-right in the canvas
+        \pgfmathsetmacro{\xo}{4.2}
+        \pgfmathsetmacro{\yo}{3.5}
+
+        % Calibration and slopes from the chapter's baseline parameters
+        \pgfmathsetmacro{\betaRBC}{0.99}
+        \pgfmathsetmacro{\alphaRBC}{0.36}
+        \pgfmathsetmacro{\sigmaRBC}{1.0}
+        \pgfmathsetmacro{\deltaRBC}{0.025}
+        \pgfmathsetmacro{\xiRBC}{1-\betaRBC+\betaRBC*\deltaRBC}
+        \pgfmathsetmacro{\YKRBC}{\xiRBC/(\alphaRBC*\betaRBC)}
+        \pgfmathsetmacro{\CKRBC}{\YKRBC-\deltaRBC}
+        \pgfmathsetmacro{\gammaRBC}{1+1/\betaRBC+(\xiRBC*(1-\alphaRBC)/\sigmaRBC)*\CKRBC}
+        \pgfmathsetmacro{\VkkRBC}{(\gammaRBC-sqrt(\gammaRBC*\gammaRBC-4/\betaRBC))/2}
+        \pgfmathsetmacro{\VckRBC}{(1/\betaRBC-\VkkRBC)/\CKRBC}
+
+        % Slopes in the (\hat k_{t-1}, \hat c_t) plane
+        \pgfmathsetmacro{\mone}{(1/\betaRBC-1)/\CKRBC}
+        \pgfmathsetmacro{\mtwo}{(1/\betaRBC)/\CKRBC}
+        \pgfmathsetmacro{\mstable}{\VckRBC}
+        % Visible domain of the stable arm; change only these two numbers
+        \pgfmathsetmacro{\stablexmin}{2}
+        \pgfmathsetmacro{\stablexmax}{6.5}
+
+        % Saddle-path arrow positions update automatically with the domain
+        \pgfmathsetmacro{\xone}{\stablexmin + (\xo-\stablexmin)/3}
+        \pgfmathsetmacro{\xtwo}{\stablexmin + 2*(\xo-\stablexmin)/3}
+        \pgfmathsetmacro{\xfour}{\xo + (\stablexmax-\xo)/3}
+        \pgfmathsetmacro{\xfive}{\xo + 2*(\stablexmax-\xo)/3}
+        \pgfmathsetmacro{\arrowlen}{0.1}
+
+        % Axes
+        \draw[-{Latex[length=3mm,width=2.2mm]}, thick] (\xmin, \ymin) -- (\xmax, \ymin)
+            node[right] {\(\hat k_{t-1}\)};
+        \draw[-{Latex[length=3mm,width=2.2mm]}, thick] (\xmin, \ymin) -- (\xmin, \ymax)
+            node[left] {\(\hat c_t\)};
+
+        % Origin guides
+        \draw[densely dashed, gray!70] (\xo,\ymin) -- (\xo,\yo);
+        \draw[densely dashed, gray!70] (\xmin,\yo) -- (\xo,\yo);
+        \node[below] at (\xo,\ymin) {\(0\)};
+        \node[left] at (\xmin,\yo) {\(0\)};
+
+        % Nullclines and stable arm
+        \draw[red!80!black, line width=1.2pt, domain=\xmin:\xmax, samples=2]
+            plot (\x, {lone(\x)})
+            node[pos=0.78, above right] {\(\n{\textcircled{\scriptsize 1}} \ \D \hat k_t=0\)};
+
+        \draw[teal!95!black, line width=1.2pt, domain={(\ymin-\yo)/\mtwo+\xo}:{(\ymax-\yo)/\mtwo+\xo}, samples=2] plot (\x, {ltwo(\x)}) node[right] {\(\n{\textcircled{\scriptsize 2}} \ \D \hat c_t=0\)};
+
+        \draw[gray!25!black, line width=1.2pt, domain=\stablexmin:\stablexmax, samples=2]
+            plot (\x, {lstable(\x)});
+
+        % Arrow marks on the stable arm: toward the steady state
+        \draw[-{Latex[length=2.4mm,width=1.8mm]}, gray!20!black, line width=0.9pt]
+            (\xone,{lstable(\xone)}) -- ({\xone+\arrowlen},{lstable(\xone+\arrowlen)});
+        \draw[-{Latex[length=2.4mm,width=1.8mm]}, gray!20!black, line width=0.9pt]
+            (\xtwo,{lstable(\xtwo)}) -- ({\xtwo+\arrowlen},{lstable(\xtwo+\arrowlen)});
+        \draw[-{Latex[length=2.4mm,width=1.8mm]}, gray!20!black, line width=0.9pt]
+            (\xfour,{lstable(\xfour)}) -- ({\xfour-\arrowlen},{lstable(\xfour-\arrowlen)});
+        \draw[-{Latex[length=2.4mm,width=1.8mm]}, gray!20!black, line width=0.9pt]
+            (\xfive,{lstable(\xfive)}) -- ({\xfive-\arrowlen},{lstable(\xfive-\arrowlen)});
+
+        % Common intersection
+        \fill (\xo,\yo) circle (2.2pt) node[below right] {S.S.};
+
+        \draw[-{Latex[length=1.8mm,width=1.4mm]}, teal!95!black, line width=1pt] (6.8,6.3) -- ++(-90:0.8);
+        \draw[-{Latex[length=1.8mm,width=1.4mm]}, red!80!black, line width=1pt] (6.8,6.3) -- ++(180:0.8);
+
+        \draw[-{Latex[length=1.8mm,width=1.4mm]}, teal!95!black, line width=1pt] (2,5.5) -- ++(90:0.8);
+        \draw[-{Latex[length=1.8mm,width=1.4mm]}, red!80!black, line width=1pt] (2,5.5) -- ++(180:0.8);
+
+        \draw[-{Latex[length=1.8mm,width=1.4mm]}, teal!95!black, line width=1pt] (1.2,1.2) -- ++(90:0.8);
+        \draw[-{Latex[length=1.8mm,width=1.4mm]}, red!80!black, line width=1pt] (1.2,1.2) -- ++(0:0.8);
+
+        \draw[-{Latex[length=1.8mm,width=1.4mm]}, teal!95!black, line width=1pt] (6,2) -- ++(-90:0.8);
+        \draw[-{Latex[length=1.8mm,width=1.4mm]}, red!80!black, line width=1pt] (6,2) -- ++(0:0.8);
+
+    \end{tikzpicture}
+    \caption{线性 RBC 模型运动系统}
+    \label{fig:ch04-saddle-linear}
+\end{figure}
+
+\newpage
+\section{RBC 拓展模型}
+
+\subsection{Long-Plosser 模型}
+
+\noxmubluebf{模型构建}
+
+LP 模型中，社会规划者面临如下最优化问题
+\begin{align*}
+    \max_{C_t,\,L_t,\,K_t}\quad & U=\meano\bkd{\sum_{t=0}^{\infty}\,\beta^t\bks{\theta\ln C_t+\bka{1-\theta}\ln L_t}}\\
+    \text{s.t.}\quad & K\nt=Z_t\,K\lt^\alpha\,N_t^{1-\alpha}-C_t\\
+        & \log Z_t=\bka{1-\psi}\log\bar{Z}+\psi\log Z\lt+\varepsilon_t\\
+        & L_t=1-N_t
+\end{align*}
+构建拉格朗日函数
+\begin{equation*}
+    \mathcal{L}=\meano\sum^\infty_{t=0}\,\beta^t\bks{\theta\ln C_t+\bka{1-\theta}\ln\bka{1-N_t}+\lambda_t\bka{Z_t\,K\lt^\alpha\,N_t^{1-\alpha}-C_t-K_t}}
+\end{equation*}
+最优化的一阶条件为
+\begin{align}
+    \frac{\partial\mathcal{L}}{\p C_t}&=\frac{\theta}{C_t}-\lambda_t=0\label{eq:chap05-1}\\
+    \frac{\partial\mathcal{L}}{\p N_t}&=-\frac{1-\theta}{1-N_t}+\lambda_t\bka{1-\alpha}Z_t\,K\lt^\alpha\,N_t^{-\alpha}=0\label{eq:chap05-2}\\
+    \frac{\partial\mathcal{L}}{\p K_t}&=-\lambda_t+\beta\,\meant\bka{\lambda_{t+1}\,\alpha \,Z_{t+1}\,K_{t}^{\alpha-1}\,N_{t+1}^{1-\alpha}}=0\label{eq:chap05-3}
+\end{align}
+将 \ref{eq:chap05-1} 代入 \ref{eq:chap05-3} 欧拉方程，得到
+\begin{align}
+    \dfrac{\theta}{C_t}&=\beta\,\meant\bks{\dfrac{\theta}{C_{t+1}}\dfrac{\alpha\,Y\nt}{K_t}}\notag\\
+    \frac{1}{C_t}&=\alpha\,\beta\,\meant\bks{\frac{Y\nt}{C_{t+1}}\frac{1}{K_t}}
+    \label{eq:chap05-4}
+\end{align}
+猜测在最优路径上，储蓄率是固定的。假设 \(K_t=s\,Y_t\)，则 \(C_t=\bka{1-s}Y_t\)，将它们代入 \ref{eq:chap05-4}
+\begin{align*}
+    \dfrac{1}{\bka{1-s}Y_t}&=\alpha\,\beta\,\meant\bks{\dfrac{1}{\bka{1-s}}\cdot\dfrac{1}{s\,Y_t}}\quad\Rightarrow\quad s=\alpha\,\beta
+\end{align*}
+
+再看 \ref{eq:chap05-2} 劳动-闲暇选择，同理得
+\begin{align*}
+    \dfrac{1-\theta}{1-N_t}&=\bka{1-\alpha}\dfrac\theta{C_t}\dfrac{Y_t}{N_t}\\
+    \dfrac{1-\theta}{1-N_t}&=\bka{1-\alpha}\dfrac\theta{\bka{1-\alpha\,\beta}}\dfrac{1}{N_t}
+\end{align*}
+从中我们可以解出 \(N_t\) 的最优路径且其不受时间影响
+\begin{equation}
+    N_t=\bar N\coloneq\frac{\theta\bka{1-\alpha}}{\theta\bka{1-\alpha}+\bka{1-\theta}\bka{1-\alpha\,\beta}}
+\end{equation}
+
+\myskip
+\noxmubluebf{模型结论}
+
+整理结果
+\begin{equation*}
+    K_t=\alpha\,\beta\,Y_t\qquad C_t=\bka{1-\alpha\,\beta}Y_t\qquad N_t=\bar N
+\end{equation*}
+显然有 \(\hat k_t=\hat c_t=\hat y_t\) 且 \(\hat n_t=0\)。因此，资本、产出和消费的波动完全由技术冲击引起，而劳动供给没有波动，这是 LP 模型的主要结论。对数线性化资源约束
+\begin{equation*}
+    \hat k_t=\hat z_t+\alpha\,\hat k\lt+\bka{1-\alpha}\hat n_t=\hat z_t+\alpha\,\hat k\lt
+\end{equation*}
+技术冲击可以引起产出、消费、投资的波动，但是它们生硬地 1:1 变化，不符合现实世界。
+
+\myskip
+\noxmubluebf{市场均衡}
+
+劳动供给函数为
+\begin{equation*}
+    -\dfrac{u_{N,t}}{u_{C,t}}=W_t \quad \Rightarrow\quad W_t=\frac{1-\theta}{\theta}\cdot\frac{C_t}{1-N_t}=\dfrac{1-\theta}{\theta}\cdot\frac{\bka{1-\alpha\,\beta}Z_t\,K\lt^\alpha\,N_t^{1-\alpha}}{1-N_t}
+\end{equation*}
+劳动需求函数为
+\begin{equation*}
+    W_t=\bka{1-\alpha}Z_t\,K\lt^\alpha\,N_t^{-\alpha}
+\end{equation*}
+画出劳动市场均衡图像，发现无论经济体中发生什么，劳动供给和劳动需求总是相等且不变的。财富效应指：财富（工资收入）增加时，人们会感到自己更加富有而增加消费。我们可以用财富效应来解释为什么在 LP 模型中，技术进步会导致劳动供给不变：技术进步提高了工资水平，增加了劳动者的财富，劳动者因此更倾向于享受闲暇而不是工作，从而抵消了技术进步带来的工作激励。
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        x=1.02cm,
+        y=1.02cm,
+        line cap=round,
+        line join=round,
+        >=Latex
+    ]
+        \def\xaxismax{6.90}
+        \def\yaxismax{5.5}
+        \def\xleft{0.85}
+        \def\xright{6.15}
+        \def\Nbar{3.65}
+        \def\Wone{2.00}
+        \def\DeltaW{1.22}
+        \pgfmathsetmacro{\Wtwo}{\Wone+\DeltaW}
+        \def\SlopeS{0.43}
+        \def\SlopeD{0.5}
+        \def\Curv{0.015}
+        \def\BaseLineWidth{0.85pt}
+        \def\GuideLineWidth{0.60pt}
+
+        % Supply and demand schedules are explicit functions of labor N.
+        \draw[-{Latex[length=2.8mm,width=2mm]}, line width=\BaseLineWidth] (0,0) -- (\xaxismax,0) node[right] {\(N_t\)};
+        \draw[-{Latex[length=2.8mm,width=2mm]}, line width=\BaseLineWidth] (0,0) -- (0,\yaxismax) node[left] {\(W_t\)};
+
+        \draw[line width=\BaseLineWidth, black, domain=\xleft:\xright, samples=220]
+            plot (\x, {\Wone + \SlopeS*(\x-\Nbar) + \Curv*(\x-\Nbar)^2})
+            node[right] {\(S_1\)};
+        \draw[line width=\BaseLineWidth, black, domain=\xleft:\xright, samples=220]
+            plot (\x, {\Wtwo + \SlopeS*(\x-\Nbar) + \Curv*(\x-\Nbar)^2})
+            node[right] {\(S_2\)};
+        \draw[line width=\BaseLineWidth, black, domain=\xleft:\xright, samples=220]
+            plot (\x, {\Wone - \SlopeD*(\x-\Nbar) + \Curv*(\x-\Nbar)^2})
+            node[right] {\(D_1\)};
+        \draw[line width=\BaseLineWidth, black, domain=\xleft:\xright, samples=220]
+            plot (\x, {\Wtwo - \SlopeD*(\x-\Nbar) + \Curv*(\x-\Nbar)^2})
+            node[right] {\(D_2\)};
+
+        \fill (\Nbar,\Wone) circle (2pt);
+        \fill (\Nbar,\Wtwo) circle (2pt);
+
+        \draw[black, densely dashed, line width=\GuideLineWidth] (0,\Wone) -- (\Nbar,\Wone);
+        \draw[black, densely dashed, line width=\GuideLineWidth] (0,\Wtwo) -- (\Nbar,\Wtwo);
+        \draw[black, densely dashed, line width=\GuideLineWidth] (\Nbar,0) -- (\Nbar,\Wtwo);
+
+        \node[left] at (0,\Wone) {\(W_1\)};
+        \node[left] at (0,\Wtwo) {\(W_2\)};
+        \node[below] at (\Nbar,0) {\(\bar N\)};
+    \end{tikzpicture}
+    \caption{劳动市场均衡分析}
+    \label{fig:chap05-labor-market}
+\end{figure}
+
+\subsection{Hansen 模型}
+
+\noxmubluebf{家庭行为}
+\begin{align*}
+    \max_{C_t,\,N_t}\quad & U=\meano\bks{\sum^\infty_{t=0}\,\beta^t\,u\bka{C_t,1-N_t}}\\
+    \text{s.t.}\quad & C_t+K_t=W_t\,N_t+R_t\,K_{t-1}+\bka{1-\delta}K\lt
+\end{align*}
+一阶条件为
+\begin{align*}
+    \frac{\partial\mathcal{L}}{\p C_t}&=u_{C,t}-\lambda_t=0\sidenote{从这里可以看出，如果不具体假设效用函数，我们会得到怎样的一阶条件}\\
+    \frac{\partial\mathcal{L}}{\p N_t}&=u_{N,t}+\lambda_t\,W_t=0\\
+    \frac{\partial\mathcal{L}}{\p K_t}&=-\lambda_t+\beta\,\meant\bks{\lambda_{t+1}\bka{R_{t+1}+1-\delta}}=0
+\end{align*}
+整理得
+\begin{align*}
+    u_{C,t}&=\beta\,\meant\bks{u_{C,t+1}\bka{R_{t+1}+1-\delta}}\\
+    u_{N,t}&=-u_{C,t}\,W_t
+\end{align*}
+
+\myskip
+\noxmubluebf{厂商行为}
+\begin{align*}
+    \max_{K_{t-1},\,N_t}\quad & \Pi_t=Y_t-R_t\,K_{t-1}-W_t\,N_t\\
+    \text{s.t.}\quad & Y_t=Z_t\,K_{t-1}^\alpha\,N_t^{1-\alpha}
+\end{align*}
+一阶条件为
+\begin{align*}
+    &\frac{\p\Pi_t}{\p K_{t-1}}=\alpha\,Z_t\,K_{t-1}^{\alpha-1}\,N_t^{1-\alpha}-R_t=0\\
+    &\frac{\p\Pi_t}{\p N_t}=(1-\alpha)\,Z_t\,K_{t-1}^\alpha\,N_t^{-\alpha}-W_t=0
+\end{align*}
+整理得
+\begin{align*}
+    R_t&=\alpha\,Z_t\,K_{t-1}^{\alpha-1}\,N_t^{1-\alpha}=\alpha\,\dfrac{Y_t}{K\lt}\\
+    W_t&=\bka{1-\alpha}\,Z_t\,K_{t-1}^\alpha\,N_t^{-\alpha}=\bka{1-\alpha}\dfrac{Y_t}{N_t}
+\end{align*}
+
+\myskip
+\noxmubluebf{均衡系统}
+
+假设效用函数为
+\begin{align*}
+    &u\bka{C_t,N_t}=\ln C_t+A\ln\bka{1-N_t}\\
+    &u_{C,t}=\frac{1}{C_t} \qquad u_{N,t}=-\frac{A}{1-N_t}\sidenote{\sidemath{\(u_{N,t}<0\)} 代表工作会带来负效用}
+\end{align*}
+模型均衡由以下方程组表示
+\begin{empheq}[left=\empheqlbrace]{align*}
+        & \ 1=\beta\,\meant\bks{\dfrac{C_t}{C\nt}\bka{R\nt+1-\delta}}\\
+        & \ \dfrac A{1-N_t}=\dfrac{W_t}{C_t}\\
+        & \ R_t=\alpha\,Z_t\,K_{t-1}^{\alpha-1}\,N_t^{1-\alpha}\\
+        & \ W_t=\bka{1-\alpha}\,Z_t\,K_{t-1}^\alpha\,N_t^{-\alpha}\\
+        & \ \Pi_t=Z_t\,K_{t-1}^\alpha\,N_t^{1-\alpha}-R_t\,K_{t-1}-W_t\,N_t=0\\
+        & \ C_t+K_t=R_t\,K_{t-1}+W_t\,N_t+\bka{1-\delta}K\lt\\
+        & \ \log Z_t=\bka{1-\psi}\log\bar{Z}+\psi\log Z\lt+\varepsilon_t
+\end{empheq}
+整理得
+\begin{empheq}[left=\empheqlbrace]{align}
+        & \ 1=\beta\,\meant\bks{\dfrac{C_t}{C\nt}\bka{\alpha\,Z\nt\,K_t^{\alpha-1}\,N\nt^{1-\alpha}+1-\delta}}\notag\\
+        & \ A\,C_t=\bka{1-N_t}\bka{1-\alpha}\,Z_t\,K_{t-1}^\alpha\,N_t^{-\alpha}\label{eq:chap05-5}\\
+        & \ K_t=Z_t\,K_{t-1}^\alpha\,N_t^{1-\alpha}+\bka{1-\delta}K_{t-1}-C_t\notag\\
+        & \ \log Z_t=\bka{1-\psi}\log\bar{Z}+\psi\log Z\lt+\varepsilon_t\notag
+\end{empheq}
+
+\myskip
+\noxmubluebf{系统稳态}
+
+稳态系统如下所示
+\begin{empheq}[left=\empheqlbrace]{align}
+        & \ 1=\alpha\,\beta\,\bar Z\,\bar K^{\alpha-1}\,\bar N^{1-\alpha}+\beta\bka{1-\delta}\label{eq:chap05-7}\\
+        & \ A\,\bar C=\bka{1-\bar N}\bka{1-\alpha}\,\bar Z\,\bar K^\alpha\,\bar N^{-\alpha}\label{eq:chap05-8}\\
+        & \ \bar K=\bar Z\,\bar K^\alpha\,\bar N^{1-\alpha}+\bka{1-\delta}\bar K-\bar C\label{eq:chap05-6}
+\end{empheq}
+将 \ref{eq:chap05-8} 代入 \ref{eq:chap05-6} 并整理
+\begin{align*}
+    \bar Z\,\bar K^\alpha\,\bar N^{1-\alpha}-\delta\,\bar K&=\dfrac1A\bks{\bka{1-\alpha}\bar Z\,\bar K^\alpha\,\bar N^{-\alpha}-\bka{1-\alpha}\bar Z\,\bar K^\alpha\,\bar N^{1-\alpha}}\\
+    \bar Z\,\bar K^\alpha\,\bar N^{1-\alpha}&=\dfrac{A}{1-\alpha+A}\bka{\dfrac{1-\alpha}A\,\bar Z\,\bar K^\alpha\,\bar N^{-\alpha}+\delta}
+\end{align*}
+将上式代入 \ref{eq:chap05-7} 得
+\begin{align*}
+    \bar N=\bkd{1+\dfrac{A}{1-\alpha}\bks{1-\dfrac{\alpha\,\beta\,\delta}{1-\beta\bka{1-\delta}}}}\inv
+\end{align*}
+那么
+\begin{align*}
+    \bar K=\bks{\dfrac{1-\beta\bka{1-\delta}}{\alpha\,\beta\,\bar Z}\,\bar N^{\alpha-1}}^{\frac{1}{\alpha-1}}=\bar N\bks{\dfrac{\alpha\,\beta\,\bar N}{1-\beta\bka{1-\delta}}}^{\frac1{1-\alpha}}
+\end{align*}
+并且
+\begin{align*}
+    \bar C&=\bar Z\,\bar K^\alpha\,\bar N^{-\alpha}-\delta\,\bar K=\bar N\bks{\dfrac{\alpha\,\beta\,\bar N}{1-\beta\bka{1-\delta}}}^{\frac\alpha{1-\alpha}}\bar N^{1-\alpha}\,\bar Z-\delta\,\bar N\bks{\dfrac{\alpha\,\beta\,\bar N}{1-\beta\bka{1-\delta}}}^{\frac1{1-\alpha}}\\
+    &=\bar N\,\bar Z^{\frac1{1-\alpha}}\bkd{\dfrac{\alpha\,\beta}{1-\beta\bka{1-\delta}}^{\frac\alpha{1-\alpha}}-\delta\dfrac{\alpha\,\beta}{1-\beta\bka{1-\delta}}^{\frac1{1-\alpha}}}
+\end{align*}
+
+\myskip
+\noxmubluebf{对数线性化}
+\begin{empheq}[left=\empheqlbrace]{align*}
+    & \ \hat c_t=\meant\,\hat c\nt-\tilde\delta\cdot\meant\bks{\hat z\nt-\bka{1-\alpha}\hat k_t+\bka{1-\alpha}\hat n\nt}\\
+    & \ \hat n_t=\bka{\alpha+\dfrac{\bar N}{1-\bar N}}\inv\bks{\hat z_t+\alpha\,\hat k_{t-1}-\hat c_t}\\
+    & \ \hat k_t=\bka{\alpha\,\dfrac{\bar Y}{\bar K}+1-\delta}\hat k\lt+\bka{1-\alpha}\dfrac{\bar Y}{\bar K}\cdot\hat n_t+\dfrac{\bar Y}{\bar K}\cdot\hat z_t-\dfrac{\bar C}{\bar K}\cdot\hat c_t\\
+    & \ \hat z_t=\psi\,\hat z_{t-1}+\varepsilon_t
+\end{empheq}
+与基础 RBC 的方法相似，只有 \ref{eq:chap05-8} 需单独训练。
+
+\myskip
+\noxmubluebf{模型结论}
+
+当前的 Hansen 模型和 LP 模型相比，已经允许 \(N_t\) 变动了（\(\hat n_t\ne0\)，但仍然与现实有差距，所以 Hansen 在论文中发展出了离散劳动选择模型。
+
+\myskip
+\noxmubluebf{离散劳动选择}
+
+此前的所有模型都认为劳动是可以在 \(\bks{0,1}\) 间自由选择的，但现实并非如此，人们通常只能选择上班或不上班，没有权利选择今天上多久班。假设
+\begin{itemize}
+    \item 劳动者要么不工作，要么工作固定时长，所以他的劳动时长 \(\tilde n_t\in\bkd{0,n^*}\)
+    \item 经济体的失业率为 \(1-\pi_t\)，含义是：有 \(\pi_t\) 比例的劳动者在工作
+    \item 社会中有完善的失业保险，以至于即使失业，劳动者也能维持消费水平不变
+\end{itemize}
+经济体中总劳动供给为 \(H_t\coloneq\pi_t\cdot n^*\cdot \bar L\)，其中 \(\bar L\) 是总劳动力人口；平均劳动时长 \(n_t=H_t/\,\bar L=\pi_t\cdot n^*\)。劳动者关于工作的期望效用是
+\begin{align*}
+    \meant\,v\bka{\tilde n_t}&=\pi_t\cdot v\bka{n^*}+\bka{1-\pi_t}\cdot v\bka{0}\\
+    &= \pi_t\bka{-A\cdot n^*}+\pi_t\cdot0=-A\cdot n_t
+\end{align*}
+其中有一些不影响结论的标准化处理：假设 \(v\bko=0\)；由于 \(n^*\) 是固定值，所以设 \(v\bka{n^*}\) 是 \(n^*\) 的 \(-A<0\) 倍。再设消费的效用为 \(\ln C_t\)，最终得到的效用函数为
+\begin{align*}
+    &U=u\bka{C_t}+\meant\, v\bka{\tilde n_t}=\ln C_t-A\cdot n_t\\
+    &U_{C,t}=\frac{1}{C_t}\qquad U_{N,t}=-A
+\end{align*}
+如此效用函数对应的 RBC 模型均衡为
+\begin{empheq}[left=\empheqlbrace]{align}
+    & \ 1=\beta\,\meant\bks{\dfrac{C_t}{C\nt}\bka{\alpha\,Z\nt\,K_t^{\alpha-1}\,N\nt^{1-\alpha}+1-\delta}}\notag\\
+    & \ A\,C_t=\bka{1-\alpha}\,Z_t\,K_{t-1}^\alpha\,N_t^{-\alpha}\label{eq:chap05-10}\\
+    & \ K_t=Z_t\,K_{t-1}^\alpha\,N_t^{1-\alpha}+\bka{1-\delta}K_{t-1}-C_t\notag\\
+    & \ \log Z_t=\bka{1-\psi}\log\bar{Z}+\psi\log Z\lt+\varepsilon_t\notag
+\end{empheq}
+和连续劳动版本几乎相同，唯一区别在：对比 \ref{eq:chap05-5} 式，\ref{eq:chap05-10} 式中系数少了 \(\bka{1-N_t}\)。

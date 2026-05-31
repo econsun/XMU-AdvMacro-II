@@ -1,50 +1,64 @@
 {
-  "files.exclude": {
-    "**/*.aux": true,
-    "**/*.bbl": true,
-    "**/*.bcf": true,
-    "**/*.blg": true,
-    "**/*.fdb_latexmk": true,
-    "**/*.fls": true,
-    "**/*.log": true,
-    "**/*.out": true,
-    "**/*.run.xml": true,
-    "**/*.synctex.gz": true,
-    "**/*.toc": true,
-    "**/*.xdv": true,
-    "**/texput.log": true
-  },
   "latex-workshop.latex.autoBuild.run": "onSave",
-  "latex-workshop.latex.outDir": "%DIR%",
+  "latex-workshop.latex.autoClean.run": "never",
+
+  "latex-workshop.latex.build.enableMagicComments": true,
+  "latex-workshop.latex.build.rootfileInStatus": true,
+  "latex-workshop.latex.search.rootFiles.include": [
+    "AMaN_Private.tex",
+    "AMaN_Public.tex",
+    "AMaN_Two.tex",
+    "200_MainMatter/Part*/Part*.tex",
+    "200_MainMatter/Part*/Chap*.tex",
+    "400_Midterm/*.tex"
+  ],
+  "latex-workshop.latex.search.rootFiles.exclude": [
+    "**/_config/**/*.tex",
+    "**/.latex-build/**/*.tex"
+  ],
   "latex-workshop.latex.texDirs": [
     "%WORKSPACE_FOLDER%"
   ],
-  "latex-workshop.latex.autoClean.run": "onBuilt",
-  "latex-workshop.latex.clean.method": "glob",
-  "latex-workshop.latex.clean.fileTypes": [
-    "*.bbl",
-    "*.bcf",
-    "*.blg",
-    "*.fdb_latexmk",
-    "*.fls",
-    "*.log",
-    "*.out",
-    "*.run.xml",
-    "*.toc",
-    "*.xdv",
-    "texput.log"
-  ],
-  "latex-workshop.latex.build.enableMagicComments": true,
-  "latex-workshop.latex.build.rootfileInStatus": true,
-  "latex-workshop.message.log.show": true,
-  "latex-workshop.intellisense.update.aggressive.enabled": true,
-  "latex-workshop.intellisense.package.enabled": true,
-  "latex-workshop.intellisense.package.extra": [
-    "aman-mathcmds"
-  ],
-  "latex-workshop.intellisense.package.dirs": [
-    "%WORKSPACE_FOLDER%/.vscode/latex-workshop-packages"
-  ],
+  "latex-workshop.intellisense.update.aggressive.enabled": false,
+
+  "editor.snippetSuggestions": "top",
+  "editor.suggest.showSnippets": true,
+  "editor.tabCompletion": "on",
+
+  "[latex]": {
+    "editor.snippetSuggestions": "top",
+    "editor.suggest.showSnippets": true,
+    "editor.tabCompletion": "on",
+    "editor.wordBasedSuggestions": "off",
+    "editor.suggest.showWords": false,
+    "editor.quickSuggestions": {
+      "other": "on",
+      "comments": "off",
+      "strings": "off"
+    }
+  },
+
+  "[tex]": {
+    "editor.snippetSuggestions": "top",
+    "editor.suggest.showSnippets": true,
+    "editor.tabCompletion": "on",
+    "editor.wordBasedSuggestions": "off",
+    "editor.suggest.showWords": false,
+    "editor.quickSuggestions": {
+      "other": "on",
+      "comments": "off",
+      "strings": "off"
+    }
+  },
+
+  "[markdown]": {
+    "editor.snippetSuggestions": "top",
+    "editor.suggest.showSnippets": true,
+    "editor.tabCompletion": "on",
+    "editor.wordBasedSuggestions": "off",
+    "editor.suggest.showWords": false
+  },
+
   "latex-workshop.latex.recipe.default": "first",
   "latex-workshop.latex.recipes": [
     {
@@ -68,5 +82,77 @@
         "%DOC%"
       ]
     }
-  ]
+  ],
+
+  "files.exclude": {
+    "**/.latex-build": true,
+    "**/*.acn": true,
+    "**/*.acr": true,
+    "**/*.alg": true,
+    "**/*.aux": true,
+    "**/*.bbl": true,
+    "**/*.bcf": true,
+    "**/*.blg": true,
+    "**/*.fdb_latexmk": true,
+    "**/*.fls": true,
+    "**/*.glg": true,
+    "**/*.glo": true,
+    "**/*.gls": true,
+    "**/*.idx": true,
+    "**/*.ilg": true,
+    "**/*.ind": true,
+    "**/*.ist": true,
+    "**/*.lof": true,
+    "**/*.log": true,
+    "**/*.lot": true,
+    "**/*.nav": true,
+    "**/*.out": true,
+    "**/*.run.xml": true,
+    "**/*.snm": true,
+    "**/*.synctex": true,
+    "**/*.synctex(busy)": true,
+    "**/*.synctex.gz": true,
+    "**/*.synctex.gz(busy)": true,
+    "**/*.toc": true,
+    "**/*.vrb": true,
+    "**/*.xdv": true,
+    "**/texput.log": true,
+    "AMaN_Two.tex": true
+  },
+
+  "search.exclude": {
+    "**/.latex-build": true,
+    "**/*.acn": true,
+    "**/*.acr": true,
+    "**/*.alg": true,
+    "**/*.aux": true,
+    "**/*.bbl": true,
+    "**/*.bcf": true,
+    "**/*.blg": true,
+    "**/*.fdb_latexmk": true,
+    "**/*.fls": true,
+    "**/*.glg": true,
+    "**/*.glo": true,
+    "**/*.gls": true,
+    "**/*.idx": true,
+    "**/*.ilg": true,
+    "**/*.ind": true,
+    "**/*.ist": true,
+    "**/*.lof": true,
+    "**/*.log": true,
+    "**/*.lot": true,
+    "**/*.nav": true,
+    "**/*.out": true,
+    "**/*.run.xml": true,
+    "**/*.snm": true,
+    "**/*.synctex": true,
+    "**/*.synctex(busy)": true,
+    "**/*.synctex.gz": true,
+    "**/*.synctex.gz(busy)": true,
+    "**/*.toc": true,
+    "**/*.vrb": true,
+    "**/*.xdv": true,
+    "**/texput.log": true,
+    "AMaN_Two.tex": true
+  }
 }

@@ -1,18 +1,25 @@
 % !TeX root = Chap09.tex
 % !TeX program = xelatex
 
+\iffalse
+\input{../../_config/workshop-intellisense.tex}
+\fi
+
 \let\AMaNStandaloneEntry\relax
 \ifdefined\AMaNMaster\else
   \makeatletter
   \def\input@path{{../../}}
+  \def\AMaNInputRootFile#1{\@@input #1\relax}
   \def\AMaNRoot{../../}
   \makeatother
 
   \def\SingleChapter{200_MainMatter/Part03/Chap09}
   \def\SingleChapterNumber{9}
   \def\AMaNStandaloneEntry{%
-    \InputIfFileExists{../../AMaN_Private.tex}{}{%
-      \input{../../AMaN_Public.tex}%
+    \IfFileExists{../../AMaN_Private.tex}{%
+      \AMaNInputRootFile{../../AMaN_Private.tex}%
+    }{%
+      \AMaNInputRootFile{../../AMaN_Public.tex}%
     }%
     \endinput
   }%
@@ -29,27 +36,114 @@
 
 经济体中资源分配是有效率的，当边际替代率、边际转换率和边际产出相等时，即
 \begin{align*}
-  \n{MRS}_{C,N,t}=\n{MRT}_{C,N,t}=\n{MPN}_t
+    \n{MRS}_{C,N,t}=\n{MRT}_{C,N,t}=\n{MPN}_t
 \end{align*}
-NK 模型中有两大微观机制会导致资源分配无效率：1. 市场势力；2. 价格黏性。
+NK 模型的均衡是\,\xmured{次优的}（suboptimal），其引入的两大微观机制使得存在帕累托改进空间：1. 市场势力；2. 价格黏性。
 
-有市场势力的厂商会采取加成定价策略来最大化利润，那么
+有市场势力的厂商会采取加成定价策略
 \begin{align*}
-  \n{MRS}_{C,N,t}=-\dfrac{U_{N,t}}{U_{C,t}}=\dfrac{W_t}{P_t}=\dfrac1\mu\cdot\dfrac{\n{MPN}_t\,P_t}{P_t}=\dfrac{\n{MPN}_t}{\mu}\le\n{MPN}_t
+    P_t=\mu\cdot\dfrac{W_t}{\n{MPN}_t} \means W_t=\dfrac1\mu\cdot\n{MPN}_t\,P_t
+\end{align*}
+来最大化利润，那么
+\begin{align*}
+    \n{MRS}_{C,N,t}=-\dfrac{U_{N,t}}{U_{C,t}}=\dfrac{W_t}{P_t}=\dfrac1\mu\cdot\dfrac{\n{MPN}_t\,P_t}{P_t}=\dfrac{\n{MPN}_t}{\mu}\le\n{MPN}_t
+\end{align*}
+为了解决无效率，我们考虑 \(\tau\) 是社会规划者对工资的补贴，即厂商仅需为单位劳动支付 \(\bka{1-\tau}W_t\)，但劳动者仍然收到全额工资 \(W_t\)。在这种设计下用工成本降低，厂商仍然采用加成定价但价格随之下降、产量增加。现在来查看多少补贴能实现资源有效配置
+\begin{align*}
+    P_t=\mu\cdot\dfrac{\bka{1-\tau}W_t}{\n{MPN}_t}
+    \means
+    \dfrac{W_t}{P_t}=\dfrac{\n{MPN}_t}{\mu\bka{1-\tau}}
+\end{align*}
+为使得 \(\n{MRS}_{C,N,t}=W_t\islash P_t=\n{MPN}_t\)，需满足 \(1-\tau=1\islash\mu\) 或 \(\tau=1\islash\varepsilon\)。
+
+另一方面，如果加成系数 \(\mu_t\) 是随时间变化的而补贴 \(\tau\) 固定
+\begin{align*}
+    \mu_t=\dfrac{P_t}{\bka{1-\tau}W_t\islash\n{MPN}_t}=\dfrac{\mu\,P_t}{W_t\islash\n{MPN}_t}
+    \means
+    \dfrac{W_t}{P_t}=\dfrac\mu{\mu_t}\cdot\n{MPN}_t
+    \sidenote{可将 \sidemath{\(\mu\)} 视作关于 \sidemath{\(\mu_t\)} 的平均加成系数}
+\end{align*}
+为使得 \(\n{MRS}_{C,N,t}=W_t\islash P_t=\n{MPN}_t\)，需满足 \(\mu=\mu_t\)，即加成系数不随时间变化。前文讨论了如何通过补贴消除垄断的无效率，而当时加成系数为常数；现在，如果加成系数随时间变化，那么补贴也必须对应随时间变化才能维持有效率。
+
+交错定价的价格黏性也会造成无效率。首先，存在商品 \(i\) 和 \(j\) 有 \(P_t\bki\ne P_t\bkj\)，又因为
+\begin{align*}
+    C_t\bki=\bks{\dfrac{P_t\bki}{P_t}}^{-\varepsilon}C_t
+    \means
+    \dfrac{C_t\bki}{C_t\bkj}=\bks{\dfrac{P_t\bki}{P_t\bkj}}^{-\varepsilon}
+\end{align*}
+则必有 \(C_t\bki\ne C_t\bkj\)，对称均衡不完全成立。由于生产函数相同，部门 \(i\) 和 \(j\) 产量不同是由劳动投入数量不同引起的，而生产函数是边际产出递减的，则可以将劳动从边际产出较小的部门转移至较大的（即劳动投入较多向较少转移），实现更有效的劳动分配，最终达到劳动投入、产出、消费无部门差异。这就是价格黏性引起无效率的原因和改进空间。
+
+\section{最优货币规则}
+
+最优货币规则应实现产出稳定和价格稳定。
+\begin{empheq}[left=\empheqlbrace]{align}
+    & \ \tilde y_t=-\dfrac1\sigma\bka{\hat\imath_t-\meant\,\hat\pi\nt-\hat r^n_t}+\meant\,\tilde y\nt \tag{DIS}\\
+    & \ \hat\pi_t=\beta\,\meant\,\hat\pi\nt+\kappa\,\tilde y_t \tag{NKPC}
+\end{empheq}
+
+\begin{itemize}
+    \item 步骤 1 - 将货币规则代入 DIS 方程，让 NK 系统包含货币规则
+    \item 步骤 2 - 将 DIS 方程代入 NKPC 方程，让系统的等号右侧都由 \(\meant\,\hat\pi\nt\) 和 \(\tilde y_{t+1}\) 表示
+    \item 步骤 3 - 用矩阵符号改写系统，指出其中转移矩阵
+    \sidenote{后文中直接写出转移矩阵，不再复述过程}
+    \item 步骤 4 - 通过对转移矩阵分析（特征根与 BK 条件）得系统稳定性
+\end{itemize}
+
+\subsection{外生利率规则}
+
+考虑货币政策
+\begin{align*}
+    \hat\imath_t=\hat r^n_t
+    \sidenote{在本章，货币政策都不含冲击项}
+\end{align*}
+由于其中名义利率不由内生变量 \(\tilde y_t\) 和 \(\hat \pi_t\) 决定，所以我们称之为外生利率规则。
+
+将该规则和 NK 系统结合得
+\begin{empheq}[left=\empheqlbrace]{align*}
+    & \ \tilde y_t=\dfrac1\sigma\,\meant\,\hat\pi\nt+\meant\,\tilde y\nt \\
+    & \ \hat\pi_t=\beta\,\meant\,\hat\pi\nt+\kappa\,\tilde y_t
+\end{empheq}
+将 DIS 代入 NKPC 再转为矩阵表示
+\begin{align*}
+    \matbks{\tilde y_t \\[6pt] \hat \pi_t} = \underbrace{\matbks{1 & 1/\sigma \\[6pt] \kappa & \beta+\kappa/\sigma}}_{\eqcolon\;\bsA_1} \matbks{\meant\,\tilde y\nt \\[6pt] \meant\,\hat\pi\nt}
+\end{align*}
+该差分系统是\,\xmured{自治的}（autonomous），\((\tilde y_t,\,\hat\pi_t)=\bka{0,0}\) 必为一解，这也符合我们期待的货币政策目标。
+
+\subsection{泰勒规则}
+
+考虑货币政策
+\begin{align*}
+    \hat\imath_t=\hat r^n_t+\phi_\pi\,\hat\pi_t+\phi_y\,\tilde y_t
+\end{align*}
+转移矩阵为
+\begin{align*}
+    \bsA_2=\underbrace{\dfrac1{\sigma+\phi_y+\kappa\,\phi_\pi}}_{\eqcolon\;\Omega}\matbks{\sigma & 1-\beta\,\phi_\pi \\[6pt] \kappa\,\sigma & \kappa+\beta\bka{\sigma+\phi_y}}
+    \sidenote{该结果与基本模型的一致}
 \end{align*}
 
+\subsection{前瞻利率规则}
 
-
-
-
+考虑货币政策
+\begin{align*}
+    \hat\imath_t=\hat r^n_t+\phi_\pi\,\meant\,\hat\pi_t+\phi_y\,\meant\,\tilde y_t
+\end{align*}
+转移矩阵为
+\begin{align*}
+    \bsA_3=\dfrac1\sigma\matbks{\sigma-\phi_y & 1-\phi_\pi \\[6pt] \kappa\bka{\sigma-\phi_y} & \sigma\,\beta+\kappa\bka{1-\phi_\pi}}
+\end{align*}
 
 
 
 
 
 \begin{align*}
-  W=\dfrac12\,\meano\sum^\infty_{t=0}\,\beta^t\bks{\bka{\sigma+\dfrac{\phi+\alpha}{1-\alpha}}\tilde y^2_t+\dfrac\varepsilon\kappa\,\hat\pi_t^2}
+    W=\dfrac12\,\meano\sum^\infty_{t=0}\,\beta^t\bks{\bka{\sigma+\dfrac{\phi+\alpha}{1-\alpha}}\tilde y^2_t+\dfrac\varepsilon\kappa\,\hat\pi_t^2}
 \end{align*}
+
+\begin{align*}
+    L=\dfrac12\bks{\bka{\sigma+\dfrac{\phi+\alpha}{1-\alpha}}\var\bka{\tilde y^2_t}+\dfrac\varepsilon\kappa\,\var\bka{\hat\pi_t^2}}
+\end{align*}
+
 
 
 % \PrintChapterBibliography

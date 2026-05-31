@@ -1,5 +1,6 @@
 {
   "empheq align environment": {
+    "scope": "tex,latex,markdown",
     "prefix": "empheq",
     "body": [
       "\\begin{empheq}[left=\\empheqlbrace]{align}",
@@ -9,6 +10,7 @@
     "description": "Create empheq environment with align"
   },
   "empheq align* environment": {
+    "scope": "tex,latex,markdown",
     "prefix": "empheq*",
     "body": [
       "\\begin{empheq}[left=\\empheqlbrace]{align*}",
@@ -18,6 +20,7 @@
     "description": "Create empheq environment with align*"
   },
   "sidemath": {
+    "scope": "tex,latex,markdown",
     "prefix": "sidemath",
     "body": [
       "\\sidemath{\\($0\\)}"
@@ -25,6 +28,7 @@
     "description": "Create sidemath"
   },
   "underbrace clipboard": {
+    "scope": "tex,latex,markdown",
     "prefix": "ub",
     "body": [
       "\\underbrace{${CLIPBOARD}}_{$0}"
@@ -32,6 +36,7 @@
     "description": "Create \\underbrace{clipboard}_{cursor}"
   },
   "Clipboard to ref": {
+    "scope": "tex,latex,markdown",
     "prefix": "ref",
     "body": "\\ref{${CLIPBOARD/^(?:.*\\{)?([^{}]+)(?:\\}.*)?$/$1/}}",
     "description": "快速生成 ref"
