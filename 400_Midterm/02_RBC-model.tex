@@ -14,13 +14,13 @@
 \end{align*}
 构建拉格朗日函数（暂时只关注资源约束）
 \begin{align*}
-    \cal L=\mean_0\,\sum\wsito\,\beta^t\bkd{\dfrac{C_t^{1-\sigma}-1}{1-\sigma}+\lambda_t\bks{Z_t\,K\lt^\alpha+\bka{1-\delta}K_{t-1}-C_t-K_t}}
+    \scr L=\mean_0\,\sum\wsito\,\beta^t\bkd{\dfrac{C_t^{1-\sigma}-1}{1-\sigma}+\lambda_t\bks{Z_t\,K\lt^\alpha+\bka{1-\delta}K_{t-1}-C_t-K_t}}
 \end{align*}
 一阶条件为
 \begin{align*}
-    \cal L_{C_t}&=C_t^{-\sigma}-\lambda_t=0 \\
-    \cal L_{K_t}&=-\lambda_t+\beta\,\mean_t\bks{\lambda_{t+1}\bka{\alpha\, Z_{t+1}\,K_t^{\alpha-1}+1-\delta}}=0\\
-    \cal L_{\lambda_t}&=C_t+K_t-Z_t\,K\lt^\alpha-\bka{1-\delta}K\lt=0
+    \scr L_{C_t}&=C_t^{-\sigma}-\lambda_t=0 \\
+    \scr L_{K_t}&=-\lambda_t+\beta\,\mean_t\bks{\lambda_{t+1}\bka{\alpha\, Z_{t+1}\,K_t^{\alpha-1}+1-\delta}}=0\\
+    \scr L_{\lambda_t}&=C_t+K_t-Z_t\,K\lt^\alpha-\bka{1-\delta}K\lt=0
 \end{align*}
 整理第一、第二式得欧拉方程\sidenote{欧拉方程描述资源用于当期消费还是投资以获得下期回报的决策平衡}
 \begin{align*}
@@ -45,9 +45,9 @@
 \end{align*}
 一阶条件为
 \begin{align*}
-    & \ \cal L_{C_t}=C^{-\sigma}_t-\lambda_t=0\\
-    & \ \cal L_{K_t^{(s)}}=\lambda_t-\beta\,\mean_t\bks{\lambda\nt\bka{R\nt+1-\delta}}=0\\
-    & \ \cal L_{\lambda_t}=C_t+K_t^{(s)}-R\s t\,K\lt\w{(s)}-\bka{1-\delta}K\lt\w{(s)}=0
+    & \ \scr L_{C_t}=C^{-\sigma}_t-\lambda_t=0\\
+    & \ \scr L_{K_t^{(s)}}=\lambda_t-\beta\,\mean_t\bks{\lambda\nt\bka{R\nt+1-\delta}}=0\\
+    & \ \scr L_{\lambda_t}=C_t+K_t^{(s)}-R\s t\,K\lt\w{(s)}-\bka{1-\delta}K\lt\w{(s)}=0
 \end{align*}
 
 \myskip
@@ -59,7 +59,7 @@
 \end{align*}
 一阶条件为
 \begin{align*}
-    \cal L_{K\lt^{(d)}}=\alpha\, Z_t\,K\lt^{(d),\,\alpha-1}-R_t=0
+    \scr L_{K\lt^{(d)}}=\alpha\, Z_t\,K\lt^{(d),\,\alpha-1}-R_t=0
 \end{align*}
 
 \myskip

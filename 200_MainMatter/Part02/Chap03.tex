@@ -123,13 +123,13 @@
 
 构建\,\xmured{拉格朗日函数}（Lagrangian function）
 \begin{align}
-    \cal L=\mean_0\,\sum\wsito\,\beta^t\bkd{\dfrac{C_t^{1-\sigma}-1}{1-\sigma}+\lambda_t\bks{Z_t\,K\lt^\alpha+\bka{1-\delta}K_{t-1}-C_t-K_t}}
+    \scr L=\mean_0\,\sum\wsito\,\beta^t\bkd{\dfrac{C_t^{1-\sigma}-1}{1-\sigma}+\lambda_t\bks{Z_t\,K\lt^\alpha+\bka{1-\delta}K_{t-1}-C_t-K_t}}
 \end{align}
 最优化的一阶条件为
 \begin{align}
-    \cal L_{C_t}&=C_t^{-\sigma}-\lambda_t=0 \label{eq:foc1}\\
-    \cal L_{K_t}&=-\lambda_t+\beta\,\mean_t\bks{\lambda_{t+1}\bka{\alpha\, Z_{t+1}\,K_t^{\alpha-1}+1-\delta}}=0\label{eq:foc2}\\
-    \cal L_{\lambda_t}&=C_t+K_t-Z_t\,K\lt^\alpha-\bka{1-\delta}K\lt=0\label{eq:foc3}
+    \scr L_{C_t}&=C_t^{-\sigma}-\lambda_t=0 \label{eq:foc1}\\
+    \scr L_{K_t}&=-\lambda_t+\beta\,\mean_t\bks{\lambda_{t+1}\bka{\alpha\, Z_{t+1}\,K_t^{\alpha-1}+1-\delta}}=0\label{eq:foc2}\\
+    \scr L_{\lambda_t}&=C_t+K_t-Z_t\,K\lt^\alpha-\bka{1-\delta}K\lt=0\label{eq:foc3}
 \end{align}
 将 \ref{eq:foc1} 代入 \ref{eq:foc2}，消去拉格朗日乘子 \(\lambda_t\)\sidenote{乘子 \sidemath{\(\lambda_t\)} 的含义在 \ref{sec:LagMult}中展开}，我们可以得到
 \begin{align}
@@ -187,11 +187,11 @@
 \end{align*}
 在约束条件中，左侧是家庭支出，消费和租出资本；右侧是家庭收入，租金和收回资本。我们忽略了家庭向厂商提供劳动（厂商只用资本进行生产），所以约束中不含劳动收入，后面厂商利润中也不会有工资成本。
 
-家庭最优化问题的一阶条件如下 \footnote{2026 年 4 月 7 日勘误：此前 \(\cal L_{K_t^{(s)}}\) 表达式有误}
+家庭最优化问题的一阶条件如下 \footnote{2026 年 4 月 7 日勘误：此前 \(\scr L_{K_t^{(s)}}\) 表达式有误}
 \begin{align*}
-    &\cal L_{C_t}=C^{-\sigma}_t-\lambda_t=0\\
-    &\cal L_{K_t^{(s)}}=\lambda_t-\beta\,\mean_t\bks{\lambda\nt\bka{R\nt+1-\delta}}=0\\
-    &\cal L_{\lambda_t}=C_t+K_t^{(s)}-R\s t\,K\lt\w{(s)}-\bka{1-\delta}K\lt\w{(s)}=0
+    &\scr L_{C_t}=C^{-\sigma}_t-\lambda_t=0\\
+    &\scr L_{K_t^{(s)}}=\lambda_t-\beta\,\mean_t\bks{\lambda\nt\bka{R\nt+1-\delta}}=0\\
+    &\scr L_{\lambda_t}=C_t+K_t^{(s)}-R\s t\,K\lt\w{(s)}-\bka{1-\delta}K\lt\w{(s)}=0
 \end{align*}
 
 
@@ -207,8 +207,8 @@
 \end{align*}
 厂商的最优化问题的一阶条件为\sidenote{完全竞争市场中，租金 \sidemath{\(R_t\)} 等于 \sidemath{\(\n{MPK}_t\)}}
 \begin{align*}
-    &\cal L_{K\lt^{(d)}}=\alpha\, Z_t\,K\lt^{(d),\,\alpha-1}-R_t=0\\
-    &\cal L_{\lambda_t}=\log Z_t-\bka{1-\psi}\log\bar Z-\psi\log Z\lt-\varepsilon_t=0
+    &\scr L_{K\lt^{(d)}}=\alpha\, Z_t\,K\lt^{(d),\,\alpha-1}-R_t=0\\
+    &\scr L_{\lambda_t}=\log Z_t-\bka{1-\psi}\log\bar Z-\psi\log Z\lt-\varepsilon_t=0
 \end{align*}
 
 \subsection{市场出清条件}\label{subsec:MarketClear}
@@ -378,7 +378,7 @@
 \end{align*}
 其中两个要素的价格都是 1 元，生产者预计生产 9 单位产品，通过计算不难得到最优成本 \(C_{\min}=18\) 元。如果生产者将产量目标从 9 增加 1 到 10 单位，最优成本会随之上升到 \(C_{\min}'=20\) 元，而相较之前成本增加 2 元，这增加额就是拉格朗日函数
 \begin{equation*}
-    \cal L\bkx=K+L+\lambda\bka{9-K^{0.5}\,L^{0.5}}
+    \scr L\bkx=K+L+\lambda\bka{9-K^{0.5}\,L^{0.5}}
 \end{equation*}
 中，拉格朗日乘子 \(\lambda\) 的数值。
 

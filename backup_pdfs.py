@@ -11,7 +11,10 @@ from datetime import datetime
 from pathlib import Path
 
 
-DEFAULT_DESTINATION_ENV = "AMAN_BACKUP_DESTINATION"
+DEFAULT_DESTINATION = Path(
+    "/Users/paulsun/Library/Mobile Documents/com~apple~CloudDocs/MyHouse/"
+    "05 云端备份/02 笔记备份/bkNote AMaN"
+)
 
 
 def backup_name_re(prefix: str) -> re.Pattern[str]:
@@ -27,23 +30,22 @@ def chapter_name_re(prefix: str) -> re.Pattern[str]:
 
 
 def parse_args() -> argparse.Namespace:
+    script_dir = Path(__file__).resolve().parent
+
     parser = argparse.ArgumentParser(
         description="Back up AMaN full and chapter PDFs to a flat destination folder."
     )
     parser.add_argument(
         "--root",
         type=Path,
-        default=Path(__file__).resolve().parents[2],
-        help="Repository root. Defaults to this script's repository.",
+        default=script_dir,
+        help="Repository root. Defaults to this script's directory.",
     )
     parser.add_argument(
         "--destination",
         type=Path,
-        default=None,
-        help=(
-            "Backup destination folder. Defaults to the "
-            f"{DEFAULT_DESTINATION_ENV} environment variable."
-        ),
+        default=DEFAULT_DESTINATION,
+        help="Backup destination folder.",
     )
     parser.add_argument(
         "--prefix",
@@ -51,20 +53,6 @@ def parse_args() -> argparse.Namespace:
         help="PDF filename prefix. Defaults to PDF_PREFIX or AMaN.",
     )
     return parser.parse_args()
-
-
-def resolve_destination(destination: Path | None) -> Path:
-    if destination is not None:
-        return destination
-
-    env_destination = os.environ.get(DEFAULT_DESTINATION_ENV)
-    if env_destination:
-        return Path(env_destination)
-
-    raise ValueError(
-        "Backup destination is not configured. Pass --destination or set "
-        f"{DEFAULT_DESTINATION_ENV}."
-    )
 
 
 def remove_existing_backups(destination: Path, prefix: str) -> int:
@@ -85,6 +73,7 @@ def discover_source_pdfs(root: Path, prefix: str) -> list[Path]:
     pdf_dir = root / "900_PDF"
     full_re = full_name_re(prefix)
     chapter_re = chapter_name_re(prefix)
+
     sources = [
         pdf
         for pdf in pdf_dir.rglob("*.pdf")
@@ -97,11 +86,13 @@ def discover_source_pdfs(root: Path, prefix: str) -> list[Path]:
             and chapter_re.fullmatch(pdf.name)
         )
     ]
+
     return sorted(sources, key=lambda pdf: pdf.name)
 
 
 def backup_pdfs(root: Path, destination: Path, prefix: str) -> tuple[int, int]:
     root = root.resolve()
+    destination = destination.expanduser().resolve()
     destination.mkdir(parents=True, exist_ok=True)
 
     sources = discover_source_pdfs(root, prefix)
@@ -120,9 +111,13 @@ def backup_pdfs(root: Path, destination: Path, prefix: str) -> tuple[int, int]:
 
 def main() -> int:
     args = parse_args()
-    destination = resolve_destination(args.destination)
-    removed, copied = backup_pdfs(args.root, destination, args.prefix)
+
+    root = args.root.resolve()
+    destination = args.destination.expanduser().resolve()
+
+    removed, copied = backup_pdfs(root, destination, args.prefix)
     print(f"{args.prefix} PDF backup: removed {removed}, copied {copied} to {destination}")
+
     return 0
 
 

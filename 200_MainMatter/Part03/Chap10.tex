@@ -32,6 +32,36 @@
 
 \chapter{NK 模型：相机抉择}\label{ch:10}
 
+\section{承诺下的最优货币政策}
+
+中央银行一定会执行诺言，那么它面临如下最优化问题
+\begin{align*}
+    \min_{{\hat x_t,\,\hat\pi_t}^\infty_{t=0}}
+    \quad &
+    \dfrac12\cdot\meano\sum_{t=0}^\infty \beta^t\bka{\hat \pi_t^2+\alpha_x\,\hat x_t^2}\\
+    \n{s.t.}
+    \quad &
+    \hat \pi_t=\beta\,\meant\,\hat\pi\nt+\kappa\,\hat x_t+\hat u_t\\
+    &
+    \hat u_t=\rho_u\,\hat u\nt+\varepsilon_t^u
+\end{align*}
+构建拉格朗日函数
+\begin{align*}
+    \mathscr L=\meano\sum_{t=0}^\infty \beta^t\bks{\dfrac12\bka{\hat\pi_t^2+\alpha_x\,\hat x^2_t}+\gamma_t\bka{\hat\pi_t-\kappa\,\hat x_t-\beta\,\hat\pi\nt-\hat u_t}}
+\end{align*}
+计算偏导数获得一阶条件
+\begin{align*}
+    & \dfrac{\p\scr L}{\p \hat x_t} = \alpha_x\,\hat x_t-\kappa\,\gamma_t = 0 \\
+    & \dfrac{\p\scr L}{\p \hat\pi_t} = \hat\pi_t+\gamma_t-\beta\,\gamma\lt = 0
+\end{align*}
+结合两式消去 \(\gamma_t\) 得 \(\bkd{x_t}\) 的差分方程并作迭代
+\begin{align*}
+    \hat x_t &= \hat x\lt - \dfrac\kappa{\alpha_x}\,\hat\pi_t= \hat x\llt - \dfrac\kappa{\alpha_x}\bka{\hat\pi_t+\hat\pi\nt}=\cdots= \hat x_{-1} - \dfrac\kappa{\alpha_x}\bka{\hat\pi_t+\hat\pi\lt+\cdots+\hat\pi_0}\\
+    &= 0 - \dfrac\kappa{\alpha_x}\bks{\bka{\log P_t-\log P\lt}+\bka{\log P\lt-\log P\llt}+\cdots+\bka{\log P_0-\log P_{-1}}}\\
+    &=-\dfrac\kappa{\alpha_x}\bka{\log P_t-\log P_{-1}}\eqcolon-\dfrac\kappa{\alpha_x}\check P_t
+\end{align*}
+
+
 % \PrintChapterBibliography
 
 \SymmetricGeometry
