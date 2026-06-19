@@ -30,7 +30,19 @@
 
 \ChapterGeometry
 
-\chapter{NK 模型：相机抉择}\label{ch:10}
+\chapter{NK 模型：时变与承诺}\label{ch:10}
+
+% 考虑有两类政策制定者。其一是短视的，每期都调整货币政策，擅\,\xmured{时变}（discretion）\sidenote{时变还可被称作相机抉择、斟酌处置}；另一是远见的，确定货币政策后不再修改，擅\,\xmured{承诺}（commitment）。
+
+在多阶段决策中有条经典结论：一个追求每阶段最优的路径通常不是最优路径，因为这么做的玩家是短视的，他只注重眼前而不愿意牺牲现在的利益去换取未来的更大收益。
+
+我们将围绕以两类政策制定者所代表的最优化问题展开分析。一类是短视的，他们在每期都做静态最优化以寻求最大收益，擅长\,\xmured{时变}（discretion）\sidenote{“时变”还可被称作相机抉择、斟酌处置}；另一类是有远见的，他们根据动态最优化的结果制定政策，在起许下\,\xmured{承诺}（commitment）后就不再修改。
+
+另外，在本章，央行还遵循\,\xmured{通货膨胀目标制}（inflation targeting），选定 \(\hat \pi_t=0\)，则产出缺口消失；即 \(\hat y_t=\hat y_t^n\)。
+
+\section{供给侧的无效率}
+
+由于垄断竞争和价格黏性两大机制存在，经济体是无效率的，
 
 \section{承诺下的最优货币政策}
 
@@ -38,7 +50,7 @@
 \begin{align*}
     \min_{{\hat x_t,\,\hat\pi_t}^\infty_{t=0}}
     \quad &
-    \dfrac12\cdot\meano\sum_{t=0}^\infty \beta^t\bka{\hat \pi_t^2+\alpha_x\,\hat x_t^2}\\
+    \dfrac12\,\meano\sum_{t=0}^\infty \beta^t\bka{\hat \pi_t^2+\alpha_x\,\hat x_t^2}\\
     \n{s.t.}
     \quad &
     \hat \pi_t=\beta\,\meant\,\hat\pi\nt+\kappa\,\hat x_t+\hat u_t\\

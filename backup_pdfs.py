@@ -7,6 +7,7 @@ import argparse
 import os
 import re
 import shutil
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
@@ -17,8 +18,30 @@ DEFAULT_DESTINATION = Path(
 )
 
 
+@dataclass(frozen=True)
+class BackupCopy:
+    source: Path
+    destination: Path
+
+
+@dataclass(frozen=True)
+class BackupResult:
+    removed: tuple[Path, ...]
+    copied: tuple[BackupCopy, ...]
+
+    @property
+    def removed_count(self) -> int:
+        return len(self.removed)
+
+    @property
+    def copied_count(self) -> int:
+        return len(self.copied)
+
+
 def backup_name_re(prefix: str) -> re.Pattern[str]:
-    return re.compile(rf"^{re.escape(prefix)}_(?:One|Two|Chap\d{{2}})_\d{{6}}\.pdf$")
+    return re.compile(
+        rf"^{re.escape(prefix)}_(?:One|Two|Chap\d{{2}})_\d{{6}}(?:_.+)?\.pdf$"
+    )
 
 
 def full_name_re(prefix: str) -> re.Pattern[str]:
@@ -55,18 +78,18 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def remove_existing_backups(destination: Path, prefix: str) -> int:
-    removed = 0
+def remove_existing_backups(destination: Path, prefix: str) -> tuple[Path, ...]:
+    removed: list[Path] = []
     if not destination.exists():
-        return removed
+        return ()
 
     name_re = backup_name_re(prefix)
-    for pdf in destination.iterdir():
+    for pdf in sorted(destination.iterdir(), key=lambda path: path.name):
         if pdf.is_file() and name_re.fullmatch(pdf.name):
             pdf.unlink()
-            removed += 1
+            removed.append(pdf)
 
-    return removed
+    return tuple(removed)
 
 
 def discover_source_pdfs(root: Path, prefix: str) -> list[Path]:
@@ -90,7 +113,7 @@ def discover_source_pdfs(root: Path, prefix: str) -> list[Path]:
     return sorted(sources, key=lambda pdf: pdf.name)
 
 
-def backup_pdfs(root: Path, destination: Path, prefix: str) -> tuple[int, int]:
+def backup_pdfs(root: Path, destination: Path, prefix: str) -> BackupResult:
     root = root.resolve()
     destination = destination.expanduser().resolve()
     destination.mkdir(parents=True, exist_ok=True)
@@ -101,12 +124,45 @@ def backup_pdfs(root: Path, destination: Path, prefix: str) -> tuple[int, int]:
 
     removed = remove_existing_backups(destination, prefix)
     date_suffix = datetime.now().strftime("%y%m%d")
+    copied: list[BackupCopy] = []
 
     for source_path in sources:
         backup_name = f"{source_path.stem}_{date_suffix}{source_path.suffix}"
-        shutil.copy2(source_path, destination / backup_name)
+        destination_path = destination / backup_name
+        shutil.copy2(source_path, destination_path)
+        copied.append(BackupCopy(source=source_path, destination=destination_path))
 
-    return removed, len(sources)
+    return BackupResult(removed=removed, copied=tuple(copied))
+
+
+def format_summary(
+    prefix: str,
+    root: Path,
+    destination: Path,
+    result: BackupResult,
+) -> str:
+    lines = [
+        f"{prefix} PDF backup completed",
+        f"  Root:        {root}",
+        f"  Destination: {destination}",
+        f"  Removed:     {result.removed_count} old backup(s)",
+    ]
+
+    if result.removed:
+        lines.extend(f"    - {path.name}" for path in result.removed)
+    else:
+        lines.append("    - (none)")
+
+    lines.append(f"  Copied:      {result.copied_count} PDF(s)")
+    if result.copied:
+        lines.extend(
+            f"    - {item.source.name} -> {item.destination.name}"
+            for item in result.copied
+        )
+    else:
+        lines.append("    - (none)")
+
+    return "\n".join(lines)
 
 
 def main() -> int:
@@ -115,8 +171,8 @@ def main() -> int:
     root = args.root.resolve()
     destination = args.destination.expanduser().resolve()
 
-    removed, copied = backup_pdfs(root, destination, args.prefix)
-    print(f"{args.prefix} PDF backup: removed {removed}, copied {copied} to {destination}")
+    result = backup_pdfs(root, destination, args.prefix)
+    print(format_summary(args.prefix, root, destination, result))
 
     return 0
 
