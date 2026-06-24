@@ -232,7 +232,7 @@
 
 不变替代弹性（CES）函数形如
 \begin{equation}
-    Z_t=\bka{X_{1,t}^{\rho}+X_{2,t}^{\rho}}^{\frac1\rho}\label{eq:CESExample}
+    Z_t=\bka{X_{1,t}^{\varrho}+X_{2,t}^{\varrho}}^{\frac1\varrho}\label{eq:CESExample}
 \end{equation}
 通用法可以很快得到结果，但我们当然不会满足，所以先尝试直接法，再展示通用法。
 
@@ -240,19 +240,19 @@
 
 首先取对数容易得到
 \begin{equation}
-    \hat z_t=\dfrac1\rho\log\bka{\dfrac{X^\rho_{1,t}+X^\rho_{2,t}}{\bar X_1^\rho+\bar X_2^\rho}}\label{eq:CESHatBasic}
+    \hat z_t=\dfrac1\varrho\log\bka{\dfrac{X^\varrho_{1,t}+X^\varrho_{2,t}}{\bar X_1^\varrho+\bar X_2^\varrho}}\label{eq:CESHatBasic}
 \end{equation}
 式 \ref{eq:LevelFromHat} 告诉我们 \(X_t=\bar X\,e^{\hat x_t}\)，那么
 \begin{equation}
-    X_{i,t}^\rho=\qa{\bar X_i\,e^{\hat x_{i,t}}}^\rho=\bar X_i^\rho\cdot \,e^{\rho\,\hat x_{i,t}}\label{eq:CESHatBasicX}
+    X_{i,t}^\varrho=\qa{\bar X_i\,e^{\hat x_{i,t}}}^\varrho=\bar X_i^\varrho\cdot \,e^{\varrho\,\hat x_{i,t}}\label{eq:CESHatBasicX}
 \end{equation}
 代入 \ref{eq:CESHatBasic} 并使用 \(e^x\approx1+x\) 和 \(\log\bka{1+x}\approx x\) 得
 \begin{align}
-    \hat z_t&=\dfrac1\rho\log\bka{\dfrac{\bar X_1^\rho\,e^{\rho\,\hat x_{1,t}}+\bar X_2^\rho\,e^{\rho\,\hat x_{2,t}}}{\bar X_1^\rho+\bar X_2^\rho}}\notag\\
-    &\approx\dfrac1\rho\log\bks{\dfrac{\bar X_1^\rho\bka{1+\rho\,\hat x_{1,t}}+\bar X_2^\rho\bka{1+\rho\,\hat x_{2,t}}}{\bar X_1^\rho+\bar X_2^\rho}}\notag\\
-    &=\dfrac1\rho\log\bka{1+\dfrac{\rho\,\bar X_1^\rho}{\bar X_1^\rho+\bar X_2^\rho}\cdot\hat x_{1,t}+\dfrac{\rho\,\bar X_2^\rho}{\bar X_1^\rho+\bar X_2^\rho}\cdot\hat x_{2,t}}\notag\\
-    &\approx\dfrac1\rho\bka{\dfrac{\rho\,\bar X_1^\rho}{\bar X_1^\rho+\bar X_2^\rho}\cdot\hat x_{1,t}+\dfrac{\rho\,\bar X_2^\rho}{\bar X_1^\rho+\bar X_2^\rho}\cdot\hat x_{2,t}}\notag\\
-    &=\dfrac{\bar X_1^\rho}{\bar X_1^\rho+\bar X_2^\rho}\cdot\hat x_{1,t}+\dfrac{\bar X_2^\rho}{\bar X_1^\rho+\bar X_2^\rho}\cdot\hat x_{2,t}\notag
+    \hat z_t&=\dfrac1\varrho\log\bka{\dfrac{\bar X_1^\varrho\,e^{\varrho\,\hat x_{1,t}}+\bar X_2^\varrho\,e^{\varrho\,\hat x_{2,t}}}{\bar X_1^\varrho+\bar X_2^\varrho}}\notag\\
+    &\approx\dfrac1\varrho\log\bks{\dfrac{\bar X_1^\varrho\bka{1+\varrho\,\hat x_{1,t}}+\bar X_2^\varrho\bka{1+\varrho\,\hat x_{2,t}}}{\bar X_1^\varrho+\bar X_2^\varrho}}\notag\\
+    &=\dfrac1\varrho\log\bka{1+\dfrac{\varrho\,\bar X_1^\varrho}{\bar X_1^\varrho+\bar X_2^\varrho}\cdot\hat x_{1,t}+\dfrac{\varrho\,\bar X_2^\varrho}{\bar X_1^\varrho+\bar X_2^\varrho}\cdot\hat x_{2,t}}\notag\\
+    &\approx\dfrac1\varrho\bka{\dfrac{\varrho\,\bar X_1^\varrho}{\bar X_1^\varrho+\bar X_2^\varrho}\cdot\hat x_{1,t}+\dfrac{\varrho\,\bar X_2^\varrho}{\bar X_1^\varrho+\bar X_2^\varrho}\cdot\hat x_{2,t}}\notag\\
+    &=\dfrac{\bar X_1^\varrho}{\bar X_1^\varrho+\bar X_2^\varrho}\cdot\hat x_{1,t}+\dfrac{\bar X_2^\varrho}{\bar X_1^\varrho+\bar X_2^\varrho}\cdot\hat x_{2,t}\notag
 \end{align}
 在此之中我们也能看到对数线性化的第 8 条性质的影子。
 
@@ -260,11 +260,11 @@
 
 以下是通用方法的处理。先计算偏导数
 \begin{align}
-    \dfrac{\p Z_t}{\p X_{1,t}}&=X_{1,t}^{\rho-1}\bka{X_{1,t}^\rho+X_{2,t}^\rho}^{\frac{1-\rho}\rho}\notag
+    \dfrac{\p Z_t}{\p X_{1,t}}&=X_{1,t}^{\varrho-1}\bka{X_{1,t}^\varrho+X_{2,t}^\varrho}^{\frac{1-\varrho}\varrho}\notag
 \end{align}
-再代入弹性表达式\sidenote{以上计算的是任意位置的偏导数，别忘记取稳态处的值\\ \vspace{8pt}注意不变替代弹性的定义，和这里计算的弹性不同，所以计算结果不是 \sidemath{\(\rho\)}}
+再代入弹性表达式\sidenote{以上计算的是任意位置的偏导数，别忘记取稳态处的值\\ \vspace{8pt}注意不变替代弹性的定义，和这里计算的弹性不同，所以计算结果不是 \sidemath{\(\varrho\)}}
 \begin{equation}
-    \dfrac{\partial\log Z_t}{\partial\log X_{1,t}}=\dfrac{X_{1,t}}{Z_t}\cdot\dfrac{\p Z_t}{\p X_{1,t}}=\dfrac{X_{1,t}}{\bka{X_{1,t}^\rho+X_{2,t}^\rho}^{1/\rho}}\cdot X_{1,t}^{\rho-1}\bka{X_{1,t}^\rho+X_{2,t}^\rho}^{\frac{1-\rho}\rho}=\dfrac{X_{1,t}^\rho}{X_{1,t}^\rho+X_{2,t}^\rho}\notag
+    \dfrac{\partial\log Z_t}{\partial\log X_{1,t}}=\dfrac{X_{1,t}}{Z_t}\cdot\dfrac{\p Z_t}{\p X_{1,t}}=\dfrac{X_{1,t}}{\bka{X_{1,t}^\varrho+X_{2,t}^\varrho}^{1/\varrho}}\cdot X_{1,t}^{\varrho-1}\bka{X_{1,t}^\varrho+X_{2,t}^\varrho}^{\frac{1-\varrho}\varrho}=\dfrac{X_{1,t}^\varrho}{X_{1,t}^\varrho+X_{2,t}^\varrho}\notag
 \end{equation}
 此时结果就很显然了。
 

@@ -55,9 +55,9 @@
 接下来，将 \(\hat x_t\) 代入 NK 线性系统，替换掉 \(\tilde y_t\)。首先是 NKPC 方程
 \begin{align*}
     & \hat \pi_t = \beta\,\meant\,\hat\pi\nt+\kappa\,\hat x_t+u_t\\
-    & u_t \coloneq \kappa\,\bka{\hat y_t^e-\hat y_t^n}
+    & u_t \coloneq \kappa\bka{\hat y_t^e-\hat y_t^n}
 \end{align*}
-\(u_t\) 是外生供给冲击，如能源价格波动、最低工资水平波动。因其外生，假设 \(u_t\) 满足 AR(1) 过程 \(u_t=\rho_u\,u\nt+\varepsilon_t^u\)。
+\(u_t\) 是外生供给冲击，如能源价格波动、最低工资水平波动。因其外生，假设 \(u_t\) 满足 AR(1) 过程 \(u_t=\varrho_u\,u\nt+\varepsilon_t^u\)。
 
 然后是 DIS 方程，处理从欧拉方程开始
 \begin{align*}
@@ -112,12 +112,12 @@
 猜测差分方程解形如 \(\hat\pi_t = A\,u_t\)，代入后用待定系数法解得
 \sidenote{亦可采用向前迭代求解，向前有无穷期}
 \begin{empheq}[left=\empheqlbrace]{align}
-    & \ \hat \pi_t = \alpha_x\,\psi\,u_t=\dfrac\kappa\varepsilon\cdot\dfrac1{\kappa^2+\alpha_x\bka{1-\beta\,\rho_u}}\cdot u_t \label{eq:d-pi}\\
-    & \ \hat x_t = -\kappa\,\psi\,u_t=-\kappa\cdot\dfrac1{\kappa^2+\alpha_x\bka{1-\beta\,\rho_u}}\cdot u_t \label{eq:d-x}
+    & \ \hat \pi_t = \alpha_x\,\psi\,u_t=\dfrac\kappa\varepsilon\cdot\dfrac1{\kappa^2+\alpha_x\bka{1-\beta\,\varrho_u}}\cdot u_t \label{eq:d-pi}\\
+    & \ \hat x_t = -\kappa\,\psi\,u_t=-\kappa\cdot\dfrac1{\kappa^2+\alpha_x\bka{1-\beta\,\varrho_u}}\cdot u_t \label{eq:d-x}
 \end{empheq}
 可见如果正向冲击发生，\sidenote{如美国，通胀时有发生且程度不轻，和产出波动比，价格变动更容易被民众感知，控制通胀是民生所系}央行不急于使用强硬的政策来消除通胀，因为这同时会造成严重的衰退；放任通胀上升亦不佳，最好的做法是让通胀以冲击的固定比例上升，同时让产出缺口为负，抑制通胀上升的幅度。
 
-下图绘出了 \(\rho_u\) 为 0 和 0.8 两种情况下的时变政策脉冲响应路径。不难看出，\(\rho_u\) 越大，冲击持续时间越长，通胀和产出缺口的持续时间也越长。脉冲响应图给出的更重要信息是，正向供给冲击带来通胀上升和负产出缺口，在冲击消退后，通胀和产出缺口回归零，但价格水平不会回落。这就是所谓的\,\xmured{滞胀}（stagflation）现象。
+下图绘出了 \(\varrho_u\) 为 0 和 0.8 两种情况下的时变政策脉冲响应路径。不难看出，\(\varrho_u\) 越大，冲击持续时间越长，通胀和产出缺口的持续时间也越长。脉冲响应图给出的更重要信息是，正向供给冲击带来通胀上升和负产出缺口，在冲击消退后，通胀和产出缺口回归零，但价格水平不会回落。这就是所谓的\,\xmured{滞胀}（stagflation）现象。
 
 \begin{figure}[H]
     \centering
@@ -131,7 +131,7 @@
 在本小节，我们会在最优化结果的指导下，考查央行如何设定名义利率。首先想到根据 DIS 方程，将最优反应 \ref{eq:d-pi} 和 \ref{eq:d-x} 代入 \ref{eq:dis-x} 并整理得
 \begin{align}
     \hat \imath_t = \hat r_t^e + \psi_i\,u_t\,,
-    \qquad \psi_i=\psi\bks{\kappa\,\sigma\bka{1-\rho_u}+\alpha_x\,\rho_u}\label{eq:d-i}
+    \qquad \psi_i=\psi\bks{\kappa\,\sigma\bka{1-\varrho_u}+\alpha_x\,\varrho_u}\label{eq:d-i}
 \end{align}
 这是前文提到过的目标规则，传导路径为：正向供给冲击引起的通货膨胀，央行选择扩张性货币政策来冷却需求，\(\hat x_t\) 下降，通胀有下降的压力。
 
@@ -146,14 +146,14 @@
         \ \hat\pi_t=\alpha_x\,\psi\,u_t
     \end{cases}
     \Rightarrow\quad
-    \hat\imath_t=\hat r_t^e+\dfrac{\psi_i}{\alpha_x\,\psi}\,\hat\pi_t=\hat r_t^e+\bks{\bka{1-\rho_u}\dfrac{\kappa\,\sigma}{\alpha_x}+\rho_u}\hat\pi_t\label{eq:pi-rule}
+    \hat\imath_t=\hat r_t^e+\dfrac{\psi_i}{\alpha_x\,\psi}\,\hat\pi_t=\hat r_t^e+\bks{\bka{1-\varrho_u}\dfrac{\kappa\,\sigma}{\alpha_x}+\varrho_u}\hat\pi_t\label{eq:pi-rule}
 \end{align}
 如果采用该规则，NK 系统稳定解唯一条件 \(\kappa\bka{\phi_\pi-1}+\phi_y\bka{1-\beta}>0\) \sidenote{源自朱瑞条件，参考 \ref{eq:Jury-condition}}只需考虑第一项，系统解唯一当且仅当 \(\phi_\pi>1\)。根据 \(\phi_\pi\) 的表达式，\(\phi_\pi>1\) 由 \(\kappa\,\sigma>\alpha_x\) 保证（可能不成立）。
 
 以上发展出的规则都以经济出于最优路径上为前提\sidenote{因为推导过程是从代入最优路径开始的}，如果偏离最优路径，要怎么确定名义利率？现在提出更一般的去中心规则
 \begin{align*}
     \hat \imath_t &= \hat r_t^e +\psi_i\,u_t+\phi_\pi\bka{\hat\pi_t-\alpha\,\psi\,u_t}\\
-    &= \hat r_t^e + \Theta_i\,u_t + \phi_\pi\,\hat\pi_t\,,\qquad \Theta_i=\psi\bks{\kappa\,\sigma\bka{1-\rho_u}-\alpha_x\bka{\phi_\pi-\rho_u}}
+    &= \hat r_t^e + \Theta_i\,u_t + \phi_\pi\,\hat\pi_t\,,\qquad \Theta_i=\psi\bks{\kappa\,\sigma\bka{1-\varrho_u}-\alpha_x\bka{\phi_\pi-\varrho_u}}
 \end{align*}
 该规则下稳定解唯一仍依赖于 \(\phi_\pi>1\)，但 \(\phi_\pi\) 的值不由参数得出，可自由设定。
 
@@ -200,16 +200,16 @@
 \begin{align*}
     \begin{cases}
         \ 1-\dfrac\xi\delta-\xi\,\beta\,\delta=0\\[10pt]
-        \ \dfrac{\xi\,\eta}\delta-\xi\,\beta\,\eta\,\rho_u-\xi=0
+        \ \dfrac{\xi\,\eta}\delta-\xi\,\beta\,\eta\,\varrho_u-\xi=0
     \end{cases}\Rightarrow\quad
     \begin{cases}
         \ \delta=\dfrac{1-\dsq{1-4\,\xi^2\,\beta}}{2\,\xi\,\beta}\in\bka{0,1}\\[10pt]
-        \ \eta=\dfrac{\delta}{1-\beta\,\delta\,\rho_u}
+        \ \eta=\dfrac{\delta}{1-\beta\,\delta\,\varrho_u}
     \end{cases}
 \end{align*}
 所得结果代回一阶条件
 \begin{align*}
-    \hat x_t=\delta\,\hat x\lt-\dfrac{\kappa\,\delta}{\alpha_x\bka{1-\beta\,\delta\,\rho_u}}\,u_t
+    \hat x_t=\delta\,\hat x\lt-\dfrac{\kappa\,\delta}{\alpha_x\bka{1-\beta\,\delta\,\varrho_u}}\,u_t
 \end{align*}
 
 画出承诺下的脉冲响应路径，可以发现它和时变下最大的区别在于：承诺可信时，央行能够影响人们对未来通胀的预期，价格水平不会像时变下那样持续走高，而是会逐渐回到较低水平。向前迭代 NKPC 方程得
@@ -231,13 +231,13 @@
 
 \subsection{实现承诺政策}
 
-上图中考虑了持续冲击的情况，作为对比，现在转向暂时冲击，\(\rho_u=0\)。首先将 \(\hat x_t=-\bka{\kappa\islash\alpha_x}\check p_t\) 代入 DIS 方程并做整理得
+上图中考虑了持续冲击的情况，作为对比，现在转向暂时冲击，\(\varrho_u=0\)。首先将 \(\hat x_t=-\bka{\kappa\islash\alpha_x}\check p_t\) 代入 DIS 方程并做整理得
 \begin{align*}
     \hat\imath_t &= \hat r_t^e + \meant\,\hat\pi\nt-\dfrac{\kappa\,\sigma}{\alpha_x}\underbrace{\bka{\meant\,\check p\nt-\check p_t}}_{=\;\meant\,\hat\pi\nt}= \hat r_t^e + \bka{1-\dfrac{\kappa\,\sigma}{\alpha_x}}\bka{\meant\,\check p\nt-\check p_t}
 \end{align*}
-为获得更纯净的表达式，计算 \(\meant\,\check p\nt-\check p_t\)。在 \(\rho_u=0\) 条件下
+为获得更纯净的表达式，计算 \(\meant\,\check p\nt-\check p_t\)。在 \(\varrho_u=0\) 条件下
 \begin{align*}
-    \check p_t = \delta\,\check p\lt + \dfrac{\delta}{1-\beta\,\delta\,\rho_u}\,u_t = \delta\,\check p\lt + \delta\,u_t
+    \check p_t = \delta\,\check p\lt + \dfrac{\delta}{1-\beta\,\delta\,\varrho_u}\,u_t = \delta\,\check p\lt + \delta\,u_t
     \sidenote{该式为差分方程，可以向后迭代进行求解}
 \end{align*}
 不难计算得 \(\meant\,\check p\nt=\delta\,\check p_t\)，于是
@@ -278,7 +278,7 @@
 \end{align*}
 猜测 \(\hat \pi_t=A\,u_t+B\) 并代入求解得
 \begin{align*}
-    \hat\pi_t^*=\underbrace{\dfrac{\alpha_x}{\kappa^2+\alpha\bka{1-\beta\,\rho_u}}}_{\eqcolon\;\xi}\,u_t+\dfrac{\kappa\,\Lambda}{\kappa^2+\alpha_x\bka{1-\beta}}
+    \hat\pi_t^*=\underbrace{\dfrac{\alpha_x}{\kappa^2+\alpha\bka{1-\beta\,\varrho_u}}}_{\eqcolon\;\xi}\,u_t+\dfrac{\kappa\,\Lambda}{\kappa^2+\alpha_x\bka{1-\beta}}
 \end{align*}
 与长期经济中有效率的情况 \ref{eq:d-pi} 相比，该结果多了与时间无关的正常数项，代表是固定存在的扭曲。实际上，各国央行通常不会坚持零通胀目标，而是设定一个较低的正通胀目标，这正是因为经济中无效率不可避免。
 
@@ -299,16 +299,16 @@
 \end{align}
 后续和之前的承诺分析类似，最终结果为
 \begin{align}
-    \check p_t = \delta\,\check p\lt + \dfrac\delta{1-\beta\,\delta\,\rho_u}\, u_t + \dfrac{\kappa\,\delta\,\Lambda}{\alpha\bka{1-\beta\,\delta}}\label{eq:p-commit-distort}
+    \check p_t = \delta\,\check p\lt + \dfrac\delta{1-\beta\,\delta\,\varrho_u}\, u_t + \dfrac{\kappa\,\delta\,\Lambda}{\alpha\bka{1-\beta\,\delta}}\label{eq:p-commit-distort}
 \end{align}
 在这个情形中，央行仍然能保持零通胀率，但是价格会长期固定高于初始水平
 \begin{align*}
-    \lim_{t\to\infty}\,P_T=P_{-1}+\dfrac{\kappa\,\delta\,\Lambda}{\bka{1-\delta}\bka{1-\beta\,\delta\,\rho_u}}
+    \lim_{t\to\infty}\,P_T=P_{-1}+\dfrac{\kappa\,\delta\,\Lambda}{\bka{1-\delta}\bka{1-\beta\,\delta\,\varrho_u}}
 \end{align*}
 
 \ref{eq:p-commit-distort} 代入 \ref{eq:x-commit-distort} 有
 \begin{align*}
-    \hat x_t = \underbrace{\delta\,\hat x\lt}_{\n{历史}} - \underbrace{\dfrac{\kappa\,\delta}{\alpha_x\bka{1-\beta\,\delta\,\rho_u}}\,u_t}_{\n{冲击响应}} + \underbrace{\dfrac{\Lambda}{\alpha_x}\bks{1-\delta-\dfrac{\delta\,\kappa^2}{\alpha_x\bka{1-\beta\,\delta}}}}_{\n{对稳态偏离}}
+    \hat x_t = \underbrace{\delta\,\hat x\lt}_{\n{历史}} - \underbrace{\dfrac{\kappa\,\delta}{\alpha_x\bka{1-\beta\,\delta\,\varrho_u}}\,u_t}_{\n{冲击响应}} + \underbrace{\dfrac{\Lambda}{\alpha_x}\bks{1-\delta-\dfrac{\delta\,\kappa^2}{\alpha_x\bka{1-\beta\,\delta}}}}_{\n{对稳态偏离}}
 \end{align*}
 实施承诺的央行可以获得如下好处
 \begin{itemize}

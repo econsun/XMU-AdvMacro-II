@@ -326,16 +326,16 @@
     y^c=\begin{cases}
         \ A_1\,b^t_1+A_2\,b^t_2 & \n{ if}\quad \Delta>0\\
         \ A_3\,b^t + A_4\,t\,b^t & \n{ if}\quad \Delta=0\\
-        \ \rho^t\bks{A_5\,\cos\bka{t\,\theta} + A_6\,\sin\bka{t\,\theta}} & \n{ if}\quad \Delta<0
+        \ \varrho^t\bks{A_5\,\cos\bka{t\,\theta} + A_6\,\sin\bka{t\,\theta}} & \n{ if}\quad \Delta<0
     \end{cases}
 \end{equation*}
-在复根的情况中，\(\rho\) 是复根的模，\(\theta\) 是复根的辐角。
+在复根的情况中，\(\varrho\) 是复根的模，\(\theta\) 是复根的辐角。
 
 二阶线性差分系统稳定的条件是：
 \begin{itemize}
     \item 当 \(\Delta>0\) 时，\(\bkf{\lambda_1}<1\) 且 \(\bkf{\lambda_2}<1\)
     \item 当 \(\Delta=0\) 时，\(\bkf{\lambda_{1,2}}<1\)
-    \item 当 \(\Delta<0\) 时，\(\rho<1\)（经计算得 \(\rho=\dsq{a_2}\)）
+    \item 当 \(\Delta<0\) 时，\(\varrho<1\)（经计算得 \(\varrho=\dsq{a_2}\)）
 \end{itemize}
 我们在\ref{subsec:HDiffEqu} 中，我们把高阶线性差分系统转成由多个差分方程组成的一阶线性差分系统，可见无论几阶，线性差分系统的稳定性条件是相似的。这为我们的结论提供直觉，具体的证明略去。
 
@@ -571,7 +571,7 @@
 
 有几个不同的特征根，代表需要多少个基向量构成特征向量空间。以第二行图像为例：首先，它们都有两个不同实特征根，所以我们能在图像中找到两个垂直方向，它们足够代表整个系统的运动方向，并且如果走上了这两条路径，那么系统会沿直线运动。在 (e) 和 (f) 图中，我们不区分实根是否是异号；如果是异号，那么系统会在对称路径上来回跳跃，这较难用图像展示，但异号会导致震荡，这一特性仍然存在。
 
-出现复根的系统必然震荡，这是因为 \(i^2=-1\) 相当于出现了负号\footnote{2026 年 4 月 19 日勘误：此前句中公式存在错误} 。(h) 图 \(\rho=1\) 情况很好展示了系统在单位圆上 “震荡”（实际上是在复平面上旋转）的效果。
+出现复根的系统必然震荡，这是因为 \(i^2=-1\) 相当于出现了负号\footnote{2026 年 4 月 19 日勘误：此前句中公式存在错误} 。(h) 图 \(\varrho=1\) 情况很好展示了系统在单位圆上 “震荡”（实际上是在复平面上旋转）的效果。
 
 \begin{figure}[H]
     \MaybeIncludeGraphics[width=\dimexpr\paperwidth-2\SideMargin-0.2em\relax]{_asset/figures/ch01-singularity.png}

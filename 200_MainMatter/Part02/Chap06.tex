@@ -108,7 +108,7 @@
         \ Y_t=A_t\,N^{1-\alpha}_t&\n{生产函数}\\
         \ Y_t=C_t&\n{产品市场均衡}\\
         \ P_t\,C_t+Q_t\,B_t=B\lt +W_t\,N_t+T_t&\n{预算约束}\\
-        \ \log A_t=\bka{1-\rho_a}\log \bar A+\rho_a\,\log A_{t-1}+\varepsilon_t&\n{技术运动}
+        \ \log A_t=\bka{1-\varrho_a}\log \bar A+\varrho_a\,\log A_{t-1}+\varepsilon_t&\n{技术运动}
     \end{cases}
 \end{equation*}
 
@@ -189,8 +189,8 @@
 \end{align}
 那么 \ref{eq:CMM-log-linear-6} 可以写成
 \begin{align}
-    \hat r_t&=\sigma\,\meant\bka{\hat c\nt-\hat c_t}=\sigma\,\meant\bka{\hat y\nt-\hat y_t}\sidenote{牢记左侧公式，可分离时恒成立；第二行使用到 \sidemath{\(\hat a\nt=\rho_a\,\hat a_t+\varepsilon_{t+1}\)}}\notag\\
-    &=\sigma\,\psi_{ya}\,\meant\bka{\hat a\nt-\hat a_t}=\sigma\,\psi_{ya}\bka{\rho_a-1}\hat a_t\label{eq:CMM-log-linear}
+    \hat r_t&=\sigma\,\meant\bka{\hat c\nt-\hat c_t}=\sigma\,\meant\bka{\hat y\nt-\hat y_t}\sidenote{牢记左侧公式，可分离时恒成立；第二行使用到 \sidemath{\(\hat a\nt=\varrho_a\,\hat a_t+\varepsilon_{t+1}\)}}\notag\\
+    &=\sigma\,\psi_{ya}\,\meant\bka{\hat a\nt-\hat a_t}=\sigma\,\psi_{ya}\bka{\varrho_a-1}\hat a_t\label{eq:CMM-log-linear}
 \end{align}
 最终，我们知道：在正向的技术脉冲发生后，\(\hat a_t>0\) 导致 \(\hat r_t<0\)。其中的传到路径为：正向冲击发生 \(\Rightarrow\) 工资增加 \(\Rightarrow\) 债券需求增加 \(\Rightarrow\) 债券价格上升 \(\Rightarrow\) 名义利率下降 \(\Rightarrow\) 实际利率下降。
 
@@ -320,7 +320,7 @@
 \end{align*}
 的结果我们在可分离情形中已经得到过
 \begin{align}
-    \hat m_t-\hat p_t=\hat c_t-\eta\,\hat\imath_t\qquad\qquad\eta\coloneq\dfrac{1}{\nu\bka{e^{\bar\imath}-1}}=\dfrac{\beta}{\nu\bka{1-\beta}}\label{eq:MIU-money-equilibrium-log-linear}\sidenote{\sidemath{\(\beta=e^{-\rho}=e^{-\bar\imath}\)}}
+    \hat m_t-\hat p_t=\hat c_t-\eta\,\hat\imath_t\qquad\qquad\eta\coloneq\dfrac{1}{\nu\bka{e^{\bar\imath}-1}}=\dfrac{\beta}{\nu\bka{1-\beta}}\label{eq:MIU-money-equilibrium-log-linear}\sidenote{\sidemath{\(\beta=e^{-\varrho}=e^{-\bar\imath}\)}}
 \end{align}
 
 \myskip
@@ -455,16 +455,16 @@
     \begin{cases}
         \ \hat y_t=\dfrac{1+\phi}{\sigma\bka{1-\alpha}+\sigma+\phi}\,\hat a_t+\dfrac{\bka{1-\alpha}\omega}{\sigma\bka{1-\alpha}+\sigma+\phi}\,\hat\imath_t\\[2ex]
         \ \hat y_t=\meant\,\hat y\nt-\dfrac{1}{\sigma}\bks{\hat\imath_t-\meant\,\hat\pi\nt-\omega\,\meant\bka{\hat\imath\nt-\hat\imath_t}}\\[2ex]
-        \ \hat\imath_t=\phi_\pi\,\pi_t+v_t\,,\qquad v_t=\rho_v\,v\lt+\varepsilon_{v,t}\\
-        \ \hat a_t=\rho_a\,\hat a\lt+\varepsilon_{a,t}
+        \ \hat\imath_t=\phi_\pi\,\pi_t+v_t\,,\qquad v_t=\varrho_v\,v\lt+\varepsilon_{v,t}\\
+        \ \hat a_t=\varrho_a\,\hat a\lt+\varepsilon_{a,t}
     \end{cases}
 \end{equation*}
 通过待定系数法解出
 \begin{equation*}
     \begin{cases}
-        \ \hat \pi_t=-\dfrac{\sigma\bka{1-\rho_a}\psi_{ya}}{\phi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_a}}\cdot\hat a_t-\dfrac{1+\bka{1-\rho_v}\omega\,\psi}{\phi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_v}}\cdot v_t\\[2.5ex]
-        \ \hat\imath_t=-\dfrac{\sigma\bka{1-\rho_a}\psi_{ya}}{\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_a}}\cdot\hat a_t-\dfrac{\rho_v}{\phi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_v}}\cdot v_t\\[2.5ex]
-        \ \hat y_t=\psi_{ya}\bks{1+\dfrac{\sigma\bka{1-\rho_a}\psi_{yi}}{\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_a}}}\cdot\hat a_t+\dfrac{\rho_v\,\psi_{yi}}{\phi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\rho_v}}\cdot v_t
+        \ \hat \pi_t=-\dfrac{\sigma\bka{1-\varrho_a}\psi_{ya}}{\phi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\varrho_a}}\cdot\hat a_t-\dfrac{1+\bka{1-\varrho_v}\omega\,\psi}{\phi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\varrho_v}}\cdot v_t\\[2.5ex]
+        \ \hat\imath_t=-\dfrac{\sigma\bka{1-\varrho_a}\psi_{ya}}{\bka{1+\omega\,\psi}\bka{1-\xi\,\varrho_a}}\cdot\hat a_t-\dfrac{\varrho_v}{\phi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\varrho_v}}\cdot v_t\\[2.5ex]
+        \ \hat y_t=\psi_{ya}\bks{1+\dfrac{\sigma\bka{1-\varrho_a}\psi_{yi}}{\bka{1+\omega\,\psi}\bka{1-\xi\,\varrho_a}}}\cdot\hat a_t+\dfrac{\varrho_v\,\psi_{yi}}{\phi_\pi\bka{1+\omega\,\psi}\bka{1-\xi\,\varrho_v}}\cdot v_t
     \end{cases}
 \end{equation*}
 其中
@@ -478,10 +478,10 @@
 \begin{align*}
     \dfrac{\partial\,\pi_t}{\partial\,\hat\imath_t}
     &=\dfrac{\partial\,\pi_t/\partial\, v_t}{\partial\,\hat\imath_t/\partial\, v_t}
-    =\dfrac{1+\bka{1-\rho_v}\omega\,\psi}{\rho_v}>0\\
+    =\dfrac{1+\bka{1-\varrho_v}\omega\,\psi}{\varrho_v}>0\\
     \dfrac{\partial\,\hat r_t}{\partial\,\hat\imath_t}
     &=1-\dfrac{\partial\, \meant\,\pi\nt/\partial\, v_t}{\partial\,\hat\imath_t/\partial\, v_t}
-    =-\bka{1-\rho_v}\omega\,\psi<0
+    =-\bka{1-\varrho_v}\omega\,\psi<0
 \end{align*}
 也就是说，紧缩性货币政策冲击会让通胀上升、实际利率下降。这与数据相反：经验上，紧缩性货币政策冲击应当让通胀下降、实际利率上升。
 
@@ -519,7 +519,7 @@
 
 稳态下如果价格水平不变，则 \(\bar\pi=0\)，于是
 \begin{align*}
-    \bar\imath=\bar r=\rho
+    \bar\imath=\bar r=\varrho
 \end{align*}
 考虑一个简单的通胀反馈规则
 \begin{align}
@@ -541,18 +541,18 @@
 \end{align*}
 因为 \(\phi_\pi^{-1}<1\)，所以前向和收敛，存在唯一的有界解。再回顾此前已经得到的实际利率过程
 \begin{align*}
-    \hat r_t=\sigma\,\psi_{ya}\bka{\rho_a-1}\hat a_t=-\sigma\,\psi_{ya}\bka{1-\rho_a}\hat a_t
+    \hat r_t=\sigma\,\psi_{ya}\bka{\varrho_a-1}\hat a_t=-\sigma\,\psi_{ya}\bka{1-\varrho_a}\hat a_t
 \end{align*}
 猜测线性解 \(\pi_t=K\,\hat a_t\)，代入 \ref{eq:MIU-inflation-difference} 得
 \begin{align*}
     \phi_\pi K\,\hat a_t
-    =K\,\rho_a\,\hat a_t-\sigma\,\psi_{ya}\bka{1-\rho_a}\hat a_t
+    =K\,\varrho_a\,\hat a_t-\sigma\,\psi_{ya}\bka{1-\varrho_a}\hat a_t
 \end{align*}
 于是
 \begin{align*}
-    K=-\dfrac{\sigma\,\psi_{ya}\bka{1-\rho_a}}{\phi_\pi-\rho_a}
+    K=-\dfrac{\sigma\,\psi_{ya}\bka{1-\varrho_a}}{\phi_\pi-\varrho_a}
     \qquad\Rightarrow\qquad
-    \pi_t=-\dfrac{\sigma\,\psi_{ya}\bka{1-\rho_a}}{\phi_\pi-\rho_a}\,\hat a_t
+    \pi_t=-\dfrac{\sigma\,\psi_{ya}\bka{1-\varrho_a}}{\phi_\pi-\varrho_a}\,\hat a_t
 \end{align*}
 \(\phi_\pi\) 越大，技术冲击引起的通胀波动越小。直观来说，只要通胀上升，中央银行就会更大幅度地提高名义利率，于是均衡只能沿唯一的鞍路径调整。
 
@@ -611,7 +611,7 @@
 \begin{align*}
     i=\pi+r=0
     \qquad\Rightarrow\qquad
-    \pi=-r=-\rho<0
+    \pi=-r=-\varrho<0
 \end{align*}
 因此最优长期政策对应温和通缩，而不是零通胀。直观来说，只有把持有货币的机会成本降到零，家庭才会持有最优数量的流动性。
 
